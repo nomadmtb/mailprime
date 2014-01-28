@@ -1,3 +1,5 @@
+import hashlib
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -29,6 +31,11 @@ class Recipient(models.Model):
 	active = models.BooleanField(default=False)
 	tracking_id = models.CharField(max_length=200)
 	campaign = models.ForeignKey('Campaign')
+
+	def save(self, *args, **kwargs):
+		if self.pk is None:
+			self.tracking_id = hashlib.sha1(str(datetime.now()) + 'SkjCR@#S)(8').hexdigest()
+		super(Recipient, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.email
