@@ -22,3 +22,23 @@ class Recipient(models.Model):
 	created_date = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=False)
 	tracking_id = models.CharField(max_length=200)
+	campaign = models.ForeignKey('Campaign')
+
+class Event(models.Model):
+	"""This is the class that will hold 'read' events for a recipient"""
+	ip_address = models.GenericIPAddressField(protocol='IPv4')
+	latitude = models.FloatField()
+	longitude = models.FloatField()
+	created_date = models.DateTimeField(auto_now_add=True)
+	recipient = models.ForeignKey('Recipient')
+
+class Template(models.Model):
+	"""This is the class that will hold the different HTML template data for the messages"""
+	title = models.CharField(max_length=200)
+	content = models.TextField()
+
+class Message(models.Model):
+	"""This class holds the settings and content for the HTML templates"""
+	title = models.CharField(max_length=200)
+	body = models.TextField()
+	template = models.ForeignKey('Template')
