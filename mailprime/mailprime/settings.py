@@ -81,3 +81,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Custom Added Settings
+
+RECIPIENT_SALT = 'klnDE1ASaz56#$$32)98772#FgVYYt'

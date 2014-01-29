@@ -1,3 +1,4 @@
+from django.conf import settings
 import hashlib
 from datetime import datetime
 from django.db import models
@@ -34,7 +35,7 @@ class Recipient(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.pk is None:
-			self.tracking_id = hashlib.sha1(str(datetime.now()) + 'SkjCR@#S)(8').hexdigest()
+			self.tracking_id = hashlib.sha1(str(datetime.now()) + settings.RECIPIENT_SALT).hexdigest()
 		super(Recipient, self).save(*args, **kwargs)
 
 	def __unicode__(self):
