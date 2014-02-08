@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
 
 def index(request):
 	data = { "page_title": "Mailpri.me"}
@@ -9,6 +10,18 @@ def index(request):
 def login(request):
 	data = { "page_title": "login" }
 	csrfContext = RequestContext(request, data)
+
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+
+		user = authenticate(username = username, password = password)
+
+		if user is not None:
+			if user.is_active:
+				auth_login(request,user)
+				return render(request, 'index.html', { "notice": "Welcome "+username })
+
 	return render(request, 'login.html', csrfContext)
 
 def logout(request):
