@@ -1,9 +1,16 @@
 from django.shortcuts import render
-from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.contrib.auth.models import User
 
 def index(request):
-	return render_to_response('index.html',	{	"page_title": "Mailpri.me"	})
+	data = { "page_title": "Mailpri.me"}
+	return render( request, 'index.html', data)
 
 def login(request):
-	return render_to_response('login.html',  {	"page_title": "Login"	})
+	data = { "page_title": "login" }
+	csrfContext = RequestContext(request, data)
+	return render(request, 'login.html', csrfContext)
+
+def logout(request):
+	data = { "page_title": "logout" }
+	return render(request, 'index.html', data)

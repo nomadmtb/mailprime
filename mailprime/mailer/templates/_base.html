@@ -6,8 +6,13 @@
 	<body>
 
 		<h1>MailPrime</h1>
+		
+		{% if notice %}
+			<h6>Notice: {{ notice }}</h6>
+		{% endif %}
+
 		{% block content %}
 		{% endblock %}
-		
+
 	</body>
 </html>
