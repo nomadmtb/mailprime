@@ -17,10 +17,15 @@ def login(request):
 
 		user = authenticate(username = username, password = password)
 
+		# I should be using session data, and httpredirect, not render.		
 		if user is not None:
 			if user.is_active:
 				auth_login(request,user)
 				return render(request, 'index.html', { "notice": "Welcome "+username })
+			else:
+				return render(request, 'index.html', { "notice": "Your account is disabled" })
+		else:
+			return render(request, 'login.html', { "notice": "Login Failed" })
 
 	return render(request, 'login.html', csrfContext)
 
