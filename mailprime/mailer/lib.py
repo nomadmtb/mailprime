@@ -17,3 +17,10 @@ def authenticate_user(request, username, password):
 	else:
 		messages.add_message(request, messages.ERROR, 'Invalid Credentials')
 		return False
+
+def current_user(request):
+	if request.user.is_authenticated():
+		return True
+	else:
+		messages.add_message(request, messages.ERROR, 'You must be logged in')
+		return False

@@ -85,3 +85,4 @@ STATIC_URL = '/static/'
 # Custom Added Settings
 
 RECIPIENT_SALT = 'klnDE1ASaz56#$$32)98772#FgVYYt'
+LOGIN_URL = '/login'

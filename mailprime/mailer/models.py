@@ -21,6 +21,7 @@ class Campaign(models.Model):
 	about = models.TextField()
 	created_date = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.title

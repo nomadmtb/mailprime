@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from mailer.lib import authenticate_user
+from mailer.lib import authenticate_user, current_user
 from django.http import HttpResponseRedirect
+from mailer.models import Profile, Campaign, Recipient, Event, Message
+
 
 def index(request):
 	data = { "page_title": "Mailpri.me"}
@@ -23,3 +25,11 @@ def login(request):
 def logout(request):
 	data = { "page_title": "logout" }
 	return render(request, 'index.html', data)
+
+def home(request):
+	if current_user(request):
+		data = { "page_title": "My Campaigns" }
+		user_campaigns = Campaign.objects.get()
+		return render(request, 'home.html', data)
+	else:
+		return HttpResponseRedirect('/login')
