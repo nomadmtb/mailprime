@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from mailer.lib import authenticate_user, current_user
+from mailer.lib import authenticate_user, current_user, logout_user
 from django.http import HttpResponseRedirect
 from mailer.models import Profile, Campaign, Recipient, Event, Message
-
 
 def index(request):
 	data = { "page_title": "Mailpri.me"}
@@ -23,13 +22,18 @@ def login(request):
 		return render(request, 'login.html', csrfContext)
 
 def logout(request):
-	data = { "page_title": "logout" }
-	return render(request, 'index.html', data)
+	if logout_user(request):
+		return HttpResponseRedirect('/')
 
 def home(request):
 	if current_user(request):
-		data = { "page_title": "My Campaigns" }
-		user_campaigns = Campaign.objects.get()
-		return render(request, 'home.html', data)
+		try:
+			user_campaigns = Campaign.objects.get()
+		except Campaign.DoesNotExist:
+			user_campaigns = None
+
+		page_vars = {"user_campaigns": user_campaigns, "page_title": "My Campaigns"}
+		return render(request, 'home.html', page_vars)
+
 	else:
 		return HttpResponseRedirect('/login')

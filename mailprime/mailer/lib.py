@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth import logout
 
 def authenticate_user(request, username, password):
 	user = authenticate(username=username, password=password)
@@ -24,3 +25,8 @@ def current_user(request):
 	else:
 		messages.add_message(request, messages.ERROR, 'You must be logged in')
 		return False
+
+def logout_user(request):
+	logout(request)
+	messages.add_message(request, messages.INFO, 'You have successfully logged out')
+	return True
