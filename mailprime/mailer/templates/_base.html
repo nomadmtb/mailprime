@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>{{ page_title }}</title>
@@ -6,9 +7,11 @@
 	<body>
 
 		<h1>MailPrime</h1>
-		
-		{% if notice %}
-			<h6>Notice: {{ notice }}</h6>
+
+		{% if messages %}
+    		{% for message in messages %}
+    			{{ message }}
+    		{% endfor %}
 		{% endif %}
 
 		{% block content %}
