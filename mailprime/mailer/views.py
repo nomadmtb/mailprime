@@ -35,6 +35,9 @@ def home(request):
 		return HttpResponseRedirect('/login')
 
 def campaign(request, campaign_id):
-	user_campaign = Campaign.objects.get(user=request.user, pk=campaign_id)
-	page_vars = {"campaign": user_campaign, "page_title": user_campaign.title }
-	return render(request, 'campaign.html', page_vars)
+	if current_user(request):
+		user_campaign = Campaign.objects.get(user=request.user, pk=campaign_id)
+		page_vars = {"campaign": user_campaign, "page_title": user_campaign.title }
+		return render(request, 'campaign.html', page_vars)
+	else:
+		return HttpResponseRedirect('/login')
