@@ -2,6 +2,10 @@
 
 {% block content %}
 
-<h6>My campaigns</h6>
+<h3>My campaigns</h3>
+
+{% for campaign in user_campaigns %}
+	<a href={{ campaign.link }}>{{ campaign.title }}</a>
+{% endfor %}
 
 {% endblock %}

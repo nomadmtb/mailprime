@@ -13,5 +13,6 @@ urlpatterns = patterns('',
 	url(r'^login$', views.login, name='login'),
 	url(r'^logout$', views.logout, name='logout'),
 	url(r'^home$', views.home, name='home'),
+	url(r'^home/(\d)$', views.campaign, name='campaign'),
     url(r'^admin/', include(admin.site.urls)),
 )

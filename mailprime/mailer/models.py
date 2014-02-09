@@ -26,6 +26,9 @@ class Campaign(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def link(self):
+		return '/home/' + str(self.pk)
+
 class Recipient(models.Model):
 	"""This is the class that will hold contact information"""
 	email = models.EmailField(max_length=254)
