@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from mailer import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import admin
 admin.autodiscover()
@@ -16,3 +17,6 @@ urlpatterns = patterns('',
 	url(r'^home/(\d)$', views.campaign, name='campaign'),
     url(r'^admin/', include(admin.site.urls)),
 )
+
+# For Development ONLY.
+urlpatterns += staticfiles_urlpatterns()

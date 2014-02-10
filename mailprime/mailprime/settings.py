@@ -82,6 +82,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    '/Users/kgluce/Documents/programming/django/mailprime/mailprime/static',
+    )
+
 # Custom Added Settings
 
 RECIPIENT_SALT = 'klnDE1ASaz56#$$32)98772#FgVYYt'
