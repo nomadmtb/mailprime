@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
-# For Development ONLY.
+# For Development ONLY. Remove when in production...
 urlpatterns += staticfiles_urlpatterns()
