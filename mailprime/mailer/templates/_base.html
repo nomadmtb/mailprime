@@ -4,6 +4,8 @@
 	<head>
 		<title>{{ page_title }}</title>
 		<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" media="screen">
+		<link href="{% static 'base.css' %}" rel="stylesheet">
+		<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 	</head>
 
 	<body style="padding-top:50px;">
@@ -22,14 +24,15 @@
           			<ul class="nav navbar-nav">
             			<li class="active"><a href="#">Home</a></li>
             			<li><a href="#about">About</a></li>
-            			<li><a href="#contact">Contact</a></li>
+            			{% if user.is_authenticated == False %}
+            				<li><a href="/login">Login</a></li>
+            			{% else %}
+            				<li><a href="/home">{{ user.username }}</a></li>
+            			{% endif %}
           			</ul>
         		</div><!--/.nav-collapse -->
       		</div>
     	</div>
-
-    	<div class="container">
-    		<h1>MailPri.me</h1>
 
 			{% if messages %}
     			{% for message in messages %}
@@ -39,7 +42,6 @@
 
 			{% block content %}
 			{% endblock %}
-    	</div>
 
 	</body>
 </html>
