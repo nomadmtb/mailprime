@@ -1,0 +1,13 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<h1>Events for Message</h1>
+
+{% for event in events %}
+	<h3>{{ event.latitude }}, {{ event.longitude }}</h3>
+	<h3>{{ event.recipient.email }}</h3>
+	<h3>{{ event.message.title }}</h3>
+{% endfor %}
+
+{% endblock %}

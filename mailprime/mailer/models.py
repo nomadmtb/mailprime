@@ -52,6 +52,7 @@ class Event(models.Model):
 	longitude = models.FloatField()
 	created_date = models.DateTimeField(auto_now_add=True)
 	recipient = models.ForeignKey('Recipient')
+	message = models.ForeignKey('Message')
 
 	def __unicode__(self):
 		return self.ip_address
