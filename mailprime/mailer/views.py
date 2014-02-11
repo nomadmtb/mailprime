@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 
-
+# Homepage for the application
 def index(request):
 	data = { "page_title": "Mailpri.me"}
 	return render( request, 'index.html', data)
 
+# The login page for the application.
 def login(request):
 	data = { "page_title": "login" }
 	csrfContext = RequestContext(request, data)
@@ -23,18 +24,10 @@ def login(request):
 	else:
 		return render(request, 'login.html', csrfContext)
 
+# The logout view that will logout the user.
 def logout(request):
 	if logout_user(request):
 		return HttpResponseRedirect('/')
-
-def home(request):
-	if current_user(request):
-		user_campaigns = Campaign.objects.filter(user=request.user)
-		page_vars = {"user_campaigns": user_campaigns, "page_title": "My Campaigns"}
-		return render(request, 'home.html', page_vars)
-
-	else:
-		return HttpResponseRedirect('/login')
 
 def user_account(request, param_username):
 	page_vars = { "page_title": "Account: " + request.user.username }
@@ -132,11 +125,3 @@ def user_campaign_message_events(request, param_username, param_campaign_pk, par
 	else:
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
-
-def campaign(request, campaign_id):
-	if current_user(request):
-		user_campaign = Campaign.objects.get(user=request.user, pk=campaign_id)
-		page_vars = {"campaign": user_campaign, "page_title": user_campaign.title }
-		return render(request, 'campaign.html', page_vars)
-	else:
-		return HttpResponseRedirect('/login')
