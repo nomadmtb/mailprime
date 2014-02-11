@@ -111,7 +111,13 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 	page_vars = {"page_title": 'Campaign Message'}
 
 	if current_user(request) and request.user.username == param_username:
-		# I'm here...
+		try:
+			message = Message.objects.get(campaign__pk = param_campaign_pk, campaign__user__username = request.user.username, pk = param_message_pk)
+		except Message.DoesNotExist:
+			messages.add_message(request, messages.WARNING, "Something went wrong")
+			return HttpResponseRedirect('/') # HTTP_404
+		page_vars['message'] = message
+		return render(request, 'user_campaign_message.html', page_vars)
 
 def campaign(request, campaign_id):
 	if current_user(request):
