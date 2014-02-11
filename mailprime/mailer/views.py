@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from mailer.lib import authenticate_user, current_user, logout_user
 from django.http import HttpResponseRedirect
 from mailer.models import Profile, Campaign, Recipient, Event, Message
+from django.contrib import messages
+
 
 def index(request):
 	data = { "page_title": "Mailpri.me"}
@@ -33,6 +35,50 @@ def home(request):
 
 	else:
 		return HttpResponseRedirect('/login')
+
+def user_account(request, param_username):
+	page_vars = { "page_title": "Account: "+request.user.username }
+
+	if current_user(request):
+		requested_user = User.objects.get(username=param_username)
+		if requested_user.username == request.user.username:
+			page_vars['user'] = request.user
+			return render(request, 'user_account.html', page_vars)
+		else:
+			messages.add_message(request, messages.WARNING, "Don\'t Be Bad")
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
+def user_campaigns(request, param_username):
+	page_vars = { "page_title": request.user.username + '\'s campaigns' }
+
+	if current_user(request) and param_username == request.user.username:
+		user_campaigns = Campaign.objects.filter(user = request.user)
+		page_vars['campaigns'] = user_campaigns
+		return render(request, 'user_campaigns.html', page_vars)
+	else:
+		messages.add_message(request, messages.WARNING, "Something went wrong")
+		return HttpResponseRedirect('/') # HTTP_404
+
+def user_campaign(request, param_username, param_campaign_pk):
+	page_vars = {"page_title": 'Campaign View'}
+
+	if current_user(request) and request.user.username == param_username:
+
+		try:
+			user_campaign = Campaign.objects.get(pk = param_campaign_pk)
+		except Campaign.DoesNotExist:
+			messages.add_message(request, messages.WARNING, "Something went wrong")
+			return HttpResponseRedirect('/') # HTTP_404
+
+		page_vars['campaign'] = user_campaign
+		return render(request, 'user_campaign.html', page_vars)
+
+	else:
+		messages.add_message(request, messages.WARNING, "Something went wrong")
+		return HttpResponseRedirect('/') # HTTP_404
+
 
 def campaign(request, campaign_id):
 	if current_user(request):

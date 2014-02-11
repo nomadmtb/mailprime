@@ -7,10 +7,12 @@
 	</head>
 
 	<body>
+		<h1>MailPrime</h1>
+
 			{% if messages %}
     			{% for message in messages %}
     				<div class="notify">
-    					<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    					<p>{{ message.tags }} -> {{ message }}</p>
     				</div>
     			{% endfor %}
 			{% endif %}

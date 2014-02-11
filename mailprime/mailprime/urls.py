@@ -15,6 +15,9 @@ urlpatterns = patterns('',
 	url(r'^logout$', views.logout, name='logout'),
 	url(r'^home$', views.home, name='home'),
 	url(r'^home/(\d)$', views.campaign, name='campaign'),
+    url(r'^(\w+)/account$', views.user_account, name='user_account'),
+    url(r'^(\w+)$', views.user_campaigns, name='user_campaigns'),
+    url(r'^(\w+)/(\d+)$', views.user_campaign, name='user_campaign'),
     url(r'^admin/', include(admin.site.urls)),
 )
 
