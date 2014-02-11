@@ -79,6 +79,16 @@ def user_campaign(request, param_username, param_campaign_pk):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+def user_campaign_recipients(request, param_username, param_campaign_pk):
+	page_vars = {"page_title": 'Campaign Recipients'}
+
+	if current_user(request) and request.user.username == param_username:
+		recipients = Recipient.objects.filter(campaign__pk = param_campaign_pk)
+		page_vars['recipients'] = recipients
+		return render(request, 'user_campaign_recipients.html', page_vars)
+	else:
+		messages.add_message(request, messages.WARNING, "Something went wrong")
+		return HttpResponseRedirect('/') # HTTP_404
 
 def campaign(request, campaign_id):
 	if current_user(request):
