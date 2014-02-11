@@ -29,6 +29,7 @@ def logout(request):
 	if logout_user(request):
 		return HttpResponseRedirect('/')
 
+# The user account view that will display/update user information.
 def user_account(request, param_username):
 	page_vars = { "page_title": "Account: " + request.user.username }
 
@@ -49,6 +50,7 @@ def user_account(request, param_username):
 	else:
 		return HttpResponseRedirect('/')
 
+# The user campaigns view that will show all of the campaigns belonging to the user.
 def user_campaigns(request, param_username):
 	page_vars = { "page_title": request.user.username + '\'s campaigns' }
 
@@ -60,6 +62,7 @@ def user_campaigns(request, param_username):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+# The user campaign view will show the campaign data belonging to a PARTICULAR user.
 def user_campaign(request, param_username, param_campaign_pk):
 	page_vars = {"page_title": 'Campaign View'}
 
@@ -78,6 +81,7 @@ def user_campaign(request, param_username, param_campaign_pk):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+# The user campaign recipients view will show all users that are associated with a particular campaign.
 def user_campaign_recipients(request, param_username, param_campaign_pk):
 	page_vars = {"page_title": 'Campaign Recipients'}
 
@@ -89,6 +93,7 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+# The user campaigns messages view will show the messages that belong to a specific campaign.
 def user_campaign_messages(request, param_username, param_campaign_pk):
 	page_vars = {"page_title": 'Campaign Messages'}
 
@@ -100,6 +105,7 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+# The user campaign view will show all of the data that belongs to a specific message.
 def user_campaign_message(request, param_username, param_campaign_pk, param_message_pk):
 	page_vars = {"page_title": 'Campaign Message'}
 
@@ -115,6 +121,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+# The user-campaign-message-events-view will show all of the events associated with a particular message
 def user_campaign_message_events(request, param_username, param_campaign_pk, param_message_pk):
 	page_vars = {"page_title": 'Message Events'}
 
