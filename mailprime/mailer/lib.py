@@ -16,14 +16,14 @@ def authenticate_user(request, username, password):
 			messages.add_message(request, messages.WARNING, 'Your account has been disabled')
 			return False
 	else:
-		messages.add_message(request, messages.ERROR, 'Invalid Credentials')
+		messages.add_message(request, messages.WARNING, 'Invalid Credentials')
 		return False
 
 def current_user(request):
 	if request.user.is_authenticated():
 		return True
 	else:
-		messages.add_message(request, messages.ERROR, 'You must be logged in')
+		messages.add_message(request, messages.WARNING, 'You must be logged in')
 		return False
 
 def logout_user(request):

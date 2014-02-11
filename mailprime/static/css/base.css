@@ -1,0 +1,24 @@
+.wide_header
+{
+	background-color: #33CCFF;
+	width: 100%;
+	padding: 15px;
+}
+
+.header_title
+{
+	font-size: 50px;
+	text-align: center;
+}
+
+.header_text
+{
+	text-align: center;
+	font-size: 25px;
+}
+
+.header_inner
+{
+	width: 50%;
+	margin: 0 auto;
+}
