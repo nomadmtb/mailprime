@@ -37,10 +37,16 @@ def home(request):
 		return HttpResponseRedirect('/login')
 
 def user_account(request, param_username):
-	page_vars = { "page_title": "Account: "+request.user.username }
+	page_vars = { "page_title": "Account: " + request.user.username }
 
 	if current_user(request):
-		requested_user = User.objects.get(username=param_username)
+
+		try:
+			requested_user = User.objects.get(username=param_username)
+		except User.DoesNotExist:
+			messages.add_message(request, messages.WARNING, "Something went wrong")
+			return HttpResponseRedirect('/')
+			
 		if requested_user.username == request.user.username:
 			page_vars['user'] = request.user
 			return render(request, 'user_account.html', page_vars)
