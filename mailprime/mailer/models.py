@@ -69,6 +69,7 @@ class Message(models.Model):
 	title = models.CharField(max_length=200)
 	body = models.TextField()
 	template = models.ForeignKey('Template')
+	campaign = models.ForeignKey('Campaign')
 
 	def __unicode__(self):
 		return self.title
