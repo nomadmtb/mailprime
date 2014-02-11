@@ -71,6 +71,8 @@ class Message(models.Model):
 	body = models.TextField()
 	template = models.ForeignKey('Template')
 	campaign = models.ForeignKey('Campaign')
+	created_date = models.DateTimeField(auto_now_add=True)
+	deploy_date = models.DateTimeField()
 
 	def __unicode__(self):
 		return self.title
