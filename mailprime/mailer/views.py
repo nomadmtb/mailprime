@@ -107,6 +107,12 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 		messages.add_message(request, messages.WARNING, "Something went wrong")
 		return HttpResponseRedirect('/') # HTTP_404
 
+def user_campaign_message(request, param_username, param_campaign_pk, param_message_pk):
+	page_vars = {"page_title": 'Campaign Message'}
+
+	if current_user(request) and request.user.username == param_username:
+		# I'm here...
+
 def campaign(request, campaign_id):
 	if current_user(request):
 		user_campaign = Campaign.objects.get(user=request.user, pk=campaign_id)
