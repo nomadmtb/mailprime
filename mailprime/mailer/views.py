@@ -5,6 +5,7 @@ from mailer.lib import authenticate_user, current_user, logout_user
 from django.http import HttpResponseRedirect
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
+from django.http import Http404
 
 # Homepage for the application
 def index(request):
@@ -38,17 +39,15 @@ def user_account(request, param_username):
 		try:
 			requested_user = User.objects.get(username=param_username)
 		except User.DoesNotExist:
-			messages.add_message(request, messages.WARNING, "Something went wrong")
-			return HttpResponseRedirect('/')
+			raise Http404
 			
 		if requested_user.username == request.user.username:
 			page_vars['user'] = request.user
 			return render(request, 'user_account.html', page_vars)
 		else:
-			messages.add_message(request, messages.WARNING, "Don\'t Be Bad")
-			return HttpResponseRedirect('/')
+			raise Http404
 	else:
-		return HttpResponseRedirect('/')
+		raise Http404
 
 # The user campaigns view that will show all of the campaigns belonging to the user.
 def user_campaigns(request, param_username):
@@ -59,8 +58,7 @@ def user_campaigns(request, param_username):
 		page_vars['campaigns'] = user_campaigns
 		return render(request, 'user_campaigns.html', page_vars)
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 # The user campaign view will show the campaign data belonging to a PARTICULAR user.
 def user_campaign(request, param_username, param_campaign_pk):
@@ -71,15 +69,12 @@ def user_campaign(request, param_username, param_campaign_pk):
 		try:
 			user_campaign = Campaign.objects.get(pk = param_campaign_pk)
 		except Campaign.DoesNotExist:
-			messages.add_message(request, messages.WARNING, "Something went wrong")
-			return HttpResponseRedirect('/') # HTTP_404
+			raise Http404
 
 		page_vars['campaign'] = user_campaign
 		return render(request, 'user_campaign.html', page_vars)
-
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
 def user_campaign_recipients(request, param_username, param_campaign_pk):
@@ -90,8 +85,7 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 		page_vars['recipients'] = recipients
 		return render(request, 'user_campaign_recipients.html', page_vars)
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 # The user campaigns messages view will show the messages that belong to a specific campaign.
 def user_campaign_messages(request, param_username, param_campaign_pk):
@@ -102,24 +96,24 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 		page_vars['messages'] = campaign_messages
 		return render(request, 'user_campaign_messages.html', page_vars)
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 # The user campaign view will show all of the data that belongs to a specific message.
 def user_campaign_message(request, param_username, param_campaign_pk, param_message_pk):
 	page_vars = {"page_title": 'Campaign Message'}
 
 	if current_user(request) and request.user.username == param_username:
+
 		try:
 			message = Message.objects.get(campaign__pk = param_campaign_pk, campaign__user__username = request.user.username, pk = param_message_pk)
 		except Message.DoesNotExist:
-			messages.add_message(request, messages.WARNING, "Something went wrong")
-			return HttpResponseRedirect('/') # HTTP_404
+			raise Http404
+
 		page_vars['message'] = message
 		return render(request, 'user_campaign_message.html', page_vars)
+
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 # The user-campaign-message-events-view will show all of the events associated with a particular message
 def user_campaign_message_events(request, param_username, param_campaign_pk, param_message_pk):
@@ -130,8 +124,7 @@ def user_campaign_message_events(request, param_username, param_campaign_pk, par
 		page_vars['events'] = events
 		return render(request, 'user_campaign_message_events.html', page_vars)
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
 
 def user_campaign_message_event(request, param_username, param_campaign_pk, param_message_pk, param_event_pk):
 	page_vars = {"page_title": 'View Event'}
@@ -141,11 +134,9 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 			event = Event.objects.get(pk = param_event_pk, recipient__campaign__pk = param_campaign_pk, message__pk = param_message_pk)
 		except Event.DoesNotExist:
 			messages.add_message(request, messages.WARNING, "Something went wrong")
-			return HttpResponseRedirect('/') # HTTP_404
+			raise Http404
 
 		page_vars['event'] = event
 		return render(request, 'user_campaign_message_event.html', page_vars)
-		
 	else:
-		messages.add_message(request, messages.WARNING, "Something went wrong")
-		return HttpResponseRedirect('/') # HTTP_404
+		raise Http404
