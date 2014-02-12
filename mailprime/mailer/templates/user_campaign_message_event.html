@@ -1,0 +1,10 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<h1>Event View</h1>
+
+<h3>{{ event.latitude }}, {{ event.longitude }}</h3>
+<h3>{{ event.ip_address }}</h3>
+<h3>{{ event.recipient }}</h3>
+
+{% endblock %}

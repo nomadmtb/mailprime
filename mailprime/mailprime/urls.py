@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^(\w+)/(\d+)/messages$', views.user_campaign_messages, name='user_campaign_messages'),
     url(r'^(\w+)/(\d+)/(\d+)$', views.user_campaign_message, name='user_campaign_message'),
     url(r'^(\w+)/(\d+)/(\d+)/events$', views.user_campaign_message_events, name='user_campaign_message_events'),
+    url(r'^(\w+)/(\d+)/(\d+)/(\d+)$', views.user_campaign_message_event, name='user_campaign_message_event'),
 )
 
 # For Development ONLY. Remove when in production...
