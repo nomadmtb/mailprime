@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
+import requests
 
 def authenticate_user(request, username, password):
 	user = authenticate(username=username, password=password)
@@ -30,3 +31,16 @@ def logout_user(request):
 	logout(request)
 	messages.add_message(request, messages.INFO, 'You have successfully logged out')
 	return True
+
+def geo_locate(param_ip_address):
+	coordinates = {}
+	response = requests.get('http://freegeoip.net/json/' + param_ip_address).json()
+
+	if response[u'latitude'] and response[u'longitude'] == 0:
+		coordinates['latitude'] = None
+		coordinates['longitude'] = None
+	else:
+		coordinates['latitude'] = response[u'latitude']
+		coordinates['longitude'] = response[u'longitude']
+
+	return coordinates

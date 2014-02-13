@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from mailer.lib import authenticate_user, current_user, logout_user
+from mailer.lib import authenticate_user, current_user, logout_user, geo_locate
 from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
@@ -144,4 +144,6 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 def tracker_visit(request, param_recipient_hash):
 	image = open("/Users/kgluce/Documents/programming/django/mailprime/mailprime/static/images/circle.jpg").read()
 
-	return HttpResponse(image, mimetype="image/jpg")
+	coordinates = geo_locate(request.META['REMOTE_ADDR'])
+
+	return HttpResponse(image, content_type="image/jpg")
