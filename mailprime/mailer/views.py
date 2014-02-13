@@ -93,7 +93,7 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 
 	if current_user(request) and request.user.username == param_username:
 		campaign_messages = Message.objects.filter(campaign__pk = param_campaign_pk)
-		page_vars['messages'] = campaign_messages
+		page_vars['campaign_messages'] = campaign_messages
 		return render(request, 'user_campaign_messages.html', page_vars)
 	else:
 		raise Http404

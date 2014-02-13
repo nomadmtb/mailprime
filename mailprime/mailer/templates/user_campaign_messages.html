@@ -2,12 +2,11 @@
 
 {% block content %}
 
-<h1>Messages</h1>
+<h2>Campaign Messages</h2>
 
-{% for message in messages %}
+{% for campaign_message in campaign_messages %}
 
-	<h3>{{ message.title }}</h3>
-	<h3>{{ message.body }}</h3>
+<a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title }}</a>
 
 {% endfor %}
 

@@ -2,8 +2,10 @@
 
 {% block content %}
 
+<h2>User Campaigns</h2>
+
 {% for campaign in campaigns %}
-	<h3>{{ campaign.title }}</h3>
+	<a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a>
 {% endfor %}
 
 {% endblock %}
