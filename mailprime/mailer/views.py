@@ -19,7 +19,7 @@ def login(request):
 
 	if request.method == 'POST':
 		if authenticate_user(request, request.POST['username'], request.POST['password']):
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/' + request.user.username + '/campaigns')
 		else:
 			return HttpResponseRedirect('/login')
 	else:
@@ -147,3 +147,13 @@ def tracker_visit(request, param_recipient_hash):
 	coordinates = geo_locate(request.META['REMOTE_ADDR'])
 
 	return HttpResponse(image, content_type="image/jpg")
+
+def tracker_unsubscribe(request, param_recipient_hash):
+	try:
+		contact = Recipient.objects.get(tracking_id = param_recipient_hash)
+	except Recipient.DoesNotExist:
+		raise Http404
+		
+	contact.delete()
+	messages.add_message(request, messages.SUCCESS, 'You have successfully unsubscribed!')
+	return HttpResponseRedirect('/')
