@@ -39,7 +39,7 @@ class Recipient(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.pk is None:
-			self.tracking_id = hashlib.sha1(str(datetime.now()) + settings.RECIPIENT_SALT).hexdigest()
+			self.tracking_id = hashlib.sha1(str(datetime.now()) + self.email + settings.RECIPIENT_SALT).hexdigest()
 		super(Recipient, self).save(*args, **kwargs)
 
 	def __unicode__(self):
@@ -73,6 +73,12 @@ class Message(models.Model):
 	campaign = models.ForeignKey('Campaign')
 	created_date = models.DateTimeField(auto_now_add=True)
 	deploy_date = models.DateTimeField()
+	message_id = models.CharField(max_length=200, blank=True)
+
+	def save(self, *args, **kwargs):
+		if self.pk is None:
+			self.message_id = hashlib.sha1(str(datetime.now()) + self.title + settings.MESSAGE_SALT).hexdigest()
+		super(Message, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.title

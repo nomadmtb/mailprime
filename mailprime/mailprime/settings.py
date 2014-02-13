@@ -89,4 +89,5 @@ STATICFILES_DIRS = (
 # Custom Added Settings
 
 RECIPIENT_SALT = 'klnDE1ASaz56#$$32)98772#FgVYYt'
+MESSAGE_SALT = 'lkakjaCSADteweYw$32#4**$@DFaSDas'
 LOGIN_URL = '/login'
