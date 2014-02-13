@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from mailer.lib import authenticate_user, current_user, logout_user
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
@@ -140,3 +140,8 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 		return render(request, 'user_campaign_message_event.html', page_vars)
 	else:
 		raise Http404
+
+def tracker_visit(request, param_recipient_hash):
+	image = open("/Users/kgluce/Documents/programming/django/mailprime/mailprime/static/images/circle.jpg").read()
+
+	return HttpResponse(image, mimetype="image/jpg")
