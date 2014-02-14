@@ -142,14 +142,20 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 		raise Http404
 
 def tracker_visit(request, param_recipient_hash, param_message_hash):
-	# I think I need to generate a unique id for the Message too.
 
 	coordinates = geo_locate(request.META['REMOTE_ADDR'])
+
+	try:
+		mess = Message.objects.get(message_id = param_message_hash)
+	except Message.DoesNotExist:
+		raise Http404
 
 	try:
 		contact = Recipient.objects.get(tracking_id = param_recipient_hash)
 	except Recipient.DoesNotExist:
 		raise Http404
+
+	Event.objects.create(ip_address = request.META['REMOTE_ADDR'], latitude = coordinates['latitude'], longitude = coordinates['longitude'], recipient = contact, message = mess)
 
 	image = open("/Users/kgluce/Documents/programming/django/mailprime/mailprime/static/images/circle.jpg").read()
 	return HttpResponse(image, content_type="image/jpg")
