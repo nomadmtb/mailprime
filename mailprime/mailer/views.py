@@ -169,3 +169,15 @@ def tracker_unsubscribe(request, param_recipient_hash):
 	contact.delete()
 	messages.add_message(request, messages.SUCCESS, 'You have successfully unsubscribed!')
 	return HttpResponseRedirect('/')
+
+def message_statistics(request, param_username, param_campaign_pk, param_message_pk):
+	page_vars = {}
+	page_vars['page_title'] = 'Message Statistics'
+
+	return render(request, 'message_statistics.html', page_vars)
+
+def campaign_statistics(request, param_username, param_campaign_pk):
+	page_vars = {}
+	page_vars['page_title'] = 'Campaign Statistics'
+
+	return render(request, 'campaign_statistics.html', page_vars)
