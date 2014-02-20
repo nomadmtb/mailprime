@@ -12,8 +12,8 @@
 		<div class="menu_wrapper">
 			<img id="nav_icon" src="{% static 'images/nav_icon.png' %}" height="59px"></img>
 			<ul class="nav_left">
-				<li>About MailPrime</li>
-				<li>Terms of Service</li>
+				<li><a class="nav_link" href="/">MailPrime</a></li>
+				<li><a class="nav_link" href="/tos">Terms of Service</a></li>
 			</ul>
 
 			<ul class="nav_right">
@@ -22,7 +22,6 @@
 			</ul>
 		</div>
 	</nav>
-	<h1>MailPrime</h1>
 
 	{% if messages %}
 	{% for message in messages %}
