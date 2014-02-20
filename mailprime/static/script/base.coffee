@@ -6,4 +6,4 @@ checkfornotice = ->
 		setTimeout (->
 			$("#error_wrapper").slideToggle "fast"
 			return
-			), 3500
+			), 2500

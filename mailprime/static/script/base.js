@@ -10,7 +10,7 @@
     if ($("#error_wrapper").length) {
       return setTimeout((function() {
         $("#error_wrapper").slideToggle("fast");
-      }), 3500);
+      }), 2500);
     }
   };
 
