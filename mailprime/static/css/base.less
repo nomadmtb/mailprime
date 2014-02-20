@@ -3,6 +3,8 @@
 @color-important: #7CCBF2;
 @color-black: #000000;
 @nav-height: 65px;
+@content-max-width: 1024px;
+@content-width: 85%;
 
 .font (@weight, @color) when (@weight = light) {
 	font-family: 'Open Sans', sans-serif;
@@ -16,6 +18,23 @@
 	color: @color;
 }
 
+.clear_area_center {
+	margin: 0 auto;
+	padding: 0;
+}
+
+.box-outline {
+	outline: 1px outset #707371;
+	outline-offset: 1px;
+}
+
+.menu_wrapper {
+	.clear_area_center;
+	height: @nav-height;
+	max-width: @content-max-width;
+	width: @content-width;
+}
+
 nav {
 	position: fixed;
 	width: 100%;
@@ -23,6 +42,14 @@ nav {
 	left: 0px;
 	top: 0px;
 	background-color: @color-important;
+	.box-outline;
+}
+
+.menu_wrapper {
+	.clear_area_center;
+	height: @nav-height;
+	max-width: @content-max-width;
+	width: @content-width;
 }
 
 .nav_left {
@@ -31,14 +58,20 @@ nav {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-
 	li {
-		.font (bold, @color-black);
-		display: inline-block;
+		.font (light, @color-dark);
 		padding-top: 22px;
+		display: inline-block;
 		padding-right: 10px;
 		height: 43px;
 	}
+}
+
+#nav_icon {
+	float: left;
+	margin-right: 15px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .nav_right {
@@ -47,11 +80,10 @@ nav {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-
 	li {
-		.font (bold, @color-black);
-		display: inline-block;
+		.font (light, @color-dark);
 		padding-top: 22px;
+		display: inline-block;
 		padding-left: 10px;
 		height: 43px;
 	}

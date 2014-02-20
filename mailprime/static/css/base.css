@@ -1,1 +1,70 @@
-nav{position:fixed;width:100%;height:65px;left:0;top:0;background-color:#7ccbf2}.nav_left{float:left;list-style:none;height:100%;margin:0;padding:0}.nav_left li{font-family:'Open Sans',sans-serif;font-weight:600;color:#000;display:inline-block;padding-top:22px;padding-right:10px;height:43px}.nav_right{float:right;list-style:none;height:100%;margin:0;padding:0}.nav_right li{font-family:'Open Sans',sans-serif;font-weight:600;color:#000;display:inline-block;padding-top:22px;padding-left:10px;height:43px}
+.clear_area_center {
+  margin: 0 auto;
+  padding: 0;
+}
+.box-outline {
+  outline: 1px outset #707371;
+  outline-offset: 1px;
+}
+.menu_wrapper {
+  margin: 0 auto;
+  padding: 0;
+  height: 65px;
+  max-width: 1024px;
+  width: 85%;
+}
+nav {
+  position: fixed;
+  width: 100%;
+  height: 65px;
+  left: 0px;
+  top: 0px;
+  background-color: #7ccbf2;
+  outline: 1px outset #707371;
+  outline-offset: 1px;
+}
+.menu_wrapper {
+  margin: 0 auto;
+  padding: 0;
+  height: 65px;
+  max-width: 1024px;
+  width: 85%;
+}
+.nav_left {
+  float: left;
+  list-style: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.nav_left li {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #525453;
+  padding-top: 22px;
+  display: inline-block;
+  padding-right: 10px;
+  height: 43px;
+}
+#nav_icon {
+  float: left;
+  margin-right: 15px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.nav_right {
+  float: right;
+  list-style: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.nav_right li {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #525453;
+  padding-top: 22px;
+  display: inline-block;
+  padding-left: 10px;
+  height: 43px;
+}
