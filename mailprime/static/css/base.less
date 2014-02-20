@@ -109,9 +109,15 @@ nav {
 		padding-left: 5px;
 		height: 43px;
 
+		.nav_link {
+			text-decoration: none;
+			color: @color-dark;
+		}
+
 		&:hover {
 			background-color: @color-selected;
 			.inner_shadow;
+			.font(light, @color-black);
 		}
 	}
 }

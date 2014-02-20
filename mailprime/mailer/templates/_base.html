@@ -17,8 +17,12 @@
 			</ul>
 
 			<ul class="nav_right">
-				<li>Login</li>
-				<li>Logout</li>
+				{% if user.is_authenticated %}
+				<li><a class="nav_link" href="/{{ user.username }}/account">{{ user.username }}</a></li>
+				<li><a class="nav_link" href="/logout">Logout</a></li>
+				{% else %}
+				<li><a class="nav_link" href="/login">Login</a></li>
+				{% endif %}
 			</ul>
 		</div>
 	</nav>
