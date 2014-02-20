@@ -9,3 +9,8 @@
 <h3>{{ message.message_id }}</h3>
 
 {% endblock %}
+
+{% block header %}
+<h5 id="header_title">{{ message.title }}</h5>
+<p id="header_desc">View data pertaining to '{{ message.title }}' below.</p>
+{% endblock header %}

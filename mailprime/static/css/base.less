@@ -46,7 +46,7 @@
 }
 
 .box-outline {
-	outline: 1px outset #707371;
+	outline: 1px outset @color-base;
 }
 
 .menu_wrapper {
@@ -54,6 +54,19 @@
 	height: @nav-height;
 	max-width: @content-max-width;
 	width: @content-width;
+}
+
+#error_wrapper {
+	.inner_shadow;
+	background-color: @color-dark;
+	margin: 0;
+	padding: 10px;
+	margin-top: @nav-height;
+
+	p {
+		.font(light, @color-base);
+		text-align: center;
+	}
 }
 
 nav {
@@ -153,9 +166,8 @@ body {
 header {
 	background-color: @color-selected;
 	margin: 0;
-	margin-top: 65px;
 	padding: 0;
-	padding-top: 30px;
+	padding-top: 95px;
 	padding-bottom: 30px;
 	width: 100%;
 }

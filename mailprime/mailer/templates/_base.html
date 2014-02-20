@@ -5,9 +5,19 @@
 	<title>{{ page_title }}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="{% static 'script/base.js' %}"></script>
 </head>
 
 <body>
+	{% if messages %}
+	<div id="error_wrapper">
+		{% for message in messages %}
+		<p class="error">{{ message }}</p>
+		{% endfor %}
+	</div>
+	{% endif %}
+
 	<nav>
 		<div class="menu_wrapper">
 			<img id="nav_icon" src="{% static 'images/nav_icon.png' %}" height="59px"></img>
@@ -18,6 +28,7 @@
 
 			<ul class="nav_right">
 				{% if user.is_authenticated %}
+				<li><a class="nav_link" href="/{{ user.username }}/campaigns">Campaigns</a></li>
 				<li><a class="nav_link" href="/{{ user.username }}/account">{{ user.username }}</a></li>
 				<li><a class="nav_link" href="/logout">Logout</a></li>
 				{% else %}
@@ -35,14 +46,6 @@
 			{% endblock header %}
 		</div>
 	</header>
-
-		{% if messages %}
-	{% for message in messages %}
-	<div class="notify">
-		<p>{{ message.tags }} -> {{ message }}</p>
-	</div>
-	{% endfor %}
-	{% endif %}
 
 	{% block content %}
 	{% endblock %}

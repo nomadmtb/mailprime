@@ -91,6 +91,13 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 def user_campaign_messages(request, param_username, param_campaign_pk):
 	page_vars = {"page_title": 'Campaign Messages'}
 
+	try:
+		campaign = Campaign.objects.get(pk = param_campaign_pk)
+	except Campaign.DoesNotExist:
+		raise Http404
+
+	page_vars['campaign'] = campaign;
+
 	if current_user(request) and request.user.username == param_username:
 		campaign_messages = Message.objects.filter(campaign__pk = param_campaign_pk)
 		page_vars['campaign_messages'] = campaign_messages
