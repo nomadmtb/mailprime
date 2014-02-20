@@ -4,7 +4,7 @@
 @color-selected: #BED9E6;
 @color-black: #000000;
 @nav-height: 65px;
-@content-max-width: 1024px;
+@content-max-width: 1200px;
 @content-min-width: 590px;
 @content-width: 85%;
 
@@ -33,7 +33,6 @@
 
 .box-outline {
 	outline: 1px outset #707371;
-	outline-offset: 1px;
 }
 
 .menu_wrapper {
@@ -88,6 +87,10 @@ nav {
 	}
 }
 
+.clear_float {
+	clear: both;
+}
+
 #nav_icon {
 	float: left;
 	margin-right: 15px;
@@ -120,4 +123,25 @@ nav {
 			.font(light, @color-black);
 		}
 	}
+}
+
+.content_wrapper {
+	.clear_area_center;
+	margin-top: 65px;
+	height: @nav-height;
+	max-width: @content-max-width;
+	width: @content-width;
+	height: 100px;
+	background-color: @color-important;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }

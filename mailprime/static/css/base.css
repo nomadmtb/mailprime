@@ -9,13 +9,12 @@
 }
 .box-outline {
   outline: 1px outset #707371;
-  outline-offset: 1px;
 }
 .menu_wrapper {
   margin: 0 auto;
   padding: 0;
   height: 65px;
-  max-width: 1024px;
+  max-width: 1200px;
   width: 85%;
 }
 nav {
@@ -26,13 +25,12 @@ nav {
   top: 0px;
   background-color: #7ccbf2;
   outline: 1px outset #707371;
-  outline-offset: 1px;
 }
 .menu_wrapper {
   margin: 0 auto;
   padding: 0;
   height: 65px;
-  max-width: 1024px;
+  max-width: 1200px;
   min-width: 590px;
   width: 85%;
 }
@@ -65,6 +63,9 @@ nav {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   color: #000000;
+}
+.clear_float {
+  clear: both;
 }
 #nav_icon {
   float: left;
@@ -101,4 +102,23 @@ nav {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   color: #000000;
+}
+.content_wrapper {
+  margin: 0 auto;
+  padding: 0;
+  margin-top: 65px;
+  height: 65px;
+  max-width: 1200px;
+  width: 85%;
+  height: 100px;
+  background-color: #7ccbf2;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+header {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
