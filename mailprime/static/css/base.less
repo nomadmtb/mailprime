@@ -1,0 +1,58 @@
+@color-base: #FFFFFF;
+@color-dark: #525453;
+@color-important: #7CCBF2;
+@color-black: #000000;
+@nav-height: 65px;
+
+.font (@weight, @color) when (@weight = light) {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	color: @color;
+}
+
+.font (@weight, @color) when (@weight = bold) {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: @color;
+}
+
+nav {
+	position: fixed;
+	width: 100%;
+	height: @nav-height;
+	left: 0px;
+	top: 0px;
+	background-color: @color-important;
+}
+
+.nav_left {
+	float: left;
+	list-style: none;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+
+	li {
+		.font (bold, @color-black);
+		display: inline-block;
+		padding-top: 22px;
+		padding-right: 10px;
+		height: 43px;
+	}
+}
+
+.nav_right {
+	float: right;
+	list-style: none;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+
+	li {
+		.font (bold, @color-black);
+		display: inline-block;
+		padding-top: 22px;
+		padding-left: 10px;
+		height: 43px;
+	}
+}

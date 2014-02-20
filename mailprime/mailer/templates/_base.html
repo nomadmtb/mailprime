@@ -1,24 +1,37 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{{ page_title }}</title>
-		<link href="{% static 'base.css' %}" rel="stylesheet">
-	</head>
+<head>
+	<title>{{ page_title }}</title>
+	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+</head>
+<nav>
+	<div class="menu_wrapper">
+		<ul class="nav_left">
+			<li>About MailPrime</li>
+			<li>Terms of Service</li>
+		</ul>
 
-	<body>
-		<h1>MailPrime</h1>
+		<ul class="nav_right">
+			<li>Login</li>
+			<li>Logout</li>
+		</ul>
+	</div>
+</nav>
+<body>
+	<h1>MailPrime</h1>
 
-			{% if messages %}
-    			{% for message in messages %}
-    				<div class="notify">
-    					<p>{{ message.tags }} -> {{ message }}</p>
-    				</div>
-    			{% endfor %}
-			{% endif %}
+	{% if messages %}
+	{% for message in messages %}
+	<div class="notify">
+		<p>{{ message.tags }} -> {{ message }}</p>
+	</div>
+	{% endfor %}
+	{% endif %}
 
-			{% block content %}
-			{% endblock %}
+	{% block content %}
+	{% endblock %}
 
-	</body>
+</body>
 </html>
