@@ -7,9 +7,9 @@
   });
 
   checkfornotice = function() {
-    if ($("#error_wrapper").length) {
+    if ($("#notice_wrapper").length) {
       return setTimeout((function() {
-        $("#error_wrapper").slideToggle("fast");
+        $("#notice_wrapper").slideToggle("fast");
       }), 2500);
     }
   };

@@ -11,9 +11,9 @@
 
 <body>
 	{% if messages %}
-	<div id="error_wrapper">
+	<div id="notice_wrapper">
 		{% for message in messages %}
-		<p class="error">{{ message }}</p>
+		<p class="notice">{{ message }}</p>
 		{% endfor %}
 	</div>
 	{% endif %}

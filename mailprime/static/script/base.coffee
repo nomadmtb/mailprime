@@ -2,8 +2,8 @@ $ ->
 	checkfornotice()
 
 checkfornotice = ->
-	if $("#error_wrapper").length
+	if $("#notice_wrapper").length
 		setTimeout (->
-			$("#error_wrapper").slideToggle "fast"
+			$("#notice_wrapper").slideToggle "fast"
 			return
 			), 2500
