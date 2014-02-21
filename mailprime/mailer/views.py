@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
+from mailer.forms import CampaignForm
 
 # Homepage for the application
 def index(request):
@@ -78,6 +79,20 @@ def user_campaign(request, param_username, param_campaign_pk):
 		return render(request, 'user_campaign.html', page_vars)
 	else:
 		raise Http404
+
+def user_campaign_new(request, param_username):
+
+	if current_user(request) and request.user.username == param_username:
+		page_vars = {"page_title": "New Campaign"}
+		if request.method == 'POST':
+			test = []
+		elif request.method == "GET":
+			page_vars['form'] = CampaignForm()
+			csrfContext = RequestContext(request, page_vars)
+			return render(request, 'user_campaign_new.html', csrfContext)
+	else:
+		raise Http404
+
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
 def user_campaign_recipients(request, param_username, param_campaign_pk):
