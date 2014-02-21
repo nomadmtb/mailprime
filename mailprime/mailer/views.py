@@ -30,6 +30,9 @@ def logout(request):
 	if logout_user(request):
 		return HttpResponseRedirect('/')
 
+def terms_of_service(request):
+	return render(request, 'terms_of_service.html')
+
 # The user account view that will display/update user information.
 def user_account(request, param_username):
 	page_vars = { "page_title": "Account: " + request.user.username }
