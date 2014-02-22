@@ -1,4 +1,4 @@
-![](https://raw.github.com/nomadmtb/mailprime/README_FILES/icon.png)
+![](https://raw.github.com/nomadmtb/mailprime/master/README_FILES/icon.png)
 
 MailPri.me
 ==========
