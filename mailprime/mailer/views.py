@@ -24,7 +24,10 @@ def login(request):
 		else:
 			return HttpResponseRedirect('/login')
 	else:
-		return render(request, 'login.html', csrfContext)
+		if current_user(request):
+			return HttpResponseRedirect('/')
+		else:
+			return render(request, 'login.html', csrfContext)
 
 # The logout view that will logout the user.
 def logout(request):
