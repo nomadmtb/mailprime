@@ -8,6 +8,10 @@
 @content-min-width: 590px;
 @content-width: 85%;
 
+html {
+	font-family: 'Open Sans', sans-serif;
+}
+
 .font (@weight, @color) when (@weight = light) {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
@@ -153,6 +157,24 @@ nav {
 	.clear_area_center;
 	max-width: @content-max-width;
 	width: @content-width;
+}
+
+.rounded_border {
+	border-radius: 5px;
+	border: 1px solid @color-selected;
+}
+
+.button_main {
+	display: inline-block;
+	padding: 7px;
+	text-decoration: none;
+	background-color: @color-important;
+	.font (light, @color-base);
+	.rounded_border;
+
+	&:hover {
+		.inner_shadow;
+	}
 }
 
 body {

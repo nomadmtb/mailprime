@@ -8,6 +8,8 @@
 	<a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a>
 {% endfor %}
 
+<a class="button_main" href="/{{ user.username }}/campaigns/new">New Campaign</a>
+
 {% endblock %}
 
 {% block header %}
