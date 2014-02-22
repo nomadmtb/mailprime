@@ -71,7 +71,7 @@ class Message(models.Model):
 	body = models.TextField()
 	template = models.ForeignKey('Template')
 	campaign = models.ForeignKey('Campaign')
-	created_date = models.DateTimeField(auto_now_add=True)
+	created_date = models.DateTimeField(auto_now_add=True, blank=True)
 	deploy_date = models.DateTimeField()
 	message_id = models.CharField(max_length=200, blank=True)
 

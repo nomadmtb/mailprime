@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
-from mailer.forms import CampaignForm
+from mailer.forms import CampaignForm, MessageForm
 
 # Homepage for the application
 def index(request):
@@ -158,6 +158,27 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 
 	else:
 		raise Http404
+
+def user_campaign_message_new(request, param_username, param_campaign_pk):
+	if current_user(request) and request.user.username == param_username:
+
+		try:
+			campaign = Campaign.objects.get(pk = param_campaign_pk)
+		except Campaign.DoesNotExist:
+			raise Http404
+
+		if campaign.user_id == request.user.pk:
+			page_vars = {"page_title": "New Message"}
+			if request.method == "POST":
+				# Process POST DATA...
+				pass
+			else:
+				# Process GET DATA...
+				page_vars['form'] = MessageForm()
+				csrfContext = RequestContext(request, page_vars)
+				return render(request, 'user_campaign_message_new.html', csrfContext)
+
+	raise Http404
 
 # The user-campaign-message-events-view will show all of the events associated with a particular message
 def user_campaign_message_events(request, param_username, param_campaign_pk, param_message_pk):
