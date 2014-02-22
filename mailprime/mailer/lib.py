@@ -24,7 +24,6 @@ def current_user(request):
 	if request.user.is_authenticated():
 		return True
 	else:
-		messages.add_message(request, messages.WARNING, 'You must be logged in')
 		return False
 
 def logout_user(request):

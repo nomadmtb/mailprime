@@ -88,7 +88,18 @@ def user_campaign_new(request, param_username):
 	if current_user(request) and request.user.username == param_username:
 		page_vars = {"page_title": "New Campaign"}
 		if request.method == 'POST':
-			test = []
+			completed_form = CampaignForm(request.POST)
+			print completed_form
+			if completed_form.is_valid:
+				campaign = completed_form.save(commit=False)
+				campaign.user = request.user
+				campaign.active = True
+				print campaign
+				campaign.save()
+				messages.add_message(request, messages.SUCCESS, 'Created New Campaign')
+				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(campaign.pk))
+			else:
+				return index(request)
 		elif request.method == "GET":
 			page_vars['form'] = CampaignForm()
 			csrfContext = RequestContext(request, page_vars)

@@ -19,7 +19,7 @@ class Campaign(models.Model):
 	"""This is the campaign class that describes an indivual devivery event"""
 	title = models.CharField(max_length=200)
 	about = models.TextField()
-	created_date = models.DateTimeField(auto_now_add=True)
+	created_date = models.DateTimeField(auto_now_add=True, blank=True)
 	active = models.BooleanField(default=True)
 	user = models.ForeignKey(User)
 

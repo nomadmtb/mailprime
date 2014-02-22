@@ -4,8 +4,6 @@
 
 <h2>Create New Campaign</h2>
 
-{% endblock %}
-
 <form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
 	{% csrf_token %}
 
@@ -18,6 +16,9 @@
 	{% endfor %}
 	<input type="submit" name="submit" value="Create Campaign" />
 </form>
+
+{% endblock %}
+
 {% block header %}
 <h5 id="header_title">Create a new campaign</h5>
 <p id="header_desc">Create a new campaign by completing the form below.</p>
