@@ -12,4 +12,4 @@ checkfornotice = ->
 		setTimeout (->
 			$("#notice_wrapper").slideToggle "fast"
 			return
-			), 2000
+			), ($(".notice").length * 2000)

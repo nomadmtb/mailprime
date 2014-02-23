@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from mailer.lib import authenticate_user, current_user, logout_user, geo_locate
+from mailer.lib import authenticate_user, current_user, logout_user, geo_locate, generate_form_errors
 from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
@@ -92,7 +92,7 @@ def user_campaign_new(request, param_username):
 
 			completed_form = CampaignForm(request.POST)
 
-			if completed_form.is_valid:
+			if completed_form.is_valid():
 
 				campaign = completed_form.save(commit=False)
 				campaign.user = request.user
@@ -103,6 +103,7 @@ def user_campaign_new(request, param_username):
 
 				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(campaign.pk))
 			else:
+				generate_form_errors(request, completed_form)
 				return index(request)
 				
 		elif request.method == "GET":

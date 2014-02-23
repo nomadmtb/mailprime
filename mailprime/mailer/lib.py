@@ -31,6 +31,12 @@ def logout_user(request):
 	messages.add_message(request, messages.INFO, 'You have successfully logged out')
 	return True
 
+def generate_form_errors(request, form):
+	for field in form:
+		for error in field.errors:
+			messages.add_message(request, messages.ERROR, 'ERROR ' + field.label + ': ' + error)
+	return request
+
 def geo_locate(param_ip_address):
 	coordinates = {}
 	response = requests.get('http://freegeoip.net/json/' + param_ip_address).json()

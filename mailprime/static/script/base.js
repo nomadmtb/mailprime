@@ -13,6 +13,6 @@ checkfornotice = function() {
     }), 300);
     return setTimeout((function() {
       $("#notice_wrapper").slideToggle("fast");
-    }), 2000);
+    }), $(".notice").length * 2000);
   }
 };
