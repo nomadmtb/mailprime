@@ -1,15 +1,19 @@
-from django.forms import ModelForm, Textarea
+from django import forms
 from mailer.models import Campaign, Message
 
 # Model Forms for the Application
 
-class CampaignForm(ModelForm):
+class CampaignForm(forms.ModelForm):
 	class Meta:
 		model = Campaign
 		fields = ['title', 'about']
-		widgets = { 'about': Textarea(attrs={'cols': 35, 'rows': 6})}
+		widgets = { 'about': forms.Textarea(attrs={'cols': 35, 'rows': 6})}
 
-class MessageForm(ModelForm):
+class MessageForm(forms.ModelForm):
 	class Meta:
 		model = Message
 		fields = ['title', 'body', 'template', 'deploy_date']
+
+class LoginForm(forms.Form):
+	username = forms.CharField(max_length=50)
+	password = forms.CharField(max_length=50, widget=forms.PasswordInput)

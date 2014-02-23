@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
-from mailer.forms import CampaignForm, MessageForm
+from mailer.forms import CampaignForm, MessageForm, LoginForm
 
 # Homepage for the application
 def index(request):
@@ -15,18 +15,20 @@ def index(request):
 
 # The login page for the application.
 def login(request):
-	data = { "page_title": "login" }
-	csrfContext = RequestContext(request, data)
+	page_vars = { "page_title": "login" }
 
 	if request.method == 'POST':
+
 		if authenticate_user(request, request.POST['username'], request.POST['password']):
 			return HttpResponseRedirect('/' + request.user.username + '/campaigns')
 		else:
 			return HttpResponseRedirect('/login')
-	else:
+	elif request.method == 'GET':
 		if current_user(request):
 			return HttpResponseRedirect('/')
 		else:
+			page_vars['form'] = LoginForm()
+			csrfContext = RequestContext(request, page_vars)
 			return render(request, 'login.html', csrfContext)
 
 # The logout view that will logout the user.
