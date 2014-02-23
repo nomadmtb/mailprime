@@ -104,7 +104,8 @@ def user_campaign_new(request, param_username):
 				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(campaign.pk))
 			else:
 				generate_form_errors(request, completed_form)
-				return index(request)
+				page_vars['form'] = completed_form
+				return render(request, 'user_campaign_new.html', page_vars)
 				
 		elif request.method == "GET":
 			page_vars['form'] = CampaignForm()
