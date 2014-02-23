@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<h2>Create New Campaign</h2>
-
 <div class="form_wrapper">
 <form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
 	{% csrf_token %}

@@ -157,6 +157,7 @@ nav {
 	.clear_area_center;
 	max-width: @content-max-width;
 	width: @content-width;
+	padding: 0;
 }
 
 .rounded_border {
@@ -199,6 +200,14 @@ header {
 
 #header_desc {
 	.font(header_desc, @color-dark);
+}
+
+section[id="main"] {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	padding-top: 30px;
+	background-image: url('/static/images/white_pattern.png')
 }
 
 // FORM STYLING...

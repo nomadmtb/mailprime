@@ -114,9 +114,9 @@ nav {
 }
 .content_wrapper {
   margin: 0 auto;
-  padding: 0;
   max-width: 1200px;
   width: 85%;
+  padding: 0;
 }
 .rounded_border {
   border-radius: 5px;
@@ -163,6 +163,13 @@ header {
   font-weight: 300;
   color: #525453;
   font-size: 30px;
+}
+section[id="main"] {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-top: 30px;
+  background-image: url('/static/images/white_pattern.png');
 }
 .form_wrapper {
   width: 550px;
