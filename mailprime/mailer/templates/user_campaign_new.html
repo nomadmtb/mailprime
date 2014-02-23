@@ -4,6 +4,7 @@
 
 <h2>Create New Campaign</h2>
 
+<div class="form_wrapper">
 <form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
 	{% csrf_token %}
 
@@ -11,11 +12,19 @@
 		{{ hidden }}
 	{% endfor %}
 
+	<ul class="form_item">
 	{% for field in form.visible_fields %}
+	<li>
+		{{ field.label_tag }}
 		{{ field }}
+		<div class="clear_float"></div>
+	</li>
 	{% endfor %}
+	</ul>
+	<div class="clear_float"></div>
 	<input type="submit" name="submit" value="Create Campaign" />
 </form>
+</div>
 
 {% endblock %}
 

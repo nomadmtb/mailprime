@@ -164,3 +164,54 @@ header {
   color: #525453;
   font-size: 30px;
 }
+.form_wrapper {
+  width: 550px;
+  margin: 0 auto;
+  padding: 35px;
+  background-color: #7ccbf2;
+  border-radius: 5px;
+  border: 1px solid #bed9e6;
+}
+.form_wrapper ul {
+  margin: 0;
+  padding: 0;
+}
+.form_wrapper ul li {
+  margin: 0;
+  padding-bottom: 15px;
+  list-style-type: none;
+}
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #000000;
+  font-size: 25px;
+}
+input[type="text"] {
+  display: inline-block;
+  float: right;
+  width: 420px;
+}
+input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+textarea {
+  display: inline-block;
+  float: right;
+  width: 420px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #000000;
+  font-size: 14px;
+  resize: none;
+}
+label {
+  display: inline-block;
+  float: left;
+  padding-top: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #000000;
+}
