@@ -80,6 +80,9 @@ def user_campaign(request, param_username, param_campaign_pk):
 		except Campaign.DoesNotExist:
 			raise Http404
 
+		if user_campaign.user.username != request.user.username:
+			raise Http404
+
 		page_vars['campaign'] = user_campaign
 		return render(request, 'user_campaign.html', page_vars)
 	else:
@@ -135,6 +138,9 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 	try:
 		campaign = Campaign.objects.get(pk = param_campaign_pk)
 	except Campaign.DoesNotExist:
+		raise Http404
+
+	if campaign.user.username != request.user.username:
 		raise Http404
 
 	page_vars['campaign'] = campaign;
