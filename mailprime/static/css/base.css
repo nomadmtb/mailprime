@@ -1,3 +1,7 @@
+html,
+body {
+  height: 100%;
+}
 html {
   font-family: 'Open Sans', sans-serif;
 }
@@ -170,6 +174,7 @@ section[id="main"] {
   padding: 0;
   padding-top: 30px;
   background-image: url('/static/images/white_pattern.png');
+  height: 100%;
 }
 .form_wrapper {
   width: 550px;
