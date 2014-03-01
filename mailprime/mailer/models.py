@@ -8,6 +8,34 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	"""This is the class that extends the User Class"""
+
+	TIME_ZONES = (
+		(-11, 'UTC -11:00'),
+		(-10, 'UTC -10:00'),
+		(-9, 'UTC -09:00'),
+		(-8, 'UTC -08:00'),
+		(-7, 'UTC -07:00'),
+		(-6, 'UTC -06:00'),
+		(-5, 'UTC -05:00'),
+		(-4, 'UTC -04:00'),
+		(-3, 'UTC -03:00'),
+		(-2, 'UTC -02:00'),
+		(-1, 'UTC -01:00'),
+		(0, 'UTC 00:00'),
+		(1, 'UTC +01:00'),
+		(2, 'UTC +02:00'),
+		(3, 'UTC +03:00'),
+		(4, 'UTC +04:00'),
+		(5, 'UTC +05:00'),
+		(6, 'UTC +06:00'),
+		(7, 'UTC +07:00'),
+		(8, 'UTC +08:00'),
+		(9, 'UTC +09:00'),
+		(10, 'UTC +10:00'),
+		(11, 'UTC +11:00'),
+		(12, 'UTC +12:00'),
+	)
+
 	public_email = models.EmailField(max_length=254)
 	agree_terms = models.BooleanField(default=False)
 	user = models.OneToOneField(User)

@@ -193,6 +193,11 @@ input[type="password"] {
   float: right;
   width: 100%;
 }
+select[id="id_template"] {
+  display: inline-block;
+  float: right;
+  width: 100%;
+}
 input[type="submit"] {
   margin: 0 auto;
   margin-top: 30px;

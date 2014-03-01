@@ -29,7 +29,7 @@ def login(request):
 		else:
 			page_vars['form'] = LoginForm()
 			csrfContext = RequestContext(request, page_vars)
-			return render(request, 'login.html', csrfContext)
+			return render(request, 'auth/login.html', csrfContext)
 
 # The logout view that will logout the user.
 def logout(request):
@@ -55,67 +55,6 @@ def user_account(request, param_username):
 			return render(request, 'user_account.html', page_vars)
 		else:
 			raise Http404
-	else:
-		raise Http404
-
-# The user campaigns view that will show all of the campaigns belonging to the user.
-def user_campaigns(request, param_username):
-	page_vars = { "page_title": request.user.username + '\'s campaigns' }
-
-	if current_user(request) and param_username == request.user.username:
-		user_campaigns = Campaign.objects.filter(user = request.user)
-		page_vars['campaigns'] = user_campaigns
-		return render(request, 'user_campaigns.html', page_vars)
-	else:
-		raise Http404
-
-# The user campaign view will show the campaign data belonging to a PARTICULAR user.
-def user_campaign(request, param_username, param_campaign_pk):
-	page_vars = {"page_title": 'Campaign View'}
-
-	if current_user(request) and request.user.username == param_username:
-
-		try:
-			user_campaign = Campaign.objects.get(pk = param_campaign_pk)
-		except Campaign.DoesNotExist:
-			raise Http404
-
-		if user_campaign.user.username != request.user.username:
-			raise Http404
-
-		page_vars['campaign'] = user_campaign
-		return render(request, 'user_campaign.html', page_vars)
-	else:
-		raise Http404
-
-def user_campaign_new(request, param_username):
-
-	if current_user(request) and request.user.username == param_username:
-		page_vars = {"page_title": "New Campaign"}
-
-		if request.method == 'POST':
-
-			completed_form = CampaignForm(request.POST)
-
-			if completed_form.is_valid():
-
-				campaign = completed_form.save(commit=False)
-				campaign.user = request.user
-				campaign.active = True
-				campaign.save()
-
-				messages.add_message(request, messages.SUCCESS, 'Created New Campaign')
-
-				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(campaign.pk))
-			else:
-				generate_form_errors(request, completed_form)
-				page_vars['form'] = completed_form
-				return render(request, 'user_campaign_new.html', page_vars)
-				
-		elif request.method == "GET":
-			page_vars['form'] = CampaignForm()
-			csrfContext = RequestContext(request, page_vars)
-			return render(request, 'user_campaign_new.html', csrfContext)
 	else:
 		raise Http404
 
@@ -148,7 +87,7 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
 		campaign_messages = Message.objects.filter(campaign__pk = param_campaign_pk)
 		page_vars['campaign_messages'] = campaign_messages
-		return render(request, 'user_campaign_messages.html', page_vars)
+		return render(request, 'message/index.html', page_vars)
 	else:
 		raise Http404
 
@@ -164,7 +103,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 			raise Http404
 
 		page_vars['message'] = message
-		return render(request, 'user_campaign_message.html', page_vars)
+		return render(request, 'message/show.html', page_vars)
 
 	else:
 		raise Http404
@@ -179,6 +118,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 
 		if campaign.user_id == request.user.pk:
 			page_vars = {"page_title": "New Message"}
+			page_vars['campaign'] = campaign
 			if request.method == "POST":
 				# Process POST DATA...
 				pass
@@ -186,7 +126,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 				# Process GET DATA...
 				page_vars['form'] = MessageForm()
 				csrfContext = RequestContext(request, page_vars)
-				return render(request, 'user_campaign_message_new.html', csrfContext)
+				return render(request, 'message/new.html', csrfContext)
 
 	raise Http404
 
@@ -249,10 +189,10 @@ def message_statistics(request, param_username, param_campaign_pk, param_message
 	page_vars = {}
 	page_vars['page_title'] = 'Message Statistics'
 
-	return render(request, 'message_statistics.html', page_vars)
+	return render(request, 'message/stats.html', page_vars)
 
 def campaign_statistics(request, param_username, param_campaign_pk):
 	page_vars = {}
 	page_vars['page_title'] = 'Campaign Statistics'
 
-	return render(request, 'campaign_statistics.html', page_vars)
+	return render(request, 'campaign/stats.html', page_vars)
