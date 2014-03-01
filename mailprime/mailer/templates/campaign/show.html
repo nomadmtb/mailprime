@@ -1,9 +1,41 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<div class="solid_bg">
 
-<a href="/{{ user.username }}/campaign-{{ campaign.pk }}/messages">{{ campaign.title }}</a>
+<h1>Campaign Details</h1>
 
+<table class="full_width">
+	<tr>
+		<td>Title</td>
+		<td>{{ campaign.title }}</td>
+	</tr>
+	<tr>
+		<td>Created Date</td>
+		<td>{{ campaign.created_date|date }}</td>
+	</tr>
+	<tr>
+		<td>Active Campaign</td>
+		<td>{{ campaign.active }}</td>
+	</tr>
+	<tr>
+		<td>Owner</td>
+		<td>{{ campaign.user }}</td>
+	</tr>
+	<tr>
+		<td>Messages</td>
+		<td>{{ message_count }}</td>
+	</tr>
+</table>
+
+<table class="ninety_center">
+	<tr>
+		<td><a class="link_button" href="/{{ user.username }}/campaign-{{ campaign.pk }}/messages">View Messages ({{ message_count }})</a></td>
+		<td><a class="link_button" href="/{{ user.username }}/campaign-{{ campaign.pk }}/edit">Edit Campaign</a></td>
+	</tr>
+</table>
+
+</div>
 {% endblock %}
 
 {% block header %}

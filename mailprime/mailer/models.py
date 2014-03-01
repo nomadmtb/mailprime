@@ -38,6 +38,7 @@ class Profile(models.Model):
 
 	public_email = models.EmailField(max_length=254)
 	agree_terms = models.BooleanField(default=False)
+	time_zone = models.IntegerField(choices=TIME_ZONES, default=0, blank=False)
 	user = models.OneToOneField(User)
 
 	def __unicode__(self):
