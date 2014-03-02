@@ -49,6 +49,7 @@ class Campaign(models.Model):
 	title = models.CharField(max_length=200)
 	about = models.TextField()
 	created_date = models.DateTimeField(auto_now_add=True, blank=True)
+	updated_date = models.DateTimeField(auto_now=True)
 	active = models.BooleanField(default=True)
 	user = models.ForeignKey(User)
 

@@ -2,10 +2,11 @@
 
 {% block content %}
 
-<h1>Edit Campaign: {{ campaign.title }}</h1>
+<div class="solid_bg">
+<h1>Edit Campaign</h1>
 
 <div class="form_wrapper">
-<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
+<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/edit">
 	{% csrf_token %}
 
 	{% for hidden in form.hidden_fields %}
@@ -22,8 +23,9 @@
 	{% endfor %}
 	</ul>
 	<div class="clear_float"></div>
-	<input type="submit" name="submit" value="Create Campaign" />
+	<input type="submit" name="submit" value="Update Campaign" />
 </form>
+</div>
 </div>
 
 {% endblock %}

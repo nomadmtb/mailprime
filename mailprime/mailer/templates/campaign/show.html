@@ -12,7 +12,11 @@
 	</tr>
 	<tr>
 		<td>Created Date</td>
-		<td>{{ campaign.created_date|date }}</td>
+		<td>{{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td>
+	</tr>
+	<tr>
+		<td>Updated Date</td>
+		<td>{{ campaign.updated_date|date:"M d, Y" }} {{ campaign.updated_date|time:"P" }}</td>
 	</tr>
 	<tr>
 		<td>Active Campaign</td>

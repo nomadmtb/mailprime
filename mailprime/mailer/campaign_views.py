@@ -84,6 +84,8 @@ def user_campaign_edit(request, param_username, param_campaign_pk):
 		except Campaign.DoesNotExist:
 			raise Http404
 
+		page_vars['campaign'] = user_campaign
+
 		if user_campaign.user == request.user:
 
 			if request.method == "GET":
