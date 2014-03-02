@@ -1,5 +1,5 @@
 from django import forms
-from mailer.models import Campaign, Message
+from mailer.models import Campaign, Message, Profile
 
 # Model Forms for the Application
 
@@ -17,3 +17,8 @@ class MessageForm(forms.ModelForm):
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50)
 	password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ['public_email', 'time_zone']

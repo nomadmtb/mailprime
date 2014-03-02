@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
-from mailer.forms import CampaignForm, MessageForm, LoginForm
+from mailer.forms import CampaignForm, MessageForm, LoginForm, ProfileForm
 
 # Homepage for the application
 def index(request):
@@ -43,17 +43,18 @@ def terms_of_service(request):
 def user_account(request, param_username):
 	page_vars = { "page_title": "Account: " + request.user.username }
 
-	if current_user(request):
+	if current_user(request) and param_username == request.user.username:
 
 		try:
 			requested_user = User.objects.get(username=param_username)
 		except User.DoesNotExist:
 			raise Http404
+
+		if request.method == "GET":
+			page_vars['form'] = ProfileForm(instance=requested_user.profile)
+			csrfContext = RequestContext(request, page_vars)
 			
-		if requested_user.username == request.user.username:
-			page_vars['user'] = request.user
-			return render(request, 'auth/user_account.html', page_vars)
-		else:
-			raise Http404
+			return render(request, 'auth/user_account.html', csrfContext)
+		
 	else:
 		raise Http404

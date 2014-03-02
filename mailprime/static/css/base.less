@@ -170,6 +170,7 @@ nav {
 	padding: 15px;
 	.rounded_border;
 	border: 1px solid @color-important;
+	margin: 0;
 }
 
 .content_wrapper {
@@ -177,6 +178,7 @@ nav {
 	max-width: @content-max-width;
 	width: @content-width;
 	padding: 0;
+	height: 100%;
 }
 
 .rounded_border {
@@ -325,7 +327,19 @@ input[type="password"] {
 	width: 100%;
 }
 
+input[type="email"] {
+	display: inline-block;
+	float: right;
+	width: 100%;
+}
+
 select[id="id_template"] {
+	display: inline-block;
+	float: right;
+	width: 100%;
+}
+
+select[id="id_time_zone"] {
 	display: inline-block;
 	float: right;
 	width: 100%;

@@ -13,7 +13,7 @@ def user_campaigns(request, param_username):
 	page_vars = { "page_title": request.user.username + '\'s campaigns' }
 
 	if current_user(request) and param_username == request.user.username:
-		user_campaigns = Campaign.objects.filter(user = request.user)
+		user_campaigns = Campaign.objects.filter(user = request.user).order_by('-created_date')
 		page_vars['campaigns'] = user_campaigns
 		return render(request, 'campaign/index.html', page_vars)
 	else:

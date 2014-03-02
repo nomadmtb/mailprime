@@ -127,12 +127,14 @@ nav {
   border-radius: 5px;
   border: 1px solid #ffffff;
   border: 1px solid #7ccbf2;
+  margin: 0;
 }
 .content_wrapper {
   margin: 0 auto;
   max-width: 1200px;
   width: 85%;
   padding: 0;
+  height: 100%;
 }
 .rounded_border {
   border-radius: 5px;
@@ -268,7 +270,17 @@ input[type="password"] {
   float: right;
   width: 100%;
 }
+input[type="email"] {
+  display: inline-block;
+  float: right;
+  width: 100%;
+}
 select[id="id_template"] {
+  display: inline-block;
+  float: right;
+  width: 100%;
+}
+select[id="id_time_zone"] {
   display: inline-block;
   float: right;
   width: 100%;
