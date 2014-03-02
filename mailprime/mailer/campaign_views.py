@@ -40,7 +40,6 @@ def user_campaign(request, param_username, param_campaign_pk):
 		raise Http404
 
 def user_campaign_new(request, param_username):
-
 	if current_user(request) and request.user.username == param_username:
 		page_vars = {"page_title": "New Campaign"}
 
@@ -75,3 +74,19 @@ def campaign_statistics(request, param_username, param_campaign_pk):
 	page_vars['page_title'] = 'Campaign Statistics'
 
 	return render(request, 'campaign/stats.html', page_vars)
+
+def user_campaign_edit(request, param_username, param_campaign_pk):
+	page_vars = {"page_title": "Edit Campaign"}
+
+	if current_user(request) and param_username == request.user.username:
+		try:
+			user_campaign = Campaign.objects.get(pk = param_campaign_pk)
+		except Campaign.DoesNotExist:
+			raise Http404
+
+		if user_campaign.user == request.user:
+
+			if request.method == "GET":
+				page_vars['form'] = CampaignForm(instance=user_campaign)
+				csrfContext = RequestContext(request, page_vars)
+				return render(request, 'campaign/edit.html', csrfContext)

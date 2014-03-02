@@ -176,6 +176,9 @@ section[id="main"] {
   width: 90%;
   margin: 0 auto;
 }
+.ninety_center td {
+  width: 50%;
+}
 .form_wrapper {
   width: 70%;
   margin: 0 auto;

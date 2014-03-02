@@ -3,7 +3,7 @@
 {% block content %}
 <div class="solid_bg">
 
-<h1>Campaign Details</h1>
+<h1>Campaign Details: {{ campaign.title }}</h1>
 
 <table class="full_width">
 	<tr>
@@ -23,7 +23,7 @@
 		<td>{{ campaign.user }}</td>
 	</tr>
 	<tr>
-		<td>Messages</td>
+		<td>Message Count</td>
 		<td>{{ message_count }}</td>
 	</tr>
 </table>

@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<h1>Edit Campaign: {{ campaign.title }}</h1>
+
+<div class="form_wrapper">
+<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
+	{% csrf_token %}
+
+	{% for hidden in form.hidden_fields %}
+		{{ hidden }}
+	{% endfor %}
+
+	<ul class="form_item">
+	{% for field in form.visible_fields %}
+	<li>
+		{{ field.label_tag }}
+		{{ field }}
+		<div class="clear_float"></div>
+	</li>
+	{% endfor %}
+	</ul>
+	<div class="clear_float"></div>
+	<input type="submit" name="submit" value="Create Campaign" />
+</form>
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Edit your campaign</h5>
+<p id="header_desc">Update your existing campaign with the options below.</p>
+{% endblock header %}
