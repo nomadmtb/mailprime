@@ -34,7 +34,7 @@ def logout_user(request):
 def generate_form_errors(request, form):
 	for field in form:
 		for error in field.errors:
-			messages.add_message(request, messages.ERROR, 'ERROR: ' + field.label + ', ' + error)
+			messages.add_message(request, messages.ERROR, 'ERROR: ' + unicode(field.label) + ', ' + unicode(error))
 	return request
 
 def geo_locate(param_ip_address):
