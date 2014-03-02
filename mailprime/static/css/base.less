@@ -282,11 +282,29 @@ section[id="main"] {
 	.button_small(@color-important, @color-black);
 }
 
+.link_button_center {
+	.button_small(@color-important, @color-black);
+	width: 35%;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+
 table[class='full_width'] {
 	width: 100%;
 
+	th {
+		text-align: left;
+	}
+
 	td {
 		padding: @table-td-padding;
+
+		a {
+			text-decoration: none;
+			&:hover {
+				color: @color-important;
+			}
+		}
 	}
 }
 

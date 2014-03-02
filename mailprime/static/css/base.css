@@ -215,11 +215,42 @@ section[id="main"] {
   color: #525453;
   border: 1px solid #525453;
 }
+.link_button_center {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  background-color: #7ccbf2;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #000000;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  text-align: center;
+  width: 35%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+.link_button_center:hover {
+  background-color: #bed9e6;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #525453;
+  border: 1px solid #525453;
+}
 table[class='full_width'] {
   width: 100%;
 }
+table[class='full_width'] th {
+  text-align: left;
+}
 table[class='full_width'] td {
   padding: 5px;
+}
+table[class='full_width'] td a {
+  text-decoration: none;
+}
+table[class='full_width'] td a:hover {
+  color: #7ccbf2;
 }
 input {
   font-family: 'Open Sans', sans-serif;

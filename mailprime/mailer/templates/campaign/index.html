@@ -2,13 +2,32 @@
 
 {% block content %}
 
-<h2>User Campaigns</h2>
+<div class="solid_bg">
 
+<h2>{{ user.username }}'s MailPrime Campaigns</h2>
+
+<table class="full_width">
+<tr>
+	<th>Title</th>
+	<th>Date Created</th>
+	<th>Status</th>
+</tr>
 {% for campaign in campaigns %}
-	<a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a>
-{% endfor %}
 
-<a class="button_main" href="/{{ user.username }}/campaigns/new">New Campaign</a>
+<tr>
+	<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a></td>
+	<td>{{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td>
+	{% if campaign.active %}
+		<td><img src="/static/images/bueno.png" height="18px" /></td>
+	{% else %}
+		<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+	{% endif %}
+
+{% endfor %}
+</table>
+
+<a class="link_button_center" href="/{{ user.username }}/campaigns/new">New Campaign</a>
+</div>
 
 {% endblock %}
 
