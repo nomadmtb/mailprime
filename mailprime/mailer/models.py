@@ -3,6 +3,7 @@ import hashlib
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+import string
 
 # Create your models here.
 
@@ -59,6 +60,43 @@ class Campaign(models.Model):
 	def link(self):
 		return '/home/' + str(self.pk)
 
+class Message(models.Model):
+	"""This class holds the settings and content for the HTML templates"""
+	title = models.CharField(max_length=200)
+	body = models.TextField()
+	link = models.URLField(max_length=200)
+	template = models.ForeignKey('Template')
+	campaign = models.ForeignKey('Campaign')
+	created_date = models.DateTimeField(auto_now_add=True)
+	deploy_date = models.DateTimeField()
+	message_id = models.CharField(max_length=200, blank=True)
+
+	def save(self, *args, **kwargs):
+		if self.pk is None:
+			self.message_id = hashlib.sha1(str(datetime.now()) + self.title + settings.MESSAGE_SALT).hexdigest()
+		super(Message, self).save(*args, **kwargs)
+
+	def build_messages(self):
+		messages = []
+		seleted_campaign = self.campaign
+		recipients = Recipient.objects.filter(campaign=seleted_campaign)
+		selected_template = self.template
+
+		for recipient in recipients:
+			built_template = string.replace(selected_template.content, "{{ campaign_title }}", seleted_campaign.title)
+			built_template = string.replace(built_template, "{{ title }}", self.title)
+			built_template = string.replace(built_template, "{{ owner_email }}", seleted_campaign.user.email)
+			built_template = string.replace(built_template, "{{ recipient_email }}", recipient.email)
+			built_template = string.replace(built_template, "{{ body }}", self.body)
+			built_template = string.replace(built_template, "{{ link }}", self.link)
+			messages.append(built_template)
+
+		return messages
+
+	def __unicode__(self):
+		return self.title
+
+
 class Recipient(models.Model):
 	"""This is the class that will hold contact information"""
 	email = models.EmailField(max_length=254)
@@ -91,24 +129,6 @@ class Template(models.Model):
 	"""This is the class that will hold the different HTML template data for the messages"""
 	title = models.CharField(max_length=200)
 	content = models.TextField()
-
-	def __unicode__(self):
-		return self.title
-
-class Message(models.Model):
-	"""This class holds the settings and content for the HTML templates"""
-	title = models.CharField(max_length=200)
-	body = models.TextField()
-	template = models.ForeignKey('Template')
-	campaign = models.ForeignKey('Campaign')
-	created_date = models.DateTimeField(auto_now_add=True, blank=True)
-	deploy_date = models.DateTimeField()
-	message_id = models.CharField(max_length=200, blank=True)
-
-	def save(self, *args, **kwargs):
-		if self.pk is None:
-			self.message_id = hashlib.sha1(str(datetime.now()) + self.title + settings.MESSAGE_SALT).hexdigest()
-		super(Message, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.title
