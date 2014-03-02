@@ -84,6 +84,9 @@ def user_campaign_edit(request, param_username, param_campaign_pk):
 		except Campaign.DoesNotExist:
 			raise Http404
 
+		if user_campaign.user != request.user:
+			raise Http404
+
 		page_vars['campaign'] = user_campaign
 
 		if user_campaign.user == request.user:
@@ -92,3 +95,15 @@ def user_campaign_edit(request, param_username, param_campaign_pk):
 				page_vars['form'] = CampaignForm(instance=user_campaign)
 				csrfContext = RequestContext(request, page_vars)
 				return render(request, 'campaign/edit.html', csrfContext)
+
+			elif request.method == "POST":
+				completed_form = CampaignForm(request.POST, instance=user_campaign)
+
+				if completed_form.is_valid():
+					completed_form.save()
+					messages.add_message(request, messages.SUCCESS, 'Successfully Updated Campaign')
+					return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(user_campaign.pk))
+				else:
+					generate_form_errors(request, completed_form)
+					page_vars['form'] = completed_form
+					return render(request, 'campaign/edit.html', page_vars)
