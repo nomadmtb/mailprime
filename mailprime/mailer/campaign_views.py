@@ -33,6 +33,9 @@ def user_campaign(request, param_username, param_campaign_pk):
 		if user_campaign.user.username != request.user.username:
 			raise Http404
 
+		if user_campaign.active == False:
+			messages.add_message(request, messages.ERROR, 'Campaign disabled by MailPrime Administrator')
+
 		page_vars['campaign'] = user_campaign
 		page_vars['message_count'] = Message.objects.filter(campaign = user_campaign).count()
 		return render(request, 'campaign/show.html', page_vars)
@@ -92,9 +95,19 @@ def user_campaign_edit(request, param_username, param_campaign_pk):
 		if user_campaign.user == request.user:
 
 			if request.method == "GET":
-				page_vars['form'] = CampaignForm(instance=user_campaign)
-				csrfContext = RequestContext(request, page_vars)
-				return render(request, 'campaign/edit.html', csrfContext)
+				action = request.GET.get('action')
+
+				if action == "delete":
+					# We want to delete the campaign
+					Campaign.objects.filter(pk=param_campaign_pk).delete()
+					messages.add_message(request, messages.SUCCESS, 'Successfully deleted Campaign')
+					return HttpResponseRedirect('/' + request.user.username + '/campaigns')
+
+				else:
+					# We want to edit the campaign, render form				
+					page_vars['form'] = CampaignForm(instance=user_campaign)
+					csrfContext = RequestContext(request, page_vars)
+					return render(request, 'campaign/edit.html', csrfContext)
 
 			elif request.method == "POST":
 				completed_form = CampaignForm(request.POST, instance=user_campaign)

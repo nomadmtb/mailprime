@@ -2,28 +2,31 @@
 
 {% block content %}
 
-<h1>Start a new Campaign</h1>
+<div class="solid_bg">
 
-<div class="form_wrapper">
-<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
-	{% csrf_token %}
+	<h1>Start a new Campaign</h1>
 
-	{% for hidden in form.hidden_fields %}
-		{{ hidden }}
-	{% endfor %}
+	<div class="form_wrapper">
+		<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
+			{% csrf_token %}
 
-	<ul class="form_item">
-	{% for field in form.visible_fields %}
-	<li>
-		{{ field.label_tag }}
-		{{ field }}
-		<div class="clear_float"></div>
-	</li>
-	{% endfor %}
-	</ul>
-	<div class="clear_float"></div>
-	<input type="submit" name="submit" value="Create Campaign" />
-</form>
+			{% for hidden in form.hidden_fields %}
+			{{ hidden }}
+			{% endfor %}
+
+			<ul class="form_item">
+				{% for field in form.visible_fields %}
+				<li>
+					{{ field.label_tag }}
+					{{ field }}
+					<div class="clear_float"></div>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="clear_float"></div>
+			<input type="submit" name="submit" value="Create Campaign" />
+		</form>
+	</div>
 </div>
 
 {% endblock %}
