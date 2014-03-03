@@ -107,6 +107,7 @@ class Recipient(models.Model):
 	email = models.EmailField(max_length=254)
 	created_date = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=False)
+	invited = models.BooleanField(default=False)
 	tracking_id = models.CharField(max_length=200, blank=True)
 	campaign = models.ForeignKey('Campaign')
 
