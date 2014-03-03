@@ -137,3 +137,11 @@ class Template(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class System_Template(models.Model):
+	"""This is the class that will hold the templates that are used by the system, internal only"""
+	title = models.CharField(max_length=200)
+	content = models.TextField()
+
+	def __unicode__(self):
+		return self.title

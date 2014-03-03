@@ -7,7 +7,7 @@
 	<h1>Update Account</h1>
 
 	<div class="form_wrapper">
-		<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
+		<form id="new_campaign_form" method="post" action="/{{ user.username }}/account">
 			{% csrf_token %}
 
 			{% for hidden in form.hidden_fields %}
