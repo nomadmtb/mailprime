@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
 import requests
+import os
 
 def authenticate_user(request, username, password):
 	user = authenticate(username=username, password=password)
@@ -49,3 +50,8 @@ def geo_locate(param_ip_address):
 		coordinates['longitude'] = response[u'longitude']
 
 	return coordinates
+
+def send_messages(param_messages):
+	for message in param_messages:
+		command = 'echo "{0}" | mail -a "Content-type: text/html" -s "{1}" {2}'.format(message['message'], message['subject'], message['to'])
+		os.system(command)
