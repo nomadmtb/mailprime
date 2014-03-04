@@ -63,6 +63,18 @@ def user_account(request, param_username):
 			csrfContext = RequestContext(request, page_vars)
 			
 			return render(request, 'auth/user_account.html', csrfContext)
+
+		elif request.method == "POST":
+			if current_user(request):
+				completed_form = UserProfileForm(request.POST)
+				if completed_form.is_valid():
+					messages.add_message(request, messages.SUCCESS, 'Hey It\'s Valid!!!')
+					return HttpResponseRedirect('/')
+				else:
+					generate_form_errors(request, completed_form)
+					return HttpResponseRedirect('/' + request.user.username + '/account')
+			else:
+				raise Http404
 		
 	else:
 		raise Http404
