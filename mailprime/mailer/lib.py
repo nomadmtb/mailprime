@@ -33,6 +33,11 @@ def logout_user(request):
 	return True
 
 def generate_form_errors(request, form):
+	# For ValidationErrors that are not associated with a particular form field.
+	for entry in form.non_field_errors():
+		messages.add_message(request, messages.ERROR, entry)
+
+	# For Errors associated with a particular form field.
 	for field in form:
 		for error in field.errors:
 			messages.add_message(request, messages.ERROR, 'ERROR: ' + unicode(field.label) + ', ' + unicode(error))

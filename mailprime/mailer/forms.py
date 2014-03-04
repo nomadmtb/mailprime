@@ -1,6 +1,7 @@
 from django import forms
 from mailer.models import Campaign, Message, Profile
 import pdb
+import re
 
 # Model Forms for the Application
 
@@ -54,6 +55,11 @@ class UserProfileForm(forms.Form):
 		if password != '' and password_confirm != '':
 			if password_confirm != password:
 				raise forms.ValidationError("Password: Passwords Must Match")
+			else:
+				pattern = re.compile('^[A-Za-z0-9]{8,50}$')
+				if pattern.match(password) is None:
+					raise forms.ValidationError("Password: Passwords must be letters and numbers, and between 8 and 50 characters")
+
 
 		if email == '':
 			raise forms.ValidationError("Email: Required Field")
