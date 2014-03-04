@@ -20,6 +20,12 @@ def login(request):
 	if request.method == 'POST':
 
 		if authenticate_user(request, request.POST['username'], request.POST['password']):
+			user_profile = Profile.objects.filter(user = request.user)
+
+			# Create Profile if User doesn't have one.
+			if not user_profile:
+				Profile(public_email=request.user.email, agree_terms=False, time_zone=0, user=request.user).save()
+
 			return HttpResponseRedirect('/' + request.user.username + '/campaigns')
 		else:
 			return HttpResponseRedirect('/login')
