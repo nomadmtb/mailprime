@@ -57,7 +57,9 @@ def user_account(request, param_username):
 			raise Http404
 
 		if request.method == "GET":
-			page_vars['form'] = UserProfileForm()
+			user_profile = Profile.objects.get(user = request.user)
+			init_values = {'public_email': user_profile.public_email, 'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'username': request.user.username, 'email': request.user.email}
+			page_vars['form'] = UserProfileForm(initial=init_values)
 			csrfContext = RequestContext(request, page_vars)
 			
 			return render(request, 'auth/user_account.html', csrfContext)
