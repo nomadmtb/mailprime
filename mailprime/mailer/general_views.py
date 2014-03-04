@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
-from mailer.forms import CampaignForm, MessageForm, LoginForm, ProfileForm
+from mailer.forms import CampaignForm, MessageForm, LoginForm, UserProfileForm
 
 # Homepage for the application
 def index(request):
@@ -57,7 +57,7 @@ def user_account(request, param_username):
 			raise Http404
 
 		if request.method == "GET":
-			page_vars['form'] = ProfileForm(instance=requested_user.profile)
+			page_vars['form'] = UserProfileForm()
 			csrfContext = RequestContext(request, page_vars)
 			
 			return render(request, 'auth/user_account.html', csrfContext)
