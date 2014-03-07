@@ -58,5 +58,5 @@ def geo_locate(param_ip_address):
 
 def send_messages(param_messages):
 	for message in param_messages:
-		command = 'echo "{0}" | mail -a "Content-type: text/html; charset=us-ascii" -a "MIME-Version: 1.0" -s "{1}" {2}'.format(message['message'], message['subject'], message['to'])
+		command = 'echo "{0}" | mail -a "Content-type: multipart/mixed; boundary="mess_bound" charset="UTF-8" -a "MIME-Version: 1.0" -s "{1}" {2}'.format(message['message'], message['subject'], message['to'])
 		os.system(command)
