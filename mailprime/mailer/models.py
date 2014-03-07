@@ -93,7 +93,7 @@ class Message(models.Model):
 			built_template = string.replace(built_template, "{{ date_today }}", (datetime.now().strftime('%Y-%m-%d %H:%M') + " "))
 			track_url = "http://127.0.0.1/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
 			built_template = string.replace(built_template, "{{ tracking_link }}", track_url)
-			built_template = re.sub('[\t\r\n]', '', str(built_template))
+			built_template = re.sub('[\t]', '', str(built_template))
 			message = {'to': str(recipient.email), 'from': str(seleted_campaign.user.email), 'subject': str(self.title), 'message': built_template}
 			messages.append(message)
 
