@@ -80,7 +80,7 @@ class Message(models.Model):
 	def build_messages(self):
 		messages = []
 		seleted_campaign = self.campaign
-		recipients = Recipient.objects.filter(campaign=seleted_campaign)
+		recipients = Recipient.objects.filter(campaign=seleted_campaign, active=True)
 		selected_template = self.template
 
 		for recipient in recipients:

@@ -254,6 +254,9 @@ table[class='full_width'] td a {
 table[class='full_width'] td a:hover {
   color: #7ccbf2;
 }
+tbody[class="center"] {
+  text-align: center;
+}
 input {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;

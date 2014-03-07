@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="solid_bg">
+
+	<h1>Campaign Recipients: {{ recipients.0.campaign }}</h1>
+
+	<table class="ninety_center">
+		<tr>
+			<th>Address</th>
+			<th>Invited</th>
+			<th>Approved</th>
+			<th>Action</th>
+		</tr>
+		<tbody class="center">
+			{% for recipient in recipients %}
+			<tr>
+				<td>{{ recipient.email }}</td>
+				{% if recipient.invited %}
+				<td><img src="/static/images/bueno.png" height="18px" /></td>
+				{% else %}
+				<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+				{% endif %}
+				{% if recipient.active %}
+				<td><img src="/static/images/bueno.png" height="18px" /></td>
+				{% else %}
+				<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+				{% endif %}
+				<td><a href="?delete={{ recipient.pk }}">Remove?</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+</div>
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Campaign Recipients</h5>
+<p id="header_desc">Manage recipients of your campaign below.</p>
+{% endblock header %}
