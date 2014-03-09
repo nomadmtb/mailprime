@@ -64,6 +64,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 
 				if completed_form.is_valid():
 					message = completed_form.save(commit=False)
+					message.campaign_id = param_campaign_pk
 					message.save()
 				else:
 					generate_form_errors(request, completed_form)

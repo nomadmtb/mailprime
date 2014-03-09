@@ -13,9 +13,10 @@ class CampaignForm(forms.ModelForm):
 		widgets = { 'about': forms.Textarea(attrs={'cols': 35, 'rows': 6})}
 
 class MessageForm(forms.ModelForm):
+	deploy_date = forms.DateField(label='Deploy Date')
 	class Meta:
 		model = Message
-		fields = ['title', 'body', 'template', 'deploy_date', 'deploy_hour']
+		fields = ['title', 'body', 'link', 'template', 'deploy_date', 'deploy_hour']
 
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50)
