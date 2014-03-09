@@ -38,6 +38,7 @@ def user_campaign(request, param_username, param_campaign_pk):
 
 		page_vars['campaign'] = user_campaign
 		page_vars['message_count'] = Message.objects.filter(campaign = user_campaign).count()
+		page_vars['recipient_count'] = Recipient.objects.filter(campaign = user_campaign).count()
 		return render(request, 'campaign/show.html', page_vars)
 	else:
 		raise Http404

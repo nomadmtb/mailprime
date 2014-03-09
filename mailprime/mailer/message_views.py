@@ -54,19 +54,28 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 		except Campaign.DoesNotExist:
 			raise Http404
 
-		if campaign.user_id == request.user.pk:
+		if campaign.user == request.user:
 			page_vars = {"page_title": "New Message"}
 			page_vars['campaign'] = campaign
+
 			if request.method == "POST":
-				# Process POST DATA...
-				pass
+				
+				completed_form = MessageForm(request.POST)
+
+				if completed_form.is_valid():
+					message = completed_form.save(commit=False)
+					message.save()
+				else:
+					generate_form_errors(request, completed_form)
+					page_vars['form'] = completed_form
+					return render(request, 'message/new.html', page_vars)
 			else:
 				# Process GET DATA...
 				page_vars['form'] = MessageForm()
 				csrfContext = RequestContext(request, page_vars)
 				return render(request, 'message/new.html', csrfContext)
-
-	raise Http404
+	else:
+		raise Http404
 
 def message_statistics(request, param_username, param_campaign_pk, param_message_pk):
 	page_vars = {}

@@ -1,7 +1,8 @@
 from django import forms
-from mailer.models import Campaign, Message, Profile
+from mailer.models import Campaign, Message, Profile, Template
 import pdb
 import re
+from datetime import datetime
 
 # Model Forms for the Application
 
@@ -14,7 +15,7 @@ class CampaignForm(forms.ModelForm):
 class MessageForm(forms.ModelForm):
 	class Meta:
 		model = Message
-		fields = ['title', 'body', 'template', 'deploy_date']
+		fields = ['title', 'body', 'template', 'deploy_date', 'deploy_hour']
 
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50)
