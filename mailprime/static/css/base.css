@@ -278,6 +278,11 @@ input[type="email"] {
   float: right;
   width: 100%;
 }
+input[name="link"] {
+  display: inline-block;
+  float: right;
+  width: 100%;
+}
 select[id="id_template"] {
   display: inline-block;
   float: right;

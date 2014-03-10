@@ -18,3 +18,9 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 		return render(request, 'recipient/index.html', page_vars)
 	else:
 		raise Http404
+
+def upload_recipients(request, param_username, param_campaign_pk):
+	pass
+
+def add_recipient(request, param_username, param_campaign_pk):
+	pass

@@ -23,7 +23,7 @@ def user_campaign_messages(request, param_username, param_campaign_pk):
 	page_vars['campaign'] = campaign;
 
 	if current_user(request) and request.user.username == param_username:
-		campaign_messages = Message.objects.filter(campaign__pk = param_campaign_pk)
+		campaign_messages = Message.objects.filter(campaign__pk = param_campaign_pk).order_by('-created_date')
 		page_vars['campaign_messages'] = campaign_messages
 		return render(request, 'message/index.html', page_vars)
 	else:

@@ -2,13 +2,29 @@
 
 {% block content %}
 
-<h2>Campaign Messages</h2>
+<div class="solid_bg">
+	<h2>Messages</h2>
 
-{% for campaign_message in campaign_messages %}
+	<table class="full_width">
+		<tr>
+			<th>Title</th>
+			<th>Created</th>
+			<th>Deploy</th>
+			<th>Deployed</th>
+		</tr>
+		{% for campaign_message in campaign_messages %}
 
-<a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title }}</a>
-
-{% endfor %}
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title }}</a></td>
+			<td>{{ campaign_message.created_date }}</td>
+			<td>{{ campaign_message.deploy_date }} @ {{ campaign_message.deploy_hour }}:00 UTC</td>
+			{% if campaign_message.deployed %}
+			<td><img src="/static/images/bueno.png" height="18px" /></td>
+			{% else %}
+			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+			{% endif %}
+		{% endfor %}
+	</table>
 
 {% endblock %}
 
