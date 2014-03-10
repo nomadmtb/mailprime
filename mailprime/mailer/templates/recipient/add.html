@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="solid_bg">
+
+	<h1>Add New Recipient</h1>
+
+	<div class="form_wrapper">
+		<form id="new_recipient_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients/add">
+			{% csrf_token %}
+
+			{% for hidden in form.hidden_fields %}
+			{{ hidden }}
+			{% endfor %}
+
+			<ul class="form_item">
+				{% for field in form.visible_fields %}
+				<li>
+					{{ field.label_tag }}
+					{{ field }}
+					<div class="clear_float"></div>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="clear_float"></div>
+			<input type="submit" name="submit" value="Create Campaign" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Create a new campaign</h5>
+<p id="header_desc">Create a new campaign by completing the form below.</p>
+{% endblock header %}

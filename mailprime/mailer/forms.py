@@ -1,5 +1,5 @@
 from django import forms
-from mailer.models import Campaign, Message, Profile, Template
+from mailer.models import Campaign, Message, Profile, Template, Recipient
 import pdb
 import re
 from datetime import datetime
@@ -11,6 +11,11 @@ class CampaignForm(forms.ModelForm):
 		model = Campaign
 		fields = ['title', 'about']
 		widgets = { 'about': forms.Textarea(attrs={'cols': 35, 'rows': 6})}
+
+class RecipientForm(forms.ModelForm):
+	class Meta:
+		model = Recipient
+		fields = ['email']
 
 class MessageForm(forms.ModelForm):
 	deploy_date = forms.DateField(label='Deploy Date')
