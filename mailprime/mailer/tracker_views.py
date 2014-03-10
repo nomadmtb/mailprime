@@ -24,8 +24,8 @@ def tracker_visit(request, param_recipient_hash, param_message_hash):
 
 	Event.objects.create(ip_address = request.META['REMOTE_ADDR'], latitude = coordinates['latitude'], longitude = coordinates['longitude'], recipient = contact, message = mess)
 
-	image = open("/Users/kgluce/Documents/programming/django/mailprime/mailprime/static/images/circle.jpg").read()
-	return HttpResponse(image, content_type="image/jpg")
+	image = open("/home/kgluce/mailprime/mailprime/static/images/icon.png").read()
+	return HttpResponse(image, content_type="image/png")
 
 def tracker_unsubscribe(request, param_recipient_hash):
 	try:
