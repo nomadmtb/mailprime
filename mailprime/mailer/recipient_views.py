@@ -35,5 +35,25 @@ def add_recipient(request, param_username, param_campaign_pk):
 
 			csrfContext = RequestContext(request, page_vars)
 			return render(request, 'recipient/add.html', csrfContext)
+		elif request.method == "POST":
+			completed_form = RecipientForm(request.POST)
+
+			if completed_form.is_valid():
+				recipient = completed_form.save(commit=False)
+
+				try:
+					campaign = Campaign.objects.get(pk=param_campaign_pk, user=request.user)
+				except Campaign.DoesNotExist:
+					raise Http404
+
+				recipient.campaign = campaign
+
+				# Send out invitation!!!
+				recipient.save()
+				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(campaign.pk) + '/recipients')
+			else:
+				generate_form_errors(request, completed_form)
+				page_vars['form'] = completed_form
+				return render(request, 'recipient/add.html', page_vars)
 	else:
 		raise Http404
