@@ -7,6 +7,7 @@ from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm
+import os
 
 # The user campaigns messages view will show the messages that belong to a specific campaign.
 def user_campaign_messages(request, param_username, param_campaign_pk):
