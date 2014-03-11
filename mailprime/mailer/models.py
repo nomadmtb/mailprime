@@ -101,6 +101,7 @@ class Message(models.Model):
 	deploy_date = models.DateField()
 	deploy_hour = models.IntegerField(choices=DEPLOY_HOURS, default=0, blank=False)
 	message_id = models.CharField(max_length=200, blank=True)
+	unsub_count = models.IntegerField(default=0)
 
 	def save(self, *args, **kwargs):
 		if self.pk is None:

@@ -11,6 +11,7 @@
 			<th>Created</th>
 			<th>Deploy</th>
 			<th>Deployed</th>
+			<th>Action</th>
 		</tr>
 		{% for campaign_message in campaign_messages %}
 
@@ -22,6 +23,7 @@
 			<td><img src="/static/images/bueno.png" height="18px" /></td>
 			{% else %}
 			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}?deploy={{ campaign_message.pk }}">Deploy Now</a></td>
 			{% endif %}
 		{% endfor %}
 	</table>
