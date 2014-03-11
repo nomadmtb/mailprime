@@ -66,6 +66,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 					message = completed_form.save(commit=False)
 					message.campaign_id = param_campaign_pk
 					message.save()
+					return HttpResponseRedirect('/'+ request.user.username + "/campaign-" + str(message.campaign.id) + "/messages")
 				else:
 					generate_form_errors(request, completed_form)
 					page_vars['form'] = completed_form
