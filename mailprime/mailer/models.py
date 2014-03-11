@@ -123,6 +123,8 @@ class Message(models.Model):
 			built_template = string.replace(built_template, "{{ date_today }}", datetime.now().strftime('%Y-%m-%d %H:%M'))
 			track_url = "http://nomadmtb.com:8000/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
 			built_template = string.replace(built_template, "{{ tracking_link }}", track_url)
+			unsub_url = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
+			built_template = string.replace(built_template, "{{ unsub_link }}", unsub_url)
 			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
 			message = {'to': recipient.email.encode('utf-8'), 'from': seleted_campaign.user.email.encode('utf-8'), 'subject': self.title.encode('utf-8'), 'message': built_template}
 			messages.append(message)
