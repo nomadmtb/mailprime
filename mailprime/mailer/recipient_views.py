@@ -47,6 +47,7 @@ def add_recipient(request, param_username, param_campaign_pk):
 					raise Http404
 
 				recipient.campaign = campaign
+				recipient.active = True
 
 				# Send out invitation!!!
 				recipient.save()
