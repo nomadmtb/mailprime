@@ -43,8 +43,9 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		deploy = request.GET.get('deploy')
 
 		print deploy
+		print message.pk
 
-		if (deploy is not None) and (deploy == message.pk):
+		if (deploy is not None) and (deploy == str(message.pk)):
 			os.system("./deploy_messages.py " + str(message.pk) + "&")
 			messages.add_message(request, messages.SUCCESS, 'You Message Has Been Deployed')
 			return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(message.campaign.pk) + '/messages')
