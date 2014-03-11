@@ -40,6 +40,13 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		except Message.DoesNotExist:
 			raise Http404
 
+		deploy = request.GET.get('deploy')
+
+		if (deploy is not None) and (deploy == message.pk):
+			os.system("./deploy_messages.py " + str(message.pk) + "&")
+			messages.add_message(request, messages.SUCCESS, 'You Message Has Been Deployed')
+			return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(message.campaign.pk) + '/messages')
+
 		page_vars['message'] = message
 		return render(request, 'message/show.html', page_vars)
 
