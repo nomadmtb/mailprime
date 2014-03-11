@@ -34,5 +34,18 @@ def tracker_unsubscribe(request, param_recipient_hash):
 		raise Http404
 
 	contact.delete()
+
 	messages.add_message(request, messages.SUCCESS, 'You have successfully unsubscribed!')
+	return HttpResponseRedirect('/')
+
+def tracker_authorize(request, param_recipient_hash):
+	try:
+		contact = Recipient.objects.get(tracking_id = param_recipient_hash)
+	except Recipient.DoesNotExist:
+		raise Http404
+
+	contact.active = True
+	contact.save()
+
+	messages.add_message(request, messages.SUCCESS, 'You have sucessfully subscribed. Thank You!')
 	return HttpResponseRedirect('/')

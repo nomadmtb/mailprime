@@ -28,7 +28,8 @@ urlpatterns = patterns('',
     url(r'^(\w+)/campaign-(\d+)/message-(\d+)/events$', event_views.user_campaign_message_events, name='user_campaign_message_events'),
     url(r'^(\w+)/campaign-(\d+)/message-(\d+)/event-(\d+)$', event_views.user_campaign_message_event, name='user_campaign_message_event'),
     url(r'^tracker/visit/(\w+)/(\w+)\.jpg$', tracker_views.tracker_visit, name='tracker_visit'),
-    url(r'^tracker/unsubscribe/(\w+)$', tracker_views.tracker_unsubscribe, name='tracker_unsubscribe'),
+    url(r'^tracker/auth/(\w+)$', tracker_views.tracker_authorize, name='tracker_authorize'),
+    url(r'^tracker/unsub/(\w+)$', tracker_views.tracker_unsubscribe, name='tracker_unsubscribe'),
 )
 
 # For Development ONLY. Remove when in production...
