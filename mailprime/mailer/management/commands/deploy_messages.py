@@ -14,9 +14,10 @@ class Command(BaseCommand):
 			except models.Message.DoesNotExist:
 				raise CommandError('Message Does Not Exist, Try Again.')
 
-			lib.send_messages(mess.build_messages())
-
-			mess.deployed = True
-			mess.save()
-
-		self.stdout.write('Successfully Deployed Messages.')
+			if mess.deployed:
+				raise CommandError('ERROR: Message has already been deployed')
+			else:
+				lib.send_messages(mess.build_messages())
+				self.stdout.write('Successfully Deployed Messages.')
+				mess.deployed = True
+				mess.save()
