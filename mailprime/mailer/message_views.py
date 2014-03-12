@@ -44,14 +44,12 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		deploy = request.GET.get('deploy')
 
 		if (deploy is not None) and (deploy == str(message.pk)):
-			os.system("./deploy_messages.py " + str(message.pk) + "&")
-			message.deployed = True
-			message.save()
 
 			if message.deployed == False:
-				messages.add_message(request, messages.SUCCESS, 'Message Has Already Been Deployed')
+				os.system('python manage.py ' + str(message.pk) + '&')
+				messages.add_message(request, messages.SUCCESS, 'SUCCESS: You Message Has Been Deployed')
 			else:
-				messages.add_message(request, messages.SUCCESS, 'You Message Has Been Deployed')
+				messages.add_message(request, messages.SUCCESS, 'ERROR: Message Has Already Been Deployed')
 
 			return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(message.campaign.pk) + '/messages')
 
