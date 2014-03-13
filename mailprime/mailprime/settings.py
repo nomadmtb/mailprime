@@ -83,7 +83,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    '/home/kgluce/mailprime/mailprime/static',
+    '/Users/kgluce/Documents/programming/django/mailprime/mailprime/static',
     )
 
 # Custom Added Settings

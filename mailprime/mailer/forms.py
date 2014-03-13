@@ -30,7 +30,7 @@ class LoginForm(forms.Form):
 class UserProfileForm(forms.Form):
 	public_email = forms.EmailField(max_length=254, label='Public Email Address', required=False)
 	agree_terms = forms.BooleanField(initial=False, label='Agree Terms', required=False)
-	time_zone = forms.ChoiceField(choices=Profile.TIME_ZONES, initial=0, label='Time Zone ( UTC Offset )', required=False)
+	time_zone = forms.ChoiceField(choices=Profile.TIME_ZONES, initial=0, label='Time Zone', required=False)
 	username = forms.CharField(max_length=50, label='Username', required=False)
 	password = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password', required=False)
 	password_confirm = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password Confirm', required=False)
@@ -52,9 +52,6 @@ class UserProfileForm(forms.Form):
 
 		if isinstance(agree_terms, bool) == False:
 			raise forms.ValidationError("Agree Terms: Required Field")
-
-		if int(time_zone) not in range(-11, 12):
-			raise forms.ValidationError("Time Zone: Required Field")
 
 		if username == '':
 			raise forms.ValidationError("Username: Required Field")
