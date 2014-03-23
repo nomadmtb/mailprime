@@ -67,9 +67,27 @@ def user_account(request, param_username):
 		elif request.method == "POST":
 			if current_user(request):
 				completed_form = UserProfileForm(request.POST)
+
 				if completed_form.is_valid():
-					messages.add_message(request, messages.SUCCESS, 'Hey It\'s Valid!!!')
-					return HttpResponseRedirect('/')
+
+					user_profile = Profile.objects.get(user=request.user)
+					user_obj = User.objects.get(username=request.user.username)
+
+					# Updating User and Profile Objects with form data
+					user_profile.time_zone = completed_form.cleaned_data['time_zone']
+					user_profile.agree_terms = completed_form.cleaned_data['agree_terms']
+					user_obj.email = completed_form.cleaned_data['email']
+
+					# Only update the user's password if it's not empty
+					if completed_form.cleaned_data['password'] != '':
+						user_obj.set_password(completed_form.cleaned_data['password'])
+
+					# Commiting the edited objects to the database
+					user_profile.save()
+					user_obj.save()
+
+					messages.add_message(request, messages.SUCCESS, 'Success: Your Account Has Been Updated')
+					return HttpResponseRedirect('/' + request.user.username + '/account')
 				else:
 					generate_form_errors(request, completed_form)
 					return HttpResponseRedirect('/' + request.user.username + '/account')

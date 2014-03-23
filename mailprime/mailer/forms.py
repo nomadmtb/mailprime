@@ -1,8 +1,8 @@
 from django import forms
 from mailer.models import Campaign, Message, Profile, Template, Recipient
+from django.contrib.auth.models import User
 import pdb
 import re
-from django.contrib.auth.models import User
 from datetime import datetime
 
 # Model Forms for the Application
@@ -40,12 +40,9 @@ class UserProfileForm(forms.Form):
 
 		agree_terms = cleaned_data.get("agree_terms")
 		time_zone = cleaned_data.get("time_zone")
-		username = cleaned_data.get("username")
 		password = cleaned_data.get("password")
 		password_confirm = cleaned_data.get("password_confirm")
 		email = cleaned_data.get("email")
-
-		print agree_terms
 
 		if agree_terms == False:
 			raise forms.ValidationError("Agree Terms: You Must Agree To Our Terms Of Service")
