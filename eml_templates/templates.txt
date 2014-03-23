@@ -1,0 +1,78 @@
+bare_bones
+Your email client doesn't support MIME-types inside of email messages. Please update your email client.
+
+--mess_bound
+Date: {{ date_today }}
+Content-type: multipart/alternative; boundary="alt_bound"
+
+--alt_bound
+Content-type: text/plain; charset="utf-8"
+
+{{ body }}
+
+NOTE: Please do not reply to this email, MailPri.me doesn't accept incoming messages.
+
+Follow this link to unsubscribe: {{ unsub_link }}
+
+--alt_bound
+Content-type: text/html; charset="utf-8"
+
+<html>
+<body>
+<IMG src="{{ tracking_link }}" height="0px" width="0" />
+<h1>{{ campaign_title }}: {{ title }}</h1>
+<p>From: {{ owner_email }}</p>
+<p>To: {{ recipient_email }}</p>
+<p>{{ body }}</p>
+<a href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+<p>This messages has been sent using the mailing-campaign service MailPri.me. You have been added to the mailing-list {{ campaign_title }} by {{ owner_email }}</p>
+<p>NOTE: Please do not reply to this email, MailPri.me doesn't accept incoming messages.</p>
+<p></p>
+<p>Follow this link to unsubscribe: <a href="{{ unsub_link }}">Unsubscribe</a></p>
+</body>
+</html>
+
+--alt_bound--
+--mess_bound--
+
+recipient_invitation
+
+Your email client doesn't support MIME-Types. Please upgrade to a mail-client from this century.
+
+--mess_bound
+Date: {{ date_today }}
+Content-type: multipart/alternative; boundary="alt_bound"
+
+--alt_bound
+Content-type: text/plain; charset="utf-8"
+
+Hello, you have been invited by {{ owner_email }}, to join the {{ campaign_title }} mailing list.
+If would like to subscribe to the mailing list, please go here: {{ accept_link }}
+If you would like to be removed from the MailPrime database go here: {{ deny_link }}
+
+-MailPri.me
+
+Note: Please do not reply to this email, we do not accept incoming messages.
+
+--alt_bound
+Content-type: text/html; charset="utf-8"
+
+<html>
+<body>
+<h1>{{ campaign_title }}: {{ title }}</h1>
+<p>From: {{ owner_email }}</p>
+<p>To: {{ recipient_email }}</p>
+<p>Hello, you have been invited by {{ owner_email }}, to join the {{ campaign_title }} mailing list.</p>
+<p>If would like to subscribe to the mailing list, please click <a href="{{ accept_link }}">HERE</a></p>
+<p>If you would like to be removed from the MailPrime database click <a href="{{ deny_link }}">HERE</a></p>
+<a href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+<p>-MailPri.me</p>
+<p></p>
+<p>Note: Please do not reply to this email, we do not accept incoming messages.</p>
+</body>
+</html>
+
+--alt_bound--
+--mess_bound--

@@ -1,0 +1,32 @@
+<html style="font-family: Sans-Serif; width: 550px;">
+	<body style="margin: 0; padding: 0;">
+		<div style="background-color: #7CCBF2; padding: 5px;">
+			<IMG src="{{ tracking_link }}" height="0px" width="0" />
+			<h1 style="margin: 0; padding: 0; text-align: center; color: #525453;">Test Campaign</h1>
+			<h1 style="margin: 0; padding: 0; text-align: center; color: #525453;">This is just a test so chill out</h1>
+
+			<div style="height: 1px; background-color: #525453; width: 100%"></div>
+
+			<table style="text-align: left; margin: 0 auto;">
+				<tr>
+					<td style="color: #525453;">To</td>
+					<td style="color: #FFFFFF;">{{ recipient_email }}</td>
+					<td style="color: #525453;">From</td>
+					<td style="color: #FFFFFF;">{{ owner_email }}</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<p>{{ body }}</p>
+		<a href={{ link }} target="_blank">{{ link }}</a>
+		<p></p>
+
+		<div style="background-color: #7CCBF2; padding: 5px;">
+			<p>This messages has been sent using the mailing-campaign service MailPri.me. You have been added to the mailing-list {{ campaign_title }} by {{ owner_email }}</p>
+			<p><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
+			<p></p>
+			<p>Follow this link to unsubscribe: <a href="{{ unsub_link }}">Unsubscribe</a></p>
+		</div>
+	</body>
+</html>
