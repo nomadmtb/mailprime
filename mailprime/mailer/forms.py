@@ -2,6 +2,7 @@ from django import forms
 from mailer.models import Campaign, Message, Profile, Template, Recipient
 import pdb
 import re
+from django.contrib.auth.models import User
 from datetime import datetime
 
 # Model Forms for the Application
@@ -30,7 +31,6 @@ class LoginForm(forms.Form):
 class UserProfileForm(forms.Form):
 	agree_terms = forms.BooleanField(initial=False, label='Agree Terms', required=False)
 	time_zone = forms.ChoiceField(choices=Profile.TIME_ZONES, initial=0, label='Time Zone', required=False)
-	username = forms.CharField(max_length=50, label='Username', required=False)
 	password = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password', required=False)
 	password_confirm = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password Confirm', required=False)
 	email = forms.EmailField(max_length=254, label='Account Email Address', required=False)
@@ -49,9 +49,6 @@ class UserProfileForm(forms.Form):
 
 		if agree_terms == False:
 			raise forms.ValidationError("Agree Terms: You Must Agree To Our Terms Of Service")
-
-		if username == '':
-			raise forms.ValidationError("Username: Required Field")
 
 		if password != '' and password_confirm != '':
 			if password_confirm != password:

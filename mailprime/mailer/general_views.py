@@ -58,7 +58,7 @@ def user_account(request, param_username):
 
 		if request.method == "GET":
 			user_profile = Profile.objects.get(user = request.user)
-			init_values = {'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'username': request.user.username, 'email': request.user.email}
+			init_values = {'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'email': request.user.email}
 			page_vars['form'] = UserProfileForm(initial=init_values)
 			csrfContext = RequestContext(request, page_vars)
 			
