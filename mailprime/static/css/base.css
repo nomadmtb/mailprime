@@ -159,6 +159,11 @@ footer {
   bottom: 0;
   background-color: #bed9e6;
 }
+#footer_content {
+  text-align: center;
+  margin: 0;
+  padding-top: 72px;
+}
 #header_title {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
