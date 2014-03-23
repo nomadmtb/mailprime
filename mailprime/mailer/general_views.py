@@ -24,7 +24,7 @@ def login(request):
 
 			# Create Profile if User doesn't have one.
 			if not user_profile:
-				Profile(public_email=request.user.email, agree_terms=False, time_zone=0, user=request.user).save()
+				Profile(agree_terms=False, time_zone="UTC", user=request.user).save()
 
 			return HttpResponseRedirect('/' + request.user.username + '/campaigns')
 		else:
@@ -58,7 +58,7 @@ def user_account(request, param_username):
 
 		if request.method == "GET":
 			user_profile = Profile.objects.get(user = request.user)
-			init_values = {'public_email': user_profile.public_email, 'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'username': request.user.username, 'email': request.user.email}
+			init_values = {'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'username': request.user.username, 'email': request.user.email}
 			page_vars['form'] = UserProfileForm(initial=init_values)
 			csrfContext = RequestContext(request, page_vars)
 			
