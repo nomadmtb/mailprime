@@ -143,6 +143,7 @@ nav {
 body {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 header {
   background-color: #bed9e6;
@@ -151,6 +152,12 @@ header {
   padding-top: 95px;
   padding-bottom: 30px;
   width: 100%;
+}
+footer {
+  height: 150px;
+  width: 100%;
+  bottom: 0;
+  background-color: #bed9e6;
 }
 #header_title {
   font-family: 'Open Sans', sans-serif;
@@ -170,9 +177,10 @@ section[id="main"] {
   width: 100%;
   margin: 0;
   padding: 0;
+  padding-bottom: 25px;
   padding-top: 30px;
   background-image: url('/static/images/white_pattern.png');
-  height: 100%;
+  min-height: 100%;
 }
 .ninety_center {
   width: 90%;
