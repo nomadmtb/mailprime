@@ -102,7 +102,7 @@ class Message(models.Model):
 			unsub_url = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
 			built_template = string.replace(built_template, "{{ unsub_link }}", unsub_url)
 			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
-			message = {'to': recipient.email.encode('utf-8'), 'from': seleted_campaign.user.email.encode('utf-8'), 'subject': self.title.encode('utf-8'), 'message': built_template}
+			message = {'to': recipient.email.encode('utf-8'), 'from': seleted_campaign.user.email.encode('utf-8'), 'subject': self.title.encode('utf-8'), 'message': built_template, 'pk': self.pk}
 			messages.append(message)
 
 		return messages
