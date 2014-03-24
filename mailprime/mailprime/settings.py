@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mailer.middleware.tz_localization.TZMiddleWare',
 )
 
 ROOT_URLCONF = 'mailprime.urls'
