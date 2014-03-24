@@ -58,5 +58,11 @@ def geo_locate(param_ip_address):
 
 def send_messages(param_messages):
 	for message in param_messages:
-		command = 'echo "{0}" | mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{1}" {2}'.format(message['message'], message['subject'], message['to'])
+		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/message.txt'.format(message['subject'], message['to'])
+
+		f = open('/home/kgluce/mailprime/mailprime/message.txt', 'w')
+		f.write(message['message'])
+		f.close()
+
 		os.system(command)
+		os.system('rm /home/kgluce/mailprime/mailprime/message.txt')

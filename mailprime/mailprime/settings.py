@@ -85,6 +85,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     '/Users/kgluce/Documents/programming/django/mailprime/mailprime/static',
+    '/home/kgluce/mailprime/mailprime/static',
     )
 
 # Custom Added Settings
