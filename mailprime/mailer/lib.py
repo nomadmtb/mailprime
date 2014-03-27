@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 import requests
 import os
+import time
 
 def authenticate_user(request, username, password):
 	user = authenticate(username=username, password=password)
@@ -58,11 +59,12 @@ def geo_locate(param_ip_address):
 
 def send_messages(param_messages):
 	for message in param_messages:
-		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/{2}.txt'.format(message['subject'], message['to'], message['pk'])
+		file_name = (time.strftime("%d_%m_%Y_m") + message['pk'] + ".msg")
+		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/{2}'.format(message['subject'], message['to'], file_name)
 
-		f = open('/home/kgluce/mailprime/mailprime/{0}.txt'.format(message['pk']), 'w')
+		f = open('/home/kgluce/mailprime/mailprime/messages/{0}'.format(file_name, 'w')
 		f.write(message['message'])
 		f.close()
 
 		os.system(command)
-		os.system('rm /home/kgluce/mailprime/mailprime/{0}.txt'.format(message['pk']))
+		#os.system('rm /home/kgluce/mailprime/mailprime/messages/message_{0}.txt'.format(message['pk']))
