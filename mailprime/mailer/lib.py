@@ -62,7 +62,7 @@ def send_messages(param_messages):
 		file_name = (time.strftime("%d_%m_%Y_m") + str(message['pk']) + ".msg")
 		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/{2}'.format(message['subject'], message['to'], file_name)
 
-		f = open('/home/kgluce/mailprime/mailprime/messages/{0}'.format(file_name, 'w'))
+		f = open('/home/kgluce/mailprime/mailprime/messages/{0}'.format(file_name, 'w+'))
 		f.write(message['message'])
 		f.close()
 
