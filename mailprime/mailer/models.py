@@ -33,6 +33,41 @@ class Campaign(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def build_invitations(self):
+
+		# Empty array that will contain messages
+		messages = []
+		recipients = Recipient.objects.filter(campaign=self.pk, invited=False, active=False)
+		selected_template = System_Template.objects.get(title='campaign_invitation')
+
+		for recipient in recipients:
+			built_template = string.replace( selected_template.content, "{{ campaign_title }}", self.title )
+			built_template = string.replace( selected_template.content, "{{ title }}", 'MailPrime Campaign Invitation' )
+			built_template = string.replace( selected_template.content, "{{ owner_email }}", self.user.email )
+			built_template = string.replace( selected_template.content, "{{ recipient_email }}", recipient.email )
+
+			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
+			built_template = string.replace( selected_template.content, "{{ accept_link }}", accept_link )
+
+			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
+			built_template = string.replace( selected_template.content, "{{ deny_link }}", accept_link )
+
+			built_template = string.replace( selected_template.content, "{{ about }}", self.about )
+
+			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
+
+			message = {
+						'to': recipient.email.encode('utf-8'),
+						'from': self.user.email.encode('utf-8'),
+						'subject': self.title.encode('utf-8'),
+						'message': built_template,
+						'pk': self.pk,
+						}
+			messages.append(message)
+
+		return messages
+
+
 	def link(self):
 		return '/home/' + str(self.pk)
 

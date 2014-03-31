@@ -7,6 +7,8 @@ from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm, UserProfileForm
+import pytz
+from django.utils import timezone
 
 # Homepage for the application
 def index(request):
@@ -75,6 +77,9 @@ def user_account(request, param_username):
 
 					# Updating User and Profile Objects with form data
 					user_profile.time_zone = completed_form.cleaned_data['time_zone']
+
+					request.session['user_timezone'] = completed_form.cleaned_data['time_zone']
+
 					user_profile.agree_terms = completed_form.cleaned_data['agree_terms']
 					user_obj.email = completed_form.cleaned_data['email']
 

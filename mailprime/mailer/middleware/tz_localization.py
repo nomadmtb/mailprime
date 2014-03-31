@@ -10,7 +10,7 @@ class TZMiddleWare(object):
 
 			if user_tz:
 				timezone.activate(pytz.timezone(user_tz))
-				print user_tz
+				print "User Time-Zone: {0}".format(user_tz)
 			else:
 				profile_tz = request.user.profile.time_zone
 				timezone.deactivate()
