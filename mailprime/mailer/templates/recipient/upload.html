@@ -3,6 +3,11 @@
 {% block content %}
 
 <div class="solid_bg">
+	<form method="POST" action=".">
+		{% csrf_token %}
+		<input type="file" name="The File">
+		<input type="submit">
+	</form>
 </div>
 
 {% endblock %}

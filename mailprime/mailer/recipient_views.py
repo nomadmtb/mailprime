@@ -52,7 +52,9 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 		# User is requesting page, render form
 		if request.method == 'GET':
-			return render(request, 'recipient/upload.html', page_vars)
+			
+			csrfContext = RequestContext(request, page_vars)
+			return render(request, 'recipient/upload.html', csrfContext)
 
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
