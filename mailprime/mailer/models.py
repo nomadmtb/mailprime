@@ -42,17 +42,17 @@ class Campaign(models.Model):
 
 		for recipient in recipients:
 			built_template = string.replace( selected_template.content, "{{ campaign_title }}", self.title )
-			built_template = string.replace( selected_template.content, "{{ title }}", 'MailPrime Campaign Invitation' )
-			built_template = string.replace( selected_template.content, "{{ owner_email }}", self.user.email )
-			built_template = string.replace( selected_template.content, "{{ recipient_email }}", recipient.email )
+			built_template = string.replace( built_template, "{{ title }}", 'MailPrime Campaign Invitation' )
+			built_template = string.replace( built_template, "{{ owner_email }}", self.user.email )
+			built_template = string.replace( built_template, "{{ recipient_email }}", recipient.email )
 
 			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
-			built_template = string.replace( selected_template.content, "{{ accept_link }}", accept_link )
+			built_template = string.replace( built_template, "{{ accept_link }}", accept_link )
 
 			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
-			built_template = string.replace( selected_template.content, "{{ deny_link }}", accept_link )
+			built_template = string.replace( built_template, "{{ deny_link }}", deny_link )
 
-			built_template = string.replace( selected_template.content, "{{ about }}", self.about )
+			built_template = string.replace( built_template, "{{ about }}", self.about )
 
 			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
 
