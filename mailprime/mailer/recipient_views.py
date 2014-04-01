@@ -61,7 +61,20 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
+
+			# Array that will contain invalid emails
+			invalid_emails = []
+
+			# Valid email flag
 			valid = True
+			valid_email_count = 0
+			invalid_email_count = 0
+
+			# Capturing Campaign that will be used with the recipient entries
+			try:
+				campaign = Campaign.objects.get(pk=param_campaign_pk, user=request.user)
+			except Campaign.DoesNotExist:
+				raise Http404
 
 			form = ContactUploadForm(request.POST, request.FILES)
 
@@ -82,9 +95,29 @@ def upload_recipients(request, param_username, param_campaign_pk):
 							valid = False
 
 						if valid:
-							print "{0} -> Valid!!!".format(line)
+							print "Email: {0} -> Valid!!!".format(line)
+
+							# Save new Recipient to database
+							Recipient(email=line, campaign=campaign).save()
+
+							# Increment counter
+							valid_email_count += 1
 						else:
-							print "{0} -> Invalid!!!".format(line)
+							print "Email: {0} -> Invalid!!!".format(line)
+
+							# Increment counter
+							invalid_email_count += 1
+
+						# Reset valid flag
+						valid = True
+
+				# Generate messages for user
+				if (invalid_email_count > 0):
+					messages.add_message(request, messages.SUCCESS, "{0} Malformed Recipients Were Not Added".format(invalid_email_count))
+
+				messages.add_message(request, messages.SUCCESS, "Successfully Added {0} Recipients".format(valid_email_count))
+
+				return render(request, 'recipient/upload_report.html')
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
