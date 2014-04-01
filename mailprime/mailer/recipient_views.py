@@ -7,6 +7,7 @@ from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm
+import os
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
 def user_campaign_recipients(request, param_username, param_campaign_pk):
@@ -20,6 +21,25 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 			raise Http404
 
 		recipients = Recipient.objects.filter(campaign = campaign).order_by('email')
+
+		# Looking for the 'delete' GET parameter, so we can remove the recipient
+		recipient_to_remove = request.GET.get('delete')
+		print recipient_to_remove
+
+		# Check to make sure, recip_pk belongs to campaign.
+		# If so, delete it from the database.
+		if recipient_to_remove is not None:
+
+			for x in recipients:
+
+				if int(recipient_to_remove) == x.pk:
+
+					messages.add_message(request, messages.SUCCESS, 'Successfully Removed {0}'.format( x.email ))
+					x.delete()
+
+					# Update recipients queryset
+					recipients = Recipient.objects.filter(campaign = campaign).order_by('email')
+
 		page_vars['recipients'] = recipients
 		return render(request, 'recipient/index.html', page_vars)
 	else:
@@ -52,9 +72,10 @@ def add_recipient(request, param_username, param_campaign_pk):
 				recipient = completed_form.save(commit=False)
 
 				recipient.campaign = page_vars['campaign']
-				recipient.active = True
 
 				# Send out invitation!!!
+				os.system("python manage.py deploy_invitations {0} &".format( recipient.campaign.pk ))
+
 				recipient.save()
 				return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(page_vars['campaign'].pk) + '/recipients')
 			else:
