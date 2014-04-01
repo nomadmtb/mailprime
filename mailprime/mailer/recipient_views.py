@@ -41,9 +41,14 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 					# Update recipients queryset
 					recipients = Recipient.objects.filter(campaign = campaign).order_by('email')
 
+		# Page varaibles and render page
+		page_vars['campaign'] = campaign
 		page_vars['recipients'] = recipients
+
 		return render(request, 'recipient/index.html', page_vars)
+
 	else:
+		
 		raise Http404
 
 def upload_recipients(request, param_username, param_campaign_pk):
