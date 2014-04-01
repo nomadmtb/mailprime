@@ -20,4 +20,4 @@ class Command(BaseCommand):
 			self.stdout.write('Successfully Deployed Invitations.')
 
 		# Update recipients with invited status
-		models.Recipient.filter(campaign=cam).update(invited=True)
+		models.Recipient.objects.filter(campaign=cam).update(invited=True)
