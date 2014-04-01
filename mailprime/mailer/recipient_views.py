@@ -7,6 +7,7 @@ from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm, ContactUploadForm
+from django.core.validators import validate_email
 import os
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
@@ -60,6 +61,7 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
+			valid = True
 
 			form = ContactUploadForm(request.POST, request.FILES)
 
@@ -72,8 +74,17 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 					# Iterate through each line
 					for line in chunk.rstrip().split('\n'):
-						print "Line: {0}".format(line)
+						print "File Contact: {0}".format(line)
 
+						try:
+							validate_email(line)
+						except forms.ValidationError:
+							valid = False
+
+						if valid:
+							print "{0} -> Valid!!!".format(line)
+						else:
+							print "{0} -> Invalid!!!".format(line)
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
