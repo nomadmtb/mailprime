@@ -60,3 +60,7 @@ class UserProfileForm(forms.Form):
 			raise forms.ValidationError("Email: Required Field")
 
 		return cleaned_data
+
+class ContactUploadForm(forms.Form):
+
+	contact_file = forms.FileField()

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
 from django.http import Http404
-from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm
+from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm, ContactUploadForm
 import os
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
@@ -52,14 +52,28 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 		# User is requesting page, render form
 		if request.method == 'GET':
+
+			page_vars['form'] = ContactUploadForm()
 			
 			csrfContext = RequestContext(request, page_vars)
 			return render(request, 'recipient/upload.html', csrfContext)
 
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
-			#Do stuff
-			pass
+
+			form = ContactUploadForm(request.POST, request.FILES)
+
+			if form.is_valid():
+
+				uploaded_file = request.FILES['contact_file']
+
+				# Splitting file into chunks so it doesn't eat up system resources
+				for chunk in uploaded_file.chunks():
+
+					# Iterate through each line
+					for line in chunk.rstrip().split('\n'):
+						print "Line: {0}".format(line)
+
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:

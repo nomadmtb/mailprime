@@ -281,6 +281,11 @@ input[type="text"] {
   float: right;
   width: 100%;
 }
+input[type="file"] {
+  display: inline-block;
+  float: right;
+  width: 100%;
+}
 input[type="password"] {
   display: inline-block;
   float: right;
