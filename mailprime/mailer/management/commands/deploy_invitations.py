@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 		cam = None
-		
+
 		for campaign in args:
 			try:
 				cam = models.Campaign.objects.get(pk=int(campaign))
@@ -20,4 +20,4 @@ class Command(BaseCommand):
 			self.stdout.write('Successfully Deployed Invitations.')
 
 		# Update recipients with invited status
-		models.Recipients.filter(campaign=cam).update(invited=True)
+		models.Recipient.filter(campaign=cam).update(invited=True)
