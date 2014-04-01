@@ -46,7 +46,18 @@ def user_campaign_recipients(request, param_username, param_campaign_pk):
 		raise Http404
 
 def upload_recipients(request, param_username, param_campaign_pk):
-	pass
+	page_vars = {"page_title": 'Upload Recipients'}
+
+	if current_user(request) and request.user.username == param_username:
+
+		# User is requesting page, render form
+		if request.method == 'GET':
+			return render(request, 'recipient/upload.html', page_vars)
+
+		# User is uploading from form, parse data
+		elif request.method == 'POST':
+			#Do stuff
+			pass
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
