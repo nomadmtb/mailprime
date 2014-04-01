@@ -8,6 +8,8 @@ class Command(BaseCommand):
 	help = 'Deploy campaign invitations for a particular campaign object'
 
 	def handle(self, *args, **options):
+		cam = None
+		
 		for campaign in args:
 			try:
 				cam = models.Campaign.objects.get(pk=int(campaign))
