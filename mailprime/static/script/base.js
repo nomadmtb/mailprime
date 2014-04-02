@@ -45,8 +45,12 @@ populate_region_map = function() {
     success: function(results) {
       var chart, data, options;
       options = {
-        width: 500,
-        height: 500
+        width: 670,
+        height: 500,
+        colorAxis: {
+          minValue: 0,
+          colors: ['#578EA9']
+        }
       };
       data = google.visualization.arrayToDataTable(results);
       chart = new google.visualization.GeoChart(document.getElementById('geo_region_map'));

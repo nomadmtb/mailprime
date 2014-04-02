@@ -86,6 +86,11 @@ nav {
   font-weight: 300;
   color: #000000;
 }
+#geo_region_map {
+  width: 670px;
+  margin: 0 auto;
+  min-width: 670px;
+}
 .clear_float {
   clear: both;
 }
@@ -134,6 +139,7 @@ nav {
   margin: 0 auto;
   max-width: 1200px;
   width: 85%;
+  min-width: 700px;
   padding: 0;
   height: 100%;
 }
