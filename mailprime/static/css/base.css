@@ -200,7 +200,7 @@ section[id="main"] {
   padding: 0;
   padding-bottom: 25px;
   padding-top: 30px;
-  background-image: url('/static/images/white_pattern.png');
+  background-color: #dde8ee;
   min-height: 100%;
 }
 .float_left {
