@@ -155,6 +155,11 @@ class Recipient(models.Model):
 	tracking_id = models.CharField(max_length=200, blank=True)
 	campaign = models.ForeignKey('Campaign')
 
+	# Unique constraint between email, and campaign
+	class Meta:
+		unique_together = ('email', 'campaign')
+
+	# Save method overwritten, it will generate tracking_id when created
 	def save(self, *args, **kwargs):
 		if self.pk is None:
 			self.tracking_id = hashlib.sha1(str(datetime.now()) + self.email + settings.RECIPIENT_SALT).hexdigest()
@@ -166,6 +171,7 @@ class Recipient(models.Model):
 class Event(models.Model):
 	"""This is the class that will hold 'read' events for a recipient"""
 	ip_address = models.GenericIPAddressField(protocol='IPv4')
+	country_code = models.CharField(max_length=100)
 	latitude = models.FloatField()
 	longitude = models.FloatField()
 	created_date = models.DateTimeField(auto_now_add=True)

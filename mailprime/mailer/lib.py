@@ -48,13 +48,21 @@ def geo_locate(param_ip_address):
 	coordinates = {}
 	response = requests.get('http://freegeoip.net/json/' + param_ip_address).json()
 
-	if response[u'latitude'] and response[u'longitude'] == 0:
+	# Checking for valid Geo-Coordinates
+	if response[u'latitude'] == 0 and response[u'longitude'] == 0:
 		coordinates['latitude'] = None
 		coordinates['longitude'] = None
 	else:
 		coordinates['latitude'] = response[u'latitude']
 		coordinates['longitude'] = response[u'longitude']
 
+	# Checking for valid Country-Code
+	if response[u'country_code'] is None:
+		coordinates['country_code'] = None
+	else:
+		coordinates['country_code'] = response[u'country_code']
+
+	# Return coordinate hash
 	return coordinates
 
 def send_messages(param_messages):
