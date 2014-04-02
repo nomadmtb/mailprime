@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm, ContactUploadForm
 from django.core.validators import validate_email
+from django.db import IntegrityError
 import os
 
 # The user campaign recipients view will show all users that are associated with a particular campaign.
@@ -67,11 +68,13 @@ def upload_recipients(request, param_username, param_campaign_pk):
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
 
-			# Array that will contain invalid emails
+			# Array that will contain invalid/valid emails
 			invalid_emails = []
+			valid_emails = []
 
 			# Valid email flag
 			valid = True
+			valid_recip = True
 			valid_email_count = 0
 			invalid_email_count = 0
 
@@ -100,18 +103,35 @@ def upload_recipients(request, param_username, param_campaign_pk):
 							valid = False
 
 						if valid:
-							print "Email: {0} -> Valid!!!".format(line)
 
 							# Save new Recipient to database
-							Recipient(email=line, campaign=campaign).save()
+							try:
+								Recipient(email=line, campaign=campaign).save()
+							except IntegrityError:
+								valid_recip = False
+
 
 							# Increment counter
-							valid_email_count += 1
+							if (valid_recip):
+
+								print "Email: {0} -> Valid!!!"
+								valid_email_count += 1
+								valid_recip = True
+								valid_emails.append(line)
+
+							else:
+
+								print "Email: {0} -> Invalid!!!"
+								invalid_email_count += 1
+								invalid_emails.append(line)
+
 						else:
+
 							print "Email: {0} -> Invalid!!!".format(line)
 
 							# Increment counter
 							invalid_email_count += 1
+							invalid_emails.append(line)
 
 						# Reset valid flag
 						valid = True
