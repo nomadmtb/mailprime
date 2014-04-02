@@ -95,7 +95,21 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 		raise Http404
 
 def message_statistics(request, param_username, param_campaign_pk, param_message_pk):
-	page_vars = {}
-	page_vars['page_title'] = 'Message Statistics'
+	if current_user(request) and request.user.username == param_username:	
 
-	return render(request, 'message/stats.html', page_vars)
+		page_vars = {}
+		page_vars['page_title'] = 'Message Statistics'
+
+		# Validate Message with supplied params
+		try:
+			requested_message = Message.objects.get(campaign__user__username=param_username, campaign__pk=param_campaign_pk, pk=param_message_pk)
+		except Message.DoesNotExist:
+			raise Http404
+
+		page_vars['message_pk'] = requested_message.pk
+		page_vars['campaign_pk'] = param_campaign_pk
+
+		return render(request, 'message/stats.html', page_vars)
+
+	else:
+		raise Http404

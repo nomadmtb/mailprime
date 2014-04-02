@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from mailer import campaign_views, tracker_views, general_views, recipient_views, message_views, event_views
+from mailer import campaign_views, tracker_views, general_views, recipient_views, message_views, event_views, json_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^tracker/visit/(\w+)/(\w+)\.jpg$', tracker_views.tracker_visit, name='tracker_visit'),
     url(r'^tracker/auth/(\w+)$', tracker_views.tracker_authorize, name='tracker_authorize'),
     url(r'^tracker/unsub/(\w+)$', tracker_views.tracker_unsubscribe, name='tracker_unsubscribe'),
+    url(r'^api/(\w+)/c-(\d+)/m-(\d+)/region_data\.json$', json_views.get_message_region_data, name="get_message_region_data"),
 )
 
 # For Development ONLY. Remove when in production...

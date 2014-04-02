@@ -2,7 +2,13 @@
 
 {% block content %}
 
-<h2>Message Statistics</h2>
+<div class="solid_bg">
+
+	<h2>Message Statistics</h2>
+
+	<div style="width:500px; height:500px;" id="geo_region_map" mess-data="{{ message_pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
+
+</div>
 
 {% endblock %}
 
