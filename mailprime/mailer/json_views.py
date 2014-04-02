@@ -9,7 +9,7 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 	if current_user(request) and request.user.username == param_username:
 
 		# Pre-build data, See Google Format -> https://developers.google.com/chart/interactive/docs/gallery/geochart
-		data = []
+		data = {}
 
 		# Getting values for all of the associated read_events
 		#country_data = Event.objects.values_list('country_code')
@@ -19,19 +19,35 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 											 message__campaign__user__username=param_username )
 
 		if read_events is None:
-			raise Http404
+			return HttpResponse(json.dumps([]), content_type='application/json')
 
+		# Load Region-data	
+		region_data = []
 		country_data = read_events.values_list('country_code')
-
 		counter_data = Counter(item[0] for item in country_data)
 
 		for k, v in counter_data.iteritems():
 			entry = [ k, v ]
-			data.append(entry)
+			region_data.append(entry)
 
-		title = ['Region', 'Read Events']
-		data = [title] + data
+		region_title = ['Region', 'Read Events']
+		region_data = [region_title] + region_data
+		data['region_data'] = region_data
+		# End Region-data
+
+		# Load Coordinate Data
+		coordinate_data = []
+		coord_data = read_events.values_list('latitude', 'longitude', 'recipient__email')
+
+		for item in coord_data:
+			entry = [ item[0], item[1], item[2] ]
+			coordinate_data.append(entry)
+
+		coord_title = ['Lat', 'Lon', 'Name']
+		coordinate_data = [coord_title] + coordinate_data
+		data['coordinate_data'] = coordinate_data
+		# End Coordinate Data
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
-		raise Http404
+		return HttpResponse('Unauthorized', status=401)

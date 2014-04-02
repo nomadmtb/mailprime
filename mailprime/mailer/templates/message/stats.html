@@ -6,7 +6,19 @@
 
 	<h2>Statistical Message Analysis</h2>
 
-	<div id="geo_region_map" mess-data="{{ message_pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
+	<div class="statistical_frame">
+		<h3 class="center_h3">Regional Statistics For <i>Read</i> Events</h3>
+		<div id="geo_region_map" mess-data="{{ message_pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
+	</div>
+
+	<div class="seperator"></div>
+
+	<div class="statistical_frame">
+		<h3 class="center_h3">Location Statistics For <i>Read</i> Events</h3>
+		<div id="coord_map"></div>
+	</div>
+	
+	<div class="seperator"></div>
 
 </div>
 
