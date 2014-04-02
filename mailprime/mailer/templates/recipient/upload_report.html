@@ -3,6 +3,21 @@
 {% block content %}
 
 <div class="solid_bg">
+
+	<dl>
+		<dt>Valid Entries</dt>
+			{% for key, value in valid_emails.items %}
+				<dd>{{ key }}::{{ value }}</dd>
+			{% endfor %}
+	</dl>
+
+	<dl>
+		<dt>Invalid Entries</dt>
+			{% for key, value in invalid_emails.items %}
+				<dd>{{ key }}::{{ value }}</dd>
+			{% endfor %}
+	</dl>
+
 </div>
 
 {% endblock %}

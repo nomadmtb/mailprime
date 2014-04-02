@@ -68,9 +68,12 @@ def upload_recipients(request, param_username, param_campaign_pk):
 		# User is uploading from form, parse data
 		elif request.method == 'POST':
 
+			# Page Vars
+			page_vars = { 'page_title': 'Upload Report'}
+
 			# Array that will contain invalid/valid emails
-			invalid_emails = []
-			valid_emails = []
+			invalid_emails = {}
+			valid_emails = {}
 
 			# Valid email flag
 			valid = True
@@ -95,7 +98,6 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 					# Iterate through each line
 					for line in chunk.rstrip().split('\n'):
-						print "File Contact: {0}".format(line)
 
 						try:
 							validate_email(line)
@@ -114,35 +116,34 @@ def upload_recipients(request, param_username, param_campaign_pk):
 							# Increment counter
 							if (valid_recip):
 
-								print "Email: {0} -> Valid!!!"
 								valid_email_count += 1
-								valid_recip = True
-								valid_emails.append(line)
+								valid_emails[line] = 'Successfully Added'
 
 							else:
 
-								print "Email: {0} -> Invalid!!!"
 								invalid_email_count += 1
-								invalid_emails.append(line)
+								invalid_emails[line] = 'Already Exists'
 
 						else:
 
-							print "Email: {0} -> Invalid!!!".format(line)
-
 							# Increment counter
 							invalid_email_count += 1
-							invalid_emails.append(line)
+							invalid_emails[line] = 'Invalid'
 
 						# Reset valid flag
 						valid = True
+						valid_recip = True
 
 				# Generate messages for user
+				if (valid_email_count > 0):
+					messages.add_message(request, messages.SUCCESS, "{0} Successful Entries".format(valid_email_count))
+					page_vars['valid_emails'] = valid_emails
+
 				if (invalid_email_count > 0):
-					messages.add_message(request, messages.SUCCESS, "{0} Malformed Recipients Were Not Added".format(invalid_email_count))
+					messages.add_message(request, messages.SUCCESS, "{0} Entries Failed".format(invalid_email_count))
+					page_vars['invalid_emails'] = invalid_emails
 
-				messages.add_message(request, messages.SUCCESS, "Successfully Added {0} Recipients".format(valid_email_count))
-
-				return render(request, 'recipient/upload_report.html')
+				return render(request, 'recipient/upload_report.html', page_vars)
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
