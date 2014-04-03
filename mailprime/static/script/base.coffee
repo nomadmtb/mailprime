@@ -53,6 +53,14 @@ populate_report_maps = ->
 				pieHole: 0.4,
 			}
 
+			weekday_options = {
+				title: 'Read Events By Week',
+				pieHole: 0.4,
+			}
+
+			weekday_data = google.visualization.arrayToDataTable(results['weekday_data'])
+			weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'))
+
 			response_data = google.visualization.arrayToDataTable(results['response_data'])
 			response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'))
 
@@ -62,6 +70,7 @@ populate_report_maps = ->
 			coord_data = google.visualization.arrayToDataTable(results['coordinate_data'])
 			coord_map = new google.visualization.Map(document.getElementById('coord_map'))
 
+			weekday_graph.draw(weekday_data, weekday_options)
 			response_graph.draw(response_data, response_options)
 			region_map.draw(region_data, region_options)
 			coord_map.draw(coord_data, coord_options)

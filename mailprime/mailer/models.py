@@ -19,7 +19,7 @@ class Profile(models.Model):
 	user = models.OneToOneField(User)
 
 	def __unicode__(self):
-		return self.public_email
+		return self.user.email
 
 class Campaign(models.Model):
 	"""This is the campaign class that describes an indivual devivery event"""

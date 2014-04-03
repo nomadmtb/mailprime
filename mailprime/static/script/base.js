@@ -43,7 +43,7 @@ populate_report_maps = function() {
     type: "GET",
     url: "http://127.0.0.1:8000/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
     success: function(results) {
-      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options;
+      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, weekday_data, weekday_graph, weekday_options;
       region_options = {
         width: 670,
         height: 500,
@@ -61,12 +61,19 @@ populate_report_maps = function() {
         title: 'Response Rate',
         pieHole: 0.4
       };
+      weekday_options = {
+        title: 'Read Events By Week',
+        pieHole: 0.4
+      };
+      weekday_data = google.visualization.arrayToDataTable(results['weekday_data']);
+      weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
       response_data = google.visualization.arrayToDataTable(results['response_data']);
       response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'));
       region_data = google.visualization.arrayToDataTable(results['region_data']);
       region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'));
       coord_data = google.visualization.arrayToDataTable(results['coordinate_data']);
       coord_map = new google.visualization.Map(document.getElementById('coord_map'));
+      weekday_graph.draw(weekday_data, weekday_options);
       response_graph.draw(response_data, response_options);
       region_map.draw(region_data, region_options);
       return coord_map.draw(coord_data, coord_options);
