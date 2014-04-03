@@ -138,10 +138,24 @@ nav {
 	text-align: center;
 }
 
+#percent_response_chart {
+	width: 500px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+#coord_map {
+	height: 500px;
+	background-color: @color-bg;
+	.radius_twenty;
+}
+
 #geo_region_map {
 	width: 670px;
 	margin: 0 auto;
 	min-width: 670px;
+	height: 500px;
+	background-color: @color-bg;
 }
 
 .clear_float {
@@ -208,6 +222,12 @@ nav {
 .rounded_border {
 	border-radius: 5px;
 	border: 1px solid @color-base;
+}
+
+.radius_twenty {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
 }
 
 .button_small(@bg_color, @tx_color) {

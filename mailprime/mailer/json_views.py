@@ -48,6 +48,23 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		data['coordinate_data'] = coordinate_data
 		# End Coordinate Data
 
+		# Load Response Perc. Data
+		response_data = []
+		users_responded = read_events.values('recipient__email').distinct().count()
+
+		num_users = Recipient.objects.filter( campaign__pk=param_campaign_pk,
+											  campaign__user__username=param_username ).count()
+
+
+
+		response_title = ['Status', 'Responce Rate']
+		response_data.append(['Opened Message', users_responded])
+		response_data.append(['Not Opened Message', (num_users - users_responded)])
+
+		response_data = [response_title] + response_data
+		data['response_data'] = response_data
+		# End Response Perc. Data
+
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		return HttpResponse('Unauthorized', status=401)

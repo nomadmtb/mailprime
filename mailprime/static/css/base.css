@@ -89,10 +89,24 @@ nav {
 .center_h3 {
   text-align: center;
 }
+#percent_response_chart {
+  width: 500px;
+  height: 300px;
+  margin: 0 auto;
+}
+#coord_map {
+  height: 500px;
+  background-color: #dde8ee;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
 #geo_region_map {
   width: 670px;
   margin: 0 auto;
   min-width: 670px;
+  height: 500px;
+  background-color: #dde8ee;
 }
 .clear_float {
   clear: both;
@@ -155,6 +169,11 @@ nav {
 .rounded_border {
   border-radius: 5px;
   border: 1px solid #ffffff;
+}
+.radius_twenty {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 body {
   margin: 0;

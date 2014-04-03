@@ -23,7 +23,7 @@ loaddatepicker = ->
 checkforreport = ->
 	if $(".statistical_frame").length
 		google.load "visualization", "1",
-			packages: ["geochart", "map"]
+			packages: ["geochart", "map", "corechart"]
 			callback: populate_report_maps
 
 populate_report_maps = ->
@@ -38,7 +38,7 @@ populate_report_maps = ->
 
 			region_options = {
 				width: 670,
-				height: 500
+				height: 500,
 				colorAxis: {minValue: 0, colors: ['#578EA9']}
 			}
 
@@ -48,12 +48,20 @@ populate_report_maps = ->
 				mapType: 'normal'
 			}
 
+			response_options = {
+				title: 'Response Rate',
+				pieHole: 0.4,
+			}
+
+			response_data = google.visualization.arrayToDataTable(results['response_data'])
+			response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'))
+
 			region_data = google.visualization.arrayToDataTable(results['region_data'])
 			region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'))
 
 			coord_data = google.visualization.arrayToDataTable(results['coordinate_data'])
 			coord_map = new google.visualization.Map(document.getElementById('coord_map'))
 
+			response_graph.draw(response_data, response_options)
 			region_map.draw(region_data, region_options)
 			coord_map.draw(coord_data, coord_options)
-			return
