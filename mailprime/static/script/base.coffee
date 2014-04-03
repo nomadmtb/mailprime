@@ -59,6 +59,9 @@ populate_report_maps = ->
 					left: 55,
 					top: 65,
 				}
+				colors: [
+					'#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933'
+				]
 			}
 
 			weekday_options = {
@@ -73,6 +76,9 @@ populate_report_maps = ->
 					left: 55,
 					top: 65,
 				}
+				colors: [
+					'#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933'
+				]
 			}
 
 			weekday_data = google.visualization.arrayToDataTable(results['weekday_data'])
