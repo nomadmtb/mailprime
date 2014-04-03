@@ -58,12 +58,28 @@ populate_report_maps = function() {
         mapType: 'normal'
       };
       response_options = {
-        title: 'Response Rate',
-        pieHole: 0.4
+        pieHole: 0.5,
+        legend: {
+          position: 'top',
+          alignment: 'center',
+          maxLines: 2
+        },
+        chartArea: {
+          left: 55,
+          top: 65
+        }
       };
       weekday_options = {
-        title: 'Read Events By Week',
-        pieHole: 0.4
+        pieHole: 0.5,
+        legend: {
+          position: 'top',
+          alignment: 'center',
+          maxLines: 2
+        },
+        chartArea: {
+          left: 55,
+          top: 65
+        }
       };
       weekday_data = google.visualization.arrayToDataTable(results['weekday_data']);
       weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
