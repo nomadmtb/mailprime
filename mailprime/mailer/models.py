@@ -125,6 +125,8 @@ class Message(models.Model):
 
 		# Construct sample message
 		built_template = string.replace(selected_template.content, "{{ campaign_title }}", selected_campaign.title)
+		built_template = string.replace(built_template, "{{ tracking_link }}", "")
+		built_template = string.replace(built_template, "{{ unsub_link }}", "")
 		built_template = string.replace(built_template, "{{ title }}", self.title)
 		built_template = string.replace(built_template, "{{ owner_email }}", selected_campaign.user.email)
 		built_template = string.replace(built_template, "{{ recipient_email }}", "sample@mailpri.me")
