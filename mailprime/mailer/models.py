@@ -118,6 +118,29 @@ class Message(models.Model):
 			self.message_id = hashlib.sha1(str(datetime.now()) + self.title + settings.MESSAGE_SALT).hexdigest()
 		super(Message, self).save(*args, **kwargs)
 
+	def build_sample(self):
+		message = ''
+		selected_campaign = self.campaign
+		selected_template = self.template
+
+		# Construct sample message
+		built_template = string.replace(selected_template.content, "{{ campaign_title }}", selected_campaign.title)
+		built_template = string.replace(built_template, "{{ title }}", self.title)
+		built_template = string.replace(built_template, "{{ owner_email }}", selected_campaign.user.email)
+		built_template = string.replace(built_template, "{{ recipient_email }}", "sample@mailpri.me")
+		built_template = string.replace(built_template, "{{ body }}", self.body)
+		built_template = string.replace(built_template, "{{ link }}", self.link)
+
+		# Searching for HTML in email template, ommiting weird message-boundaries
+		substring = built_template[built_template.find('<html'):built_template.find('</html>')+len('</html>')]
+
+		substring = string.replace(substring, '\t', '')
+		substring = string.replace(substring, '\r', '')
+		substring = string.replace(substring, '\n', '')
+
+		# Return HTML
+		return substring
+
 	def build_messages(self):
 		messages = []
 		seleted_campaign = self.campaign

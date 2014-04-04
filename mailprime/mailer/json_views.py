@@ -96,3 +96,24 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		return HttpResponse('Unauthorized', status=401)
+
+def get_sample_message(request, param_username, param_campaign_pk, param_message_pk):
+
+	if current_user(request) and request.user.username == param_username:
+
+		data = {}
+
+		try:
+			message = Message.objects.get(	pk=param_message_pk,
+											campaign__pk=param_campaign_pk,
+											campaign__user__username=param_username)
+		except Message.DoesNotExist:
+
+			return HttpResponse('Unauthorized', status=401)
+
+		sample_message_html = message.build_sample()
+
+		return HttpResponse(sample_message_html, content_type='text/html')
+
+	else:
+		return HttpResponse('Unauthorized', status=401)

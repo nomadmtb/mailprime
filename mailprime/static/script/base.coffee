@@ -2,6 +2,7 @@ $ ->
 	checkfornotice()
 	loaddatepicker()
 	checkforreport()
+	autoadjustiframe()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -54,6 +55,9 @@ populate_report_maps = ->
 					position: 'top',
 					alignment: 'center',
 					maxLines: 2,
+					textStyle: {
+						color: '#525453',
+					}
 				}
 				chartArea: {
 					left: 55,
@@ -70,7 +74,9 @@ populate_report_maps = ->
 					position: 'top',
 					alignment: 'center',
 					maxLines: 2,
-
+					textStyle: {
+						color: '#525453',
+					}
 				}
 				chartArea: {
 					left: 55,
@@ -97,3 +103,12 @@ populate_report_maps = ->
 			response_graph.draw(response_data, response_options)
 			region_map.draw(region_data, region_options)
 			coord_map.draw(coord_data, coord_options)
+
+autoadjustiframe = ->
+
+	if $(".sample_message").length
+
+		$(".sample_message").each ->
+			$(this).load ->
+				frame_height = $(this).contents().find("html").height()
+				$(this).height(frame_height)

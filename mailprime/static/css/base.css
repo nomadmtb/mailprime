@@ -198,6 +198,9 @@ nav {
   -moz-border-radius: 20px;
   border-radius: 20px;
 }
+.sample_message {
+  width: 520px;
+}
 body {
   margin: 0;
   padding: 0;

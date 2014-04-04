@@ -55,7 +55,10 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 
 		else:
 
-			page_vars['message'] = message
+			page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
+																						request.user.username,
+																						message.campaign.pk,
+																						message.pk)
 			return render(request, 'message/show.html', page_vars)
 
 	else:
