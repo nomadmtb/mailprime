@@ -59,6 +59,8 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 																						request.user.username,
 																						message.campaign.pk,
 																						message.pk)
+			page_vars['message'] = message
+			
 			return render(request, 'message/show.html', page_vars)
 
 	else:
