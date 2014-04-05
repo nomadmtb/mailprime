@@ -54,8 +54,8 @@ html {
 
 .drop_shadow {
 	-webkit-box-shadow: 10px 10px 8px -4px rgba(51,51,51,1);
-    -moz-box-shadow: 10px 10px 8px -4px rgba(51,51,51,1);
-    box-shadow: 10px 10px 8px -4px rgba(51,51,51,1);
+	-moz-box-shadow: 10px 10px 8px -4px rgba(51,51,51,1);
+	box-shadow: 10px 10px 8px -4px rgba(51,51,51,1);
 }
 
 .clear_area_center {
@@ -487,4 +487,55 @@ label {
 	float: left;
 	padding-top: 10px;
 	.font(bold, @color-black)
+}
+
+// Campaign Extra
+.campaign_wrapper {
+	height: 200px;
+	width: 588px;
+	margin: 0 auto;
+	background-color: @color-selected;
+	padding: 10px;
+	cursor: pointer;
+	.box-outline;
+
+	&:hover {
+		background-color: @color-important;
+	}
+
+	.image_left {
+		float: left;
+		position: relative;
+		height: 100%;
+
+		img {
+			height: 100%;
+		}
+
+		.status {
+			position: absolute;
+			width: 55px;
+			height: 55px;
+			top: 15px;
+			left: 5px;
+		}
+	}
+
+	.content_right {
+		float: right;
+		height: 100%;
+		width: 375px;
+
+		table {
+			width: 100%;
+
+			tr {
+				line-height: 45px;
+
+				td {
+					font-size: 20px;
+				}
+			}
+		}
+	}
 }

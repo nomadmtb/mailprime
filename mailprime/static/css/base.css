@@ -423,3 +423,44 @@ label {
   font-weight: 600;
   color: #000000;
 }
+.campaign_wrapper {
+  height: 200px;
+  width: 588px;
+  margin: 0 auto;
+  background-color: #bed9e6;
+  padding: 10px;
+  cursor: pointer;
+  outline: 1px outset #ffffff;
+}
+.campaign_wrapper:hover {
+  background-color: #7ccbf2;
+}
+.campaign_wrapper .image_left {
+  float: left;
+  position: relative;
+  height: 100%;
+}
+.campaign_wrapper .image_left img {
+  height: 100%;
+}
+.campaign_wrapper .image_left .status {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  top: 15px;
+  left: 5px;
+}
+.campaign_wrapper .content_right {
+  float: right;
+  height: 100%;
+  width: 375px;
+}
+.campaign_wrapper .content_right table {
+  width: 100%;
+}
+.campaign_wrapper .content_right table tr {
+  line-height: 45px;
+}
+.campaign_wrapper .content_right table tr td {
+  font-size: 20px;
+}

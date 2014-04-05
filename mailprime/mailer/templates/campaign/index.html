@@ -4,34 +4,66 @@
 
 <div class="solid_bg">
 
-<h2>{{ user.username }}'s MailPrime Campaigns</h2>
+	<h2>{{ user.username }}'s MailPrime Campaigns</h2>
 
-<table class="full_width">
-<tr>
-	<th>Title</th>
-	<th>Date Created</th>
-	<th>Status</th>
-</tr>
-{% for campaign in campaigns %}
+	<table class="full_width">
+		<tr>
+			<th>Title</th>
+			<th>Date Created</th>
+			<th>Status</th>
+		</tr>
+		{% for campaign in campaigns %}
 
-<tr>
-	<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a></td>
-	<td>{{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td>
-	{% if campaign.active %}
-		<td><img src="/static/images/bueno.png" height="18px" /></td>
-	{% else %}
-		<td><img src="/static/images/no_bueno.png" height="18px" /></td>
-	{% endif %}
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">{{ campaign.title }}</a></td>
+			<td>{{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td>
+			{% if campaign.active %}
+			<td><img src="/static/images/bueno.png" height="18px" /></td>
+			{% else %}
+			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+			{% endif %}
 
-{% endfor %}
-</table>
+			{% endfor %}
+		</table>
 
-<a class="link_button_center" href="/{{ user.username }}/campaigns/new">New Campaign</a>
-</div>
+		<a class="link_button_center" href="/{{ user.username }}/campaigns/new">New Campaign</a>
 
-{% endblock %}
+		{% for campaign in campaigns %}
 
-{% block header %}
-<h5 id="header_title">{{ user.username }}'s Campaigns</h5>
-<p id="header_desc">View and manage your mailing campaigns below.</p>
-{% endblock header %}
+		<div class="campaign_wrapper" data-link="/{{ campaign.user.username }}/campaign-{{ campaign.pk }}">
+			<div class="image_left">
+
+				<img src="/static/images/campaign_icon.png" />
+				{% if campaign.active %}
+				<img class="status" src="/static/images/bueno.png" />
+				{% else %}
+				<img class="status" src="/static/images/no_bueno.png" />
+				{% endif %}
+
+			</div>
+
+			<div class="content_right">
+				<table>
+					<tr><td>• <b>{{ campaign.title }}</b></td></tr>
+					<tr><td>• {{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td></tr>
+					{% if campaign.active %}
+					<tr><td>• Currently Active</td></tr>
+					{% else %}
+					<tr><td>• Currently Deactivated</td></tr>
+					{% endif %}
+					<tr><td>• Owner {{ campaign.user.username }}</td></tr>
+				</table>
+			</div>
+
+			<div class="clear_float"></div>
+		</div>
+
+		{% endfor %}
+
+	</div>
+	{% endblock %}
+
+	{% block header %}
+	<h5 id="header_title">{{ user.username }}'s Campaigns</h5>
+	<p id="header_desc">View and manage your mailing campaigns below.</p>
+	{% endblock header %}

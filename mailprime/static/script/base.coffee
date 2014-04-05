@@ -3,6 +3,7 @@ $ ->
 	loaddatepicker()
 	checkforreport()
 	autoadjustiframe()
+	checkcampaignlink()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -112,3 +113,10 @@ autoadjustiframe = ->
 			$(this).load ->
 				frame_height = $(this).contents().find("html").height()
 				$(this).height(frame_height)
+
+checkcampaignlink = ->
+	if $(".campaign_wrapper").length
+		$(".campaign_wrapper").each ->
+			link = $(this).attr("data-link")
+			$(this).click ->
+				window.location.href = link
