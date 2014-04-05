@@ -93,7 +93,6 @@ nav {
   width: 300px;
   height: 400px;
   float: left;
-  margin-left: 30px;
 }
 #percent_response_chart_wrapper h4 {
   text-align: center;
@@ -107,7 +106,6 @@ nav {
   width: 300px;
   height: 400px;
   float: right;
-  margin-right: 30px;
 }
 #weekday_chart_wrapper h4 {
   text-align: center;
@@ -422,6 +420,17 @@ label {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   color: #000000;
+}
+.graph_wrapper {
+  width: 650px;
+  margin: 0 auto;
+}
+#trend_chart {
+  width: 670px;
+  margin: 0 auto;
+  min-width: 670px;
+  height: 500px;
+  background-color: #dde8ee;
 }
 #add_campaign_button {
   height: 130px;

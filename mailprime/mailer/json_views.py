@@ -93,6 +93,24 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		data['weekday_data'] = day_of_week_data
 		# End Day of Week Data
 
+		# Load Line Graph
+		read_by_day_data = [['Date', 'Read-Events']]
+		read_dates = []
+		read_events = read_events.order_by('-created_date')
+
+		for event in read_events:
+			cur_date = event.created_date.strftime("%m/%d")
+			read_dates.append(cur_date)
+
+		read_counter = Counter(item for item in read_dates)
+
+		for k, v in read_counter.iteritems():
+			read_by_day_data.append([k,v])
+
+		data['read_by_day_data'] = read_by_day_data
+
+		# End Load Line Graph
+
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		return HttpResponse('Unauthorized', status=401)

@@ -46,7 +46,17 @@ populate_report_maps = function() {
     type: "GET",
     url: "http://127.0.0.1:8000/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
     success: function(results) {
-      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, weekday_data, weekday_graph, weekday_options;
+      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, trend_chart, trend_data, trend_options, weekday_data, weekday_graph, weekday_options;
+      trend_options = {
+        curveType: 'function',
+        legend: {
+          position: 'bottom',
+          alignment: 'center',
+          textStyle: {
+            color: '#525453'
+          }
+        }
+      };
       region_options = {
         width: 670,
         height: 500,
@@ -92,6 +102,8 @@ populate_report_maps = function() {
         },
         colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
       };
+      trend_data = google.visualization.arrayToDataTable(results['read_by_day_data']);
+      trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'));
       weekday_data = google.visualization.arrayToDataTable(results['weekday_data']);
       weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
       response_data = google.visualization.arrayToDataTable(results['response_data']);
@@ -100,6 +112,7 @@ populate_report_maps = function() {
       region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'));
       coord_data = google.visualization.arrayToDataTable(results['coordinate_data']);
       coord_map = new google.visualization.Map(document.getElementById('coord_map'));
+      trend_chart.draw(trend_data, trend_options);
       weekday_graph.draw(weekday_data, weekday_options);
       response_graph.draw(response_data, response_options);
       region_map.draw(region_data, region_options);

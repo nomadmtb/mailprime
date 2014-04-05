@@ -39,6 +39,17 @@ populate_report_maps = ->
 		url: "http://127.0.0.1:8000/api/#{username}/c-#{campaign}/m-#{message}/region_data.json"
 		success: (results) ->
 
+			trend_options = {
+				curveType: 'function',
+				legend: {
+					position: 'bottom',
+					alignment: 'center',
+					textStyle: {
+						color: '#525453',
+					}
+				}
+			}
+
 			region_options = {
 				width: 670,
 				height: 500,
@@ -89,6 +100,9 @@ populate_report_maps = ->
 				]
 			}
 
+			trend_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
+			trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'))
+
 			weekday_data = google.visualization.arrayToDataTable(results['weekday_data'])
 			weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'))
 
@@ -101,6 +115,7 @@ populate_report_maps = ->
 			coord_data = google.visualization.arrayToDataTable(results['coordinate_data'])
 			coord_map = new google.visualization.Map(document.getElementById('coord_map'))
 
+			trend_chart.draw(trend_data, trend_options)
 			weekday_graph.draw(weekday_data, weekday_options)
 			response_graph.draw(response_data, response_options)
 			region_map.draw(region_data, region_options)
