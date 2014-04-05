@@ -4,6 +4,7 @@ $ ->
 	checkforreport()
 	autoadjustiframe()
 	checkcampaignlink()
+	checknewcampaignlink()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -117,6 +118,13 @@ autoadjustiframe = ->
 checkcampaignlink = ->
 	if $(".campaign_wrapper").length
 		$(".campaign_wrapper").each ->
+			link = $(this).attr("data-link")
+			$(this).click ->
+				window.location.href = link
+
+checknewcampaignlink = ->
+	if $("#add_campaign_button").length
+		$("#add_campaign_button").each ->
 			link = $(this).attr("data-link")
 			$(this).click ->
 				window.location.href = link

@@ -423,17 +423,69 @@ label {
   font-weight: 600;
   color: #000000;
 }
+#add_campaign_button {
+  height: 130px;
+  width: 608px;
+  background-color: #525453;
+  margin: 0 auto;
+  outline: 1px outset #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  -moz-transition: background-color 0.5s ease;
+  -webkit-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
+  transition: box-shadow 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease;
+  -webkit-transition: box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
+}
+#add_campaign_button:hover {
+  background-color: #7ccbf2;
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+  box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+}
+#add_campaign_button h1 {
+  text-align: center;
+  font-size: 95px;
+  margin: 0px;
+  color: #ffffff;
+}
+.color_transition {
+  transition: background-color 0.5s ease;
+  -moz-transition: background-color 0.5s ease;
+  -webkit-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
+}
+.box_shadow_transition {
+  transition: box-shadow 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease;
+  -webkit-transition: box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
+}
 .campaign_wrapper {
   height: 200px;
   width: 588px;
   margin: 0 auto;
+  margin-bottom: 15px;
   background-color: #bed9e6;
   padding: 10px;
   cursor: pointer;
   outline: 1px outset #ffffff;
+  transition: background-color 0.5s ease;
+  -moz-transition: background-color 0.5s ease;
+  -webkit-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
+  transition: box-shadow 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease;
+  -webkit-transition: box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
 }
 .campaign_wrapper:hover {
   background-color: #7ccbf2;
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+  box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
 }
 .campaign_wrapper .image_left {
   float: left;
@@ -463,4 +515,5 @@ label {
 }
 .campaign_wrapper .content_right table tr td {
   font-size: 20px;
+  color: #525453;
 }

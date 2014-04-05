@@ -490,17 +490,62 @@ label {
 }
 
 // Campaign Extra
+#add_campaign_button {
+	height: 130px;
+	width: 608px;
+	background-color: @color-dark;
+	margin: 0 auto;
+	.box-outline;
+	cursor: pointer;
+	.color_transition;
+	.box_shadow_transition;
+
+	&:hover {
+		background-color: @color-important;
+		-webkit-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+		-moz-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+		box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+	}
+
+	h1 {
+		text-align: center;
+		font-size: 95px;
+		margin: 0px;
+		color: @color-base;
+	}
+}
+
+.color_transition {
+	transition: background-color 0.5s ease;
+	-moz-transition: background-color 0.5s ease;
+	-webkit-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
+}
+
+.box_shadow_transition {
+	transition: box-shadow 0.3s ease;
+	-moz-transition: box-shadow 0.3s ease;
+	-webkit-transition: box-shadow 0.3s ease;
+	-o-transition: box-shadow 0.3s ease;
+}
+
 .campaign_wrapper {
 	height: 200px;
 	width: 588px;
 	margin: 0 auto;
+	margin-bottom: 15px;
 	background-color: @color-selected;
 	padding: 10px;
 	cursor: pointer;
 	.box-outline;
+	.color_transition;
+	.box_shadow_transition;
 
 	&:hover {
 		background-color: @color-important;
+		-webkit-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+		-moz-box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
+		box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.58);
 	}
 
 	.image_left {
@@ -534,6 +579,7 @@ label {
 
 				td {
 					font-size: 20px;
+					color: @color-dark;
 				}
 			}
 		}
