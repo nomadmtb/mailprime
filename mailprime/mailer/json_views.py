@@ -123,6 +123,9 @@ def get_campaign_data(request,param_username, param_campaign_pk):
 
 		read_events = Event.objects.filter(message__campaign__pk=param_campaign_pk, message__campaign__user__username=param_username)
 
+		if read_events.count() == 0:
+			return HttpResponse(json.dumps({"ERROR": 'No Data'}), content_type='application/json')
+
 		# Load Line Graph
 		read_by_day_data = [['Date', 'Read-Events']]
 		read_dates = []

@@ -3,9 +3,8 @@ $ ->
 	loaddatepicker()
 	check_for_message_report()
 	check_for_campaign_graph()
-	#autoadjustiframe()
-	checkcampaignlink()
-	#checknewcampaignlink()
+	auto_adjust_iframe()
+	check_campaign_link()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -37,21 +36,32 @@ populate_campaign_graph = ->
 			url: "http://127.0.0.1:8000/api/#{username}/c-#{campaign}/campaign_data.json"
 			success: (results) ->
 
-				trend_options = {
-					curveType: 'function',
-					legend: {
-						position: 'bottom',
-						alignment: 'center',
-						textStyle: {
-							color: '#525453',
+				if results.hasOwnProperty('ERROR')
+					$("#trend_chart").css('background-color', '#C00000')
+					$("#percent_response_chart").css('background-color', '#C00000')
+					$("#weekday_chart").css('background-color', '#C00000')
+					$("#geo_region_map").css('background-color', '#C00000')
+					$("#coord_map").css('background-color', '#C00000')
+
+					$(".solid_bg:first").prepend("<h1 id='data_error'>ERROR, No Tracking Data Available Yet</h1>")
+
+				else
+
+					trend_options = {
+						curveType: 'function',
+						legend: {
+							position: 'bottom',
+							alignment: 'center',
+							textStyle: {
+								color: '#525453',
+							}
 						}
 					}
-				}
 
-				event_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
-				adjust_chart_width()
-				trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'))
-				trend_chart.draw(event_data, trend_options)
+					event_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
+					adjust_chart_width()
+					trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'))
+					trend_chart.draw(event_data, trend_options)
 
 loaddatepicker = ->
 	if $("#id_deploy_date").length
@@ -167,23 +177,22 @@ populate_message_report_maps = ->
 				region_map.draw(region_data, region_options)
 				coord_map.draw(coord_data, coord_options)
 
-autoadjustiframe = ->
-
+auto_adjust_iframe = ->
 	if $(".sample_message").length
-
 		$(".sample_message").each ->
 			$(this).load ->
 				frame_height = $(this).contents().find("html").height()
 				$(this).height(frame_height)
 
-checkcampaignlink = ->
+check_campaign_link = ->
 	if $(".campaign_wrapper").length
 		$(".campaign_wrapper").each ->
 			link = $(this).attr("data-link")
 			$(this).click ->
 				window.location.href = link
+		checknewcampaignlink()
 
-checknewcampaignlink = ->
+check_new_campaign_link = ->
 	if $("#add_campaign_button").length
 		$("#add_campaign_button").each ->
 			link = $(this).attr("data-link")
