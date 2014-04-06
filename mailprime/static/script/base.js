@@ -199,7 +199,7 @@ check_campaign_link = function() {
         return window.location.href = link;
       });
     });
-    return checknewcampaignlink();
+    return check_new_campaign_link();
   }
 };
 
