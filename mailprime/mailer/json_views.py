@@ -2,6 +2,7 @@ from mailer.models import Profile, Campaign, Recipient, Event, Message
 from mailer.lib import current_user
 from collections import Counter
 from django.http import HttpResponse
+from django.contrib import messages
 import datetime, pytz
 import json
 
@@ -19,8 +20,8 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 											 message__campaign__pk=param_campaign_pk,
 											 message__campaign__user__username=param_username )
 
-		if read_events is None:
-			return HttpResponse(json.dumps([]), content_type='application/json')
+		if read_events.count() == 0:
+			return HttpResponse(json.dumps({"ERROR": 'No Data'}), content_type='application/json')
 
 		# Load Region-data	
 		region_data = []

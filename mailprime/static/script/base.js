@@ -84,77 +84,86 @@ populate_report_maps = function() {
     url: "http://127.0.0.1:8000/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
     success: function(results) {
       var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, trend_chart, trend_data, trend_options, weekday_data, weekday_graph, weekday_options;
-      trend_options = {
-        curveType: 'function',
-        legend: {
-          position: 'bottom',
-          alignment: 'center',
-          textStyle: {
-            color: '#525453'
+      if (results.hasOwnProperty('ERROR')) {
+        $("#trend_chart").css('background-color', '#C00000');
+        $("#percent_response_chart").css('background-color', '#C00000');
+        $("#weekday_chart").css('background-color', '#C00000');
+        $("#geo_region_map").css('background-color', '#C00000');
+        $("#coord_map").css('background-color', '#C00000');
+        return $(".solid_bg").prepend("<h1 id='data_error'>ERROR, No Tracking Data Available Yet</h1>");
+      } else {
+        trend_options = {
+          curveType: 'function',
+          legend: {
+            position: 'bottom',
+            alignment: 'center',
+            textStyle: {
+              color: '#525453'
+            }
           }
-        }
-      };
-      region_options = {
-        width: 670,
-        height: 500,
-        colorAxis: {
-          minValue: 0,
-          colors: ['#578EA9']
-        }
-      };
-      coord_options = {
-        showTip: true,
-        enableScrollWheel: false,
-        mapType: 'normal'
-      };
-      response_options = {
-        pieHole: 0.5,
-        legend: {
-          position: 'top',
-          alignment: 'center',
-          maxLines: 2,
-          textStyle: {
-            color: '#525453'
+        };
+        region_options = {
+          width: 670,
+          height: 500,
+          colorAxis: {
+            minValue: 0,
+            colors: ['#578EA9']
           }
-        },
-        chartArea: {
-          left: 55,
-          top: 65
-        },
-        colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
-      };
-      weekday_options = {
-        pieHole: 0.5,
-        legend: {
-          position: 'top',
-          alignment: 'center',
-          maxLines: 2,
-          textStyle: {
-            color: '#525453'
-          }
-        },
-        chartArea: {
-          left: 55,
-          top: 65
-        },
-        colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
-      };
-      trend_data = google.visualization.arrayToDataTable(results['read_by_day_data']);
-      adjust_chart_width();
-      trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'));
-      weekday_data = google.visualization.arrayToDataTable(results['weekday_data']);
-      weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
-      response_data = google.visualization.arrayToDataTable(results['response_data']);
-      response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'));
-      region_data = google.visualization.arrayToDataTable(results['region_data']);
-      region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'));
-      coord_data = google.visualization.arrayToDataTable(results['coordinate_data']);
-      coord_map = new google.visualization.Map(document.getElementById('coord_map'));
-      trend_chart.draw(trend_data, trend_options);
-      weekday_graph.draw(weekday_data, weekday_options);
-      response_graph.draw(response_data, response_options);
-      region_map.draw(region_data, region_options);
-      return coord_map.draw(coord_data, coord_options);
+        };
+        coord_options = {
+          showTip: true,
+          enableScrollWheel: false,
+          mapType: 'normal'
+        };
+        response_options = {
+          pieHole: 0.5,
+          legend: {
+            position: 'top',
+            alignment: 'center',
+            maxLines: 2,
+            textStyle: {
+              color: '#525453'
+            }
+          },
+          chartArea: {
+            left: 55,
+            top: 65
+          },
+          colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
+        };
+        weekday_options = {
+          pieHole: 0.5,
+          legend: {
+            position: 'top',
+            alignment: 'center',
+            maxLines: 2,
+            textStyle: {
+              color: '#525453'
+            }
+          },
+          chartArea: {
+            left: 55,
+            top: 65
+          },
+          colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
+        };
+        trend_data = google.visualization.arrayToDataTable(results['read_by_day_data']);
+        adjust_chart_width();
+        trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'));
+        weekday_data = google.visualization.arrayToDataTable(results['weekday_data']);
+        weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
+        response_data = google.visualization.arrayToDataTable(results['response_data']);
+        response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'));
+        region_data = google.visualization.arrayToDataTable(results['region_data']);
+        region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'));
+        coord_data = google.visualization.arrayToDataTable(results['coordinate_data']);
+        coord_map = new google.visualization.Map(document.getElementById('coord_map'));
+        trend_chart.draw(trend_data, trend_options);
+        weekday_graph.draw(weekday_data, weekday_options);
+        response_graph.draw(response_data, response_options);
+        region_map.draw(region_data, region_options);
+        return coord_map.draw(coord_data, coord_options);
+      }
     }
   });
 };

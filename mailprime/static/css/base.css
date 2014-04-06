@@ -432,6 +432,12 @@ label {
   min-width: 670px;
   height: 500px;
 }
+#data_error {
+  text-align: center;
+  font-size: 60px;
+  font-weight: 300;
+  border-bottom: 3px solid red;
+}
 #add_campaign_button {
   height: 130px;
   width: 608px;
