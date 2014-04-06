@@ -1,6 +1,15 @@
 {% extends "_base.html" %}
 
 {% block content %}
+
+<div class="solid_bg">
+	<h1>Message Activity</h1>
+
+	<div id="trend_chart" camp-data="{{ campaign.pk }}" user-data="{{ user.username }}">
+	</div>
+
+</div>
+
 <div class="solid_bg">
 
 <h1>Campaign Details: {{ campaign.title }}</h1>

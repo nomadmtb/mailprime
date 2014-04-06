@@ -56,8 +56,6 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		num_users = Recipient.objects.filter( campaign__pk=param_campaign_pk,
 											  campaign__user__username=param_username ).count()
 
-
-
 		response_title = ['Status', 'Responce Rate']
 		response_data.append(['Read', users_responded])
 		response_data.append(['Not Read', (num_users - users_responded)])
@@ -109,6 +107,36 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 
 		data['read_by_day_data'] = read_by_day_data
 
+		# End Load Line Graph
+
+		return HttpResponse(json.dumps(data), content_type='application/json')
+	else:
+		return HttpResponse('Unauthorized', status=401)
+
+def get_campaign_data(request,param_username, param_campaign_pk):
+
+	if current_user(request) and request.user.username == param_username:
+
+		# Data dictionary that will contain our pre-json data.
+		data = {}
+
+		read_events = Event.objects.filter(message__campaign__pk=param_campaign_pk, message__campaign__user__username=param_username)
+
+		# Load Line Graph
+		read_by_day_data = [['Date', 'Read-Events']]
+		read_dates = []
+		read_events = read_events.order_by('-created_date')
+
+		for event in read_events:
+			cur_date = event.created_date.strftime("%m/%d")
+			read_dates.append(cur_date)
+
+		read_counter = Counter(item for item in read_dates)
+
+		for k, v in read_counter.iteritems():
+			read_by_day_data.append([k,v])
+
+		data['read_by_day_data'] = read_by_day_data
 		# End Load Line Graph
 
 		return HttpResponse(json.dumps(data), content_type='application/json')

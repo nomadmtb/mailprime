@@ -178,6 +178,7 @@ nav {
   border: 1px solid #ffffff;
   border: 1px solid #7ccbf2;
   margin: 0;
+  margin-bottom: 15px;
 }
 .content_wrapper {
   margin: 0 auto;
@@ -430,7 +431,6 @@ label {
   margin: 0 auto;
   min-width: 670px;
   height: 500px;
-  background-color: #dde8ee;
 }
 #add_campaign_button {
   height: 130px;

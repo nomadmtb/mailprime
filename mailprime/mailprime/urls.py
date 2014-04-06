@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     url(r'^tracker/auth/(\w+)$', tracker_views.tracker_authorize, name='tracker_authorize'),
     url(r'^tracker/unsub/(\w+)$', tracker_views.tracker_unsubscribe, name='tracker_unsubscribe'),
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/region_data\.json$', json_views.get_message_region_data, name="get_message_region_data"),
+    url(r'^api/(\w+)/c-(\d+)/campaign_data\.json$', json_views.get_campaign_data, name="get_campaign_data"),
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/sample_message\.html$', json_views.get_sample_message, name="get_sample_message"),
 )
 

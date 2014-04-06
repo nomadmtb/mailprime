@@ -2,6 +2,7 @@ $ ->
 	checkfornotice()
 	loaddatepicker()
 	checkforreport()
+	checkcampaigngraph()
 	autoadjustiframe()
 	checkcampaignlink()
 	checknewcampaignlink()
@@ -18,6 +19,42 @@ checkfornotice = ->
 			$("#notice_wrapper").slideToggle "fast"
 			return
 			), ($(".notice").length * 2500)
+
+checkcampaigngraph = ->
+
+	google.load "visualization", "1",
+		packages: ["corechart",]
+		callback: populate_campaign_graph
+
+populate_campaign_graph = ->
+
+	if $("#trend_chart").length
+
+		campaign = $("#trend_chart").attr('camp-data')
+		username = $("#trend_chart").attr('user-data')
+
+		$.ajax
+			type: "GET"
+			url: "http://127.0.0.1:8000/api/#{username}/c-#{campaign}/campaign_data.json"
+			success: (results) ->
+
+				trend_options = {
+					curveType: 'function',
+					legend: {
+						position: 'bottom',
+						alignment: 'center',
+						textStyle: {
+							color: '#525453',
+						}
+					}
+				}
+
+				event_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
+				adjust_chart_width()
+				trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'))
+				trend_chart.draw(event_data, trend_options)
+
+
 
 loaddatepicker = ->
 	if $("#id_deploy_date").length
@@ -101,6 +138,7 @@ populate_report_maps = ->
 			}
 
 			trend_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
+			adjust_chart_width()
 			trend_chart = new google.visualization.LineChart(document.getElementById('trend_chart'))
 
 			weekday_data = google.visualization.arrayToDataTable(results['weekday_data'])
@@ -143,3 +181,6 @@ checknewcampaignlink = ->
 			link = $(this).attr("data-link")
 			$(this).click ->
 				window.location.href = link
+
+adjust_chart_width = ->
+	$("#trend_chart").width('100%')
