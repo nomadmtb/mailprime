@@ -1,11 +1,11 @@
 $ ->
 	checkfornotice()
 	loaddatepicker()
-	checkforreport()
-	checkcampaigngraph()
-	autoadjustiframe()
+	check_for_message_report()
+	check_for_campaign_graph()
+	#autoadjustiframe()
 	checkcampaignlink()
-	checknewcampaignlink()
+	#checknewcampaignlink()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -20,14 +20,13 @@ checkfornotice = ->
 			return
 			), ($(".notice").length * 2500)
 
-checkcampaigngraph = ->
-
-	google.load "visualization", "1",
-		packages: ["corechart",]
-		callback: populate_campaign_graph
+check_for_campaign_graph = ->
+	if $('#generate_campaign_graph').length
+		google.load "visualization", "1",
+			packages: ["corechart",]
+			callback: populate_campaign_graph
 
 populate_campaign_graph = ->
-
 	if $("#trend_chart").length
 
 		campaign = $("#trend_chart").attr('camp-data')
@@ -58,13 +57,13 @@ loaddatepicker = ->
 	if $("#id_deploy_date").length
 		$("#id_deploy_date").datepicker()
 
-checkforreport = ->
-	if $(".statistical_frame").length
+check_for_message_report = ->
+	if $("#generate_message_report").length
 		google.load "visualization", "1",
 			packages: ["geochart", "map", "corechart"]
-			callback: populate_report_maps
+			callback: populate_message_report_maps
 
-populate_report_maps = ->
+populate_message_report_maps = ->
 	message = $("#geo_region_map").attr('mess-data')
 	username = $("#geo_region_map").attr('user-data')
 	campaign = $("#geo_region_map").attr('camp-data')
