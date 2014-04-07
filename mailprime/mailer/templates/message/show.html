@@ -9,7 +9,39 @@
 <h3>{{ message.message_id }}</h3>
 
 <div class="solid_bg">
+
+	<div id="update_message_wrapper">
+
+	<!-- Rendered Sample Message; float left -->
 	<iframe class="sample_message" src="{{ sample_link }}"></iframe>
+
+	<!-- Form Used To Edit Message Obj; float right -->
+	<div class="form_right_wrapper">
+	<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/messages/new">
+	{% csrf_token %}
+
+	{% for hidden in form.hidden_fields %}
+		{{ hidden }}
+	{% endfor %}
+
+	<ul class="form_item">
+	{% for field in form.visible_fields %}
+	<li>
+		{{ field.label_tag }}
+		{{ field }}
+		<div class="clear_float"></div>
+	</li>
+	{% endfor %}
+	</ul>
+	<div class="clear_float"></div>
+	<input type="submit" name="submit" value="Submit Changes" />
+</form>
+</div>
+
+<div class="clear_float"></div>
+
+</div>
+
 </div>
 
 {% endblock %}

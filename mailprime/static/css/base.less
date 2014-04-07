@@ -257,6 +257,7 @@ nav {
 
 .sample_message {
 	width: 520px;
+	float: left;
 }
 
 .button_small(@bg_color, @tx_color) {
@@ -366,6 +367,24 @@ section[id="main"] {
 	padding: 35px;
 	background-color: @color-important;
 	.rounded_border;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			margin: 0;
+			padding-bottom: 15px;
+			list-style-type: none;
+		}
+	}
+}
+
+.form_right_wrapper {
+	width: 520px;
+	margin: 0;
+	padding: 35px;
+	float: right;
+	background-color: @color-important;
 
 	ul {
 		margin: 0;

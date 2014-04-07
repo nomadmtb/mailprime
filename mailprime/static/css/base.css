@@ -199,6 +199,7 @@ nav {
 }
 .sample_message {
   width: 520px;
+  float: left;
 }
 body {
   margin: 0;
@@ -275,6 +276,22 @@ section[id="main"] {
   padding: 0;
 }
 .form_wrapper ul li {
+  margin: 0;
+  padding-bottom: 15px;
+  list-style-type: none;
+}
+.form_right_wrapper {
+  width: 520px;
+  margin: 0;
+  padding: 35px;
+  float: right;
+  background-color: #7ccbf2;
+}
+.form_right_wrapper ul {
+  margin: 0;
+  padding: 0;
+}
+.form_right_wrapper ul li {
   margin: 0;
   padding-bottom: 15px;
   list-style-type: none;

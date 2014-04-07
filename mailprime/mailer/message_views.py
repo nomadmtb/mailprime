@@ -60,8 +60,10 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 																						message.campaign.pk,
 																						message.pk)
 			page_vars['message'] = message
+			page_vars['form'] = MessageForm()
+			csrfContext = RequestContext(request, page_vars)
 			
-			return render(request, 'message/show.html', page_vars)
+			return render(request, 'message/show.html', csrfContext)
 
 	else:
 		raise Http404
