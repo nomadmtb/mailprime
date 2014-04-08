@@ -33,7 +33,7 @@ populate_campaign_graph = ->
 
 		$.ajax
 			type: "GET"
-			url: "http://127.0.0.1:8000/api/#{username}/c-#{campaign}/campaign_data.json"
+			url: "/api/#{username}/c-#{campaign}/campaign_data.json"
 			success: (results) ->
 
 				if results.hasOwnProperty('ERROR')
@@ -80,7 +80,7 @@ populate_message_report_maps = ->
 
 	$.ajax
 		type: "GET"
-		url: "http://127.0.0.1:8000/api/#{username}/c-#{campaign}/m-#{message}/region_data.json"
+		url: "/api/#{username}/c-#{campaign}/m-#{message}/region_data.json"
 		success: (results) ->
 
 			if results.hasOwnProperty('ERROR')

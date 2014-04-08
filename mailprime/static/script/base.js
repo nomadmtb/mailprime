@@ -38,7 +38,7 @@ populate_campaign_graph = function() {
     username = $("#trend_chart").attr('user-data');
     return $.ajax({
       type: "GET",
-      url: "http://127.0.0.1:8000/api/" + username + "/c-" + campaign + "/campaign_data.json",
+      url: "/api/" + username + "/c-" + campaign + "/campaign_data.json",
       success: function(results) {
         var event_data, trend_chart, trend_options;
         if (results.hasOwnProperty('ERROR')) {
@@ -93,7 +93,7 @@ populate_message_report_maps = function() {
   campaign = $("#geo_region_map").attr('camp-data');
   return $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
+    url: "/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
     success: function(results) {
       var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, trend_chart, trend_data, trend_options, weekday_data, weekday_graph, weekday_options;
       if (results.hasOwnProperty('ERROR')) {
