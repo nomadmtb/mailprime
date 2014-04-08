@@ -71,7 +71,9 @@ populate_campaign_graph = function() {
 
 loaddatepicker = function() {
   if ($("#id_deploy_date").length) {
-    return $("#id_deploy_date").datepicker();
+    return $("#id_deploy_date").datepicker({
+      dateFormat: 'yy-mm-dd'
+    });
   }
 };
 

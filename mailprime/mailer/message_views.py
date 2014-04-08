@@ -60,7 +60,9 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 																						message.campaign.pk,
 																						message.pk)
 			page_vars['message'] = message
-			page_vars['form'] = MessageForm()
+			page_vars['form'] = MessageForm(instance=message)
+			page_vars['campaign'] = message.campaign
+			
 			csrfContext = RequestContext(request, page_vars)
 			
 			return render(request, 'message/show.html', csrfContext)

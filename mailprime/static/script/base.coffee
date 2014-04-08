@@ -65,7 +65,7 @@ populate_campaign_graph = ->
 
 loaddatepicker = ->
 	if $("#id_deploy_date").length
-		$("#id_deploy_date").datepicker()
+		$("#id_deploy_date").datepicker( { dateFormat: 'yy-mm-dd', })
 
 check_for_message_report = ->
 	if $("#generate_message_report").length

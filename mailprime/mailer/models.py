@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import string
 import re
 import pytz
+import netaddr
 
 # Create your models here.
 
@@ -202,6 +203,15 @@ class Event(models.Model):
 	created_date = models.DateTimeField(auto_now_add=True)
 	recipient = models.ForeignKey('Recipient')
 	message = models.ForeignKey('Message')
+
+	# Method that determines if Event originated from Google proxy-server
+	def is_google_proxy(self):
+		address_range = netaddr.IPSet(netaddr.IPRange('66.249.64.0', '66.249.95.255'))
+
+		if netaddr.IPAddress(self.ip_address) in address_range:
+			return True
+		else:
+			return False
 
 	def __unicode__(self):
 		return self.ip_address

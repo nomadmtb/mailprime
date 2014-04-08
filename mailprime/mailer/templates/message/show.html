@@ -17,7 +17,7 @@
 
 	<!-- Form Used To Edit Message Obj; float right -->
 	<div class="form_right_wrapper">
-	<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/messages/new">
+	<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/message-{{ message.pk }}">
 	{% csrf_token %}
 
 	{% for hidden in form.hidden_fields %}
