@@ -10,11 +10,13 @@ class TZMiddleWare(object):
 
 			if user_tz:
 				timezone.activate(pytz.timezone(user_tz))
-				print "User Time-Zone: {0}".format(user_tz)
+				print "{0} Time-Zone: {1}".format(request.user.username,user_tz)
 			else:
+				pass
 				profile_tz = request.user.profile.time_zone
 				timezone.deactivate()
 				timezone.activate(pytz.timezone(profile_tz))
 				request.session['user_timezone'] = profile_tz
 		else:
+
 			timezone.deactivate()

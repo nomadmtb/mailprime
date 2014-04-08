@@ -201,6 +201,8 @@ check_campaign_link = function() {
         return window.location.href = link;
       });
     });
+  }
+  if ($("#add_campaign_button").length) {
     return check_new_campaign_link();
   }
 };

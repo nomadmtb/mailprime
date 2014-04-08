@@ -65,6 +65,7 @@ def geo_locate(param_ip_address):
 	# Return coordinate hash
 	return coordinates
 
+# Function will deploy messages, it only stores the last message-recipient in the directory
 def send_messages(param_messages):
 	for message in param_messages:
 		file_name = (time.strftime("%d_%m_%Y_m") + str(message['pk']) + ".msg")

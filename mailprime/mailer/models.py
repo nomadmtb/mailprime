@@ -30,6 +30,7 @@ class Campaign(models.Model):
 	updated_date = models.DateTimeField(auto_now=True)
 	active = models.BooleanField(default=True)
 	user = models.ForeignKey(User)
+	unsub_count = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return self.title

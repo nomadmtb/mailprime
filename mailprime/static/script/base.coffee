@@ -190,6 +190,8 @@ check_campaign_link = ->
 			link = $(this).attr("data-link")
 			$(this).click ->
 				window.location.href = link
+				
+	if $("#add_campaign_button").length
 		check_new_campaign_link()
 
 check_new_campaign_link = ->

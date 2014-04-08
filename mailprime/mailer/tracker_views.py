@@ -35,8 +35,15 @@ def tracker_unsubscribe(request, param_recipient_hash):
 	except Recipient.DoesNotExist:
 		raise Http404
 
+	# Get Campaign, and increment unsub count
+	campaign = contact.campaign
+	campaign.unsub_count += 1
+	campaign.save()
+
+	# Delete the recipient from the database
 	contact.delete()
 
+	# Generate message that will be displayed to the user
 	messages.add_message(request, messages.SUCCESS, 'You have successfully unsubscribed!')
 	return HttpResponseRedirect('/')
 
