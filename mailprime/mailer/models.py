@@ -76,33 +76,6 @@ class Campaign(models.Model):
 class Message(models.Model):
 	"""This class holds the settings and content for the HTML templates"""
 
-	DEPLOY_HOURS = (
-		(0, '12:00 AM'),
-		(1, '1:00 AM'),
-		(2, '2:00 AM'),
-		(3, '3:00 AM'),
-		(4, '4:00 AM'),
-		(5, '5:00 AM'),
-		(6, '6:00 AM'),
-		(7, '7:00 AM'),
-		(8, '8:00 AM'),
-		(9, '9:00 AM'),
-		(10, '10:00 AM'),
-		(11, '11:00 AM'),
-		(12, '12:00 PM'),
-		(13, '1:00 PM'),
-		(14, '2:00 PM'),
-		(15, '3:00 PM'),
-		(16, '4:00 PM'),
-		(17, '5:00 PM'),
-		(18, '6:00 PM'),
-		(19, '7:00 PM'),
-		(20, '8:00 PM'),
-		(21, '9:00 PM'),
-		(22, '10:00 PM'),
-		(23, '11:00 PM'),
-		)
-
 	title = models.CharField(max_length=200)
 	body = models.TextField()
 	link = models.URLField(max_length=200)
@@ -110,8 +83,7 @@ class Message(models.Model):
 	campaign = models.ForeignKey('Campaign')
 	deployed = models.BooleanField(default=False, blank=True)
 	created_date = models.DateTimeField(auto_now_add=True)
-	deploy_date = models.DateField()
-	deploy_hour = models.IntegerField(choices=DEPLOY_HOURS, default=0, blank=False)
+	deploy_date = models.DateTimeField()
 	message_id = models.CharField(max_length=200, blank=True)
 	unsub_count = models.IntegerField(default=0)
 

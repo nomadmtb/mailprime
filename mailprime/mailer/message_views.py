@@ -97,7 +97,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 					return render(request, 'message/new.html', page_vars)
 			else:
 				# Process GET DATA...
-				page_vars['form'] = MessageForm()
+				page_vars['form'] = MessageForm(initial={'user_timezone': request.user.profile.time_zone})
 				csrfContext = RequestContext(request, page_vars)
 				return render(request, 'message/new.html', csrfContext)
 	else:

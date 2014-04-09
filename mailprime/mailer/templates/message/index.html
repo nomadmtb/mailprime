@@ -18,7 +18,7 @@
 		<tr>
 			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title }}</a></td>
 			<td>{{ campaign_message.created_date }}</td>
-			<td>{{ campaign_message.deploy_date }} @ {{ campaign_message.deploy_hour }}:00 UTC</td>
+			<td>{{ campaign_message.deploy_date }}</td>
 			{% if campaign_message.deployed %}
 			<td><img src="/static/images/bueno.png" height="18px" /></td>
 			{% else %}
