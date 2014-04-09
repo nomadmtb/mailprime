@@ -49,7 +49,6 @@ class MessageForm(forms.ModelForm):
 		)
 
 	temp_deploy_hour = forms.ChoiceField(choices=DEPLOY_HOURS, initial=0)
-	user_timezone = forms.CharField(widget=forms.HiddenInput())
 
 	class Meta:
 		model = Message
@@ -58,17 +57,28 @@ class MessageForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		deploy_hour = cleaned_data['temp_deploy_hour']
-		user_timezone = cleaned_data['user_timezone']
+		deploy_hour = int(cleaned_data['temp_deploy_hour'])
 
-		### USE LOCALIZE, NOT REPLACE. REPLACE DOESN'T TAKE INTO ACCOUNT DST ###
+		# Apply deploy-hour to deploy-date
+		cleaned_data['deploy_date'] = cleaned_data['deploy_date'].replace(hour=deploy_hour, minute=0)
 
-		print "Timezone: {0}".format(cleaned_data['deploy_date'].strftime('%Z'))
+		# Converting both times to UTC
+		deploy_utc = cleaned_data['deploy_date'].astimezone(pytz.utc)
+		system_utc = datetime.now(pytz.utc)
+		earliest_utc = system_utc + timedelta(hours=3)
 
-		if earliest_time > desired_time:
-			raise forms.ValidationError("Deploy date must be at least 3 hours into the future")
+		print "DEPLOY UTC -> {0}".format(deploy_utc)
+		print "SYSTEM UTC -> {0}".format(system_utc)
+		print "EARLIEST UTC -> {0}".format(earliest_utc)
 
-		print cleaned_data
+
+		# Make sure deploy date is at least 3 hrs into the future
+		if deploy_utc < earliest_utc:
+			raise forms.ValidationError("ERROR: Deploy Date Must Be At Least 3 Hours Into The Future")
+
+		else:
+			# Overwrite cleaned_data['deploy_date'] with validated datetime
+			cleaned_data['deploy_date'] = deploy_utc
 
 		return cleaned_data
 
