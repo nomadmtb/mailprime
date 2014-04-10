@@ -67,7 +67,7 @@ def geo_locate(param_ip_address):
 	return coordinates
 
 # Function will deploy messages, it only stores the last message-recipient in the directory
-def send_messages(param_messages):
+def send_mail(param_messages):
 
 	# Opening SMTP connection to POSTFIX server
 	postfix_connection = mail.get_connection()
@@ -75,8 +75,10 @@ def send_messages(param_messages):
 
 	built_messages = []
 
+	# Iterate through each message dictionary
 	for message in param_messages:
 
+		# Build message object
 		alt_msg = mail.EmailMultiAlternatives(
 											message['subject'],
 											message['plaintext_content'],
@@ -85,21 +87,14 @@ def send_messages(param_messages):
 											connection=postfix_connection,
 										)
 
+		# Attach new content-type (HTML) to message object
 		alt_msg.attach_alternative(message['html_content'], "text/html")
 
+		# Append built message to messages array
 		built_messages.append(alt_msg)
 
+	# Send out all messages that appear in the messages array
 	postfix_connection.send_messages(built_messages)
 
+	# We are done with the server, close connection
 	postfix_connection.close()
-
-def send_invitations(param_messages):
-	for message in param_messages:
-		file_name = (time.strftime("%d_%m_%Y_i") + str(message['pk']) + ".msg")
-		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/invitations/{2}'.format(message['subject'], message['to'], file_name)
-
-		f = open(('/home/kgluce/mailprime/mailprime/invitations/{0}'.format(file_name)), 'w+')
-		f.write(message['message'])
-		f.close()
-
-		os.system(command)

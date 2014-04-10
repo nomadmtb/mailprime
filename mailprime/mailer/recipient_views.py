@@ -143,6 +143,10 @@ def upload_recipients(request, param_username, param_campaign_pk):
 					messages.add_message(request, messages.SUCCESS, "{0} Entries Failed".format(invalid_email_count))
 					page_vars['invalid_emails'] = invalid_emails
 
+				# Send out Invitations if necessary
+				if valid_email_count > 0:
+					os.system("python manage.py deploy_invitations {0} &".format(campaign.pk))
+
 				return render(request, 'recipient/upload_report.html', page_vars)
 
 def add_recipient(request, param_username, param_campaign_pk):

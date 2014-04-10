@@ -43,30 +43,41 @@ class Campaign(models.Model):
 		selected_template = System_Template.objects.get(title='campaign_invitation')
 
 		for recipient in recipients:
-			built_template = string.replace( selected_template.content, "{{ campaign_title }}", self.title )
-			built_template = string.replace( built_template, "{{ title }}", 'MailPrime Campaign Invitation' )
-			built_template = string.replace( built_template, "{{ owner_email }}", self.user.email )
-			built_template = string.replace( built_template, "{{ recipient_email }}", recipient.email )
 
+			# Building plaintext version
+			built_plaintext = string.replace( selected_template.plaintext_content, "{{ campaign_title }}", self.title )
+			built_plaintext = string.replace( built_plaintext, "{{ title }}", 'MailPrime Campaign Invitation' )
+			built_plaintext = string.replace( built_plaintext, "{{ owner_email }}", self.user.email )
+			built_plaintext = string.replace( built_plaintext, "{{ recipient_email }}", recipient.email )
 			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
-			built_template = string.replace( built_template, "{{ accept_link }}", accept_link )
-
+			built_plaintext = string.replace( built_plaintext, "{{ accept_link }}", accept_link )
 			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
-			built_template = string.replace( built_template, "{{ deny_link }}", deny_link )
+			built_plaintext = string.replace( built_plaintext, "{{ deny_link }}", deny_link )
+			built_plaintext = string.replace( built_plaintext, "{{ about }}", self.about )
 
-			built_template = string.replace( built_template, "{{ about }}", self.about )
+			# Building html version
+			built_html = string.replace( selected_template.html_content, "{{ campaign_title }}", self.title )
+			built_html = string.replace( built_html, "{{ owner_email }}", self.user.username )
+			built_html = string.replace( built_html, "{{ recipient_email }}", recipient.email )
+			built_html = string.replace( built_html, "{{ about }}", self.about )
+			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
+			built_html = string.replace( built_html, "{{ accept_link }}", accept_link )
+			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
+			built_html = string.replace( built_html, "{{ deny_link }}", deny_link )
 
-			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
-
+			# Building message dictionary
 			message = {
-						'to': recipient.email.encode('utf-8'),
-						'from': self.user.email.encode('utf-8'),
-						'subject': self.title.encode('utf-8'),
-						'message': built_template,
-						'pk': self.pk,
+						'to': recipient.email,
+						'from': 'noreply@mailpri.me',
+						'subject': self.title,
+						'html_content': built_html,
+						'plaintext_content': built_plaintext,
 						}
+
+			# Appending message dictionary to messages array
 			messages.append(message)
 
+		# Return array of message dictionaries
 		return messages
 
 
@@ -97,25 +108,18 @@ class Message(models.Model):
 		selected_campaign = self.campaign
 		selected_template = self.template
 
-		# Construct sample message
-		built_template = string.replace(selected_template.content, "{{ campaign_title }}", selected_campaign.title)
-		built_template = string.replace(built_template, "{{ tracking_link }}", "")
-		built_template = string.replace(built_template, "{{ unsub_link }}", "")
-		built_template = string.replace(built_template, "{{ title }}", self.title)
-		built_template = string.replace(built_template, "{{ owner_email }}", selected_campaign.user.email)
-		built_template = string.replace(built_template, "{{ recipient_email }}", "sample@mailpri.me")
-		built_template = string.replace(built_template, "{{ body }}", self.body)
-		built_template = string.replace(built_template, "{{ link }}", self.link)
-
-		# Searching for HTML in email template, ommiting weird message-boundaries
-		substring = built_template[built_template.find('<html'):built_template.find('</html>')+len('</html>')]
-
-		substring = string.replace(substring, '\t', '')
-		substring = string.replace(substring, '\r', '')
-		substring = string.replace(substring, '\n', '')
+		# Construct sample message, HTML only
+		built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", selected_campaign.title)
+		built_html = string.replace(built_html, "{{ tracking_link }}", "")
+		built_html = string.replace(built_html, "{{ unsub_link }}", "")
+		built_html = string.replace(built_html, "{{ title }}", self.title)
+		built_html = string.replace(built_html, "{{ owner_email }}", selected_campaign.user.email)
+		built_html = string.replace(built_html, "{{ recipient_email }}", "sample@mailpri.me")
+		built_html = string.replace(built_html, "{{ body }}", self.body)
+		built_html = string.replace(built_html, "{{ link }}", self.link)
 
 		# Return HTML
-		return substring
+		return built_html
 
 	def build_messages(self):
 		messages = []

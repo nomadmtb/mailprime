@@ -16,7 +16,7 @@ class Command(BaseCommand):
 			except models.Message.DoesNotExist:
 				raise CommandError('Campaign Does Not Exist, Try Again.')
 
-			lib.send_invitations(cam.build_invitations())
+			lib.send_mail(cam.build_invitations())
 			self.stdout.write('Successfully Deployed Invitations.')
 
 		# Update recipients with invited status

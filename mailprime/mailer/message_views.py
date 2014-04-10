@@ -43,6 +43,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 
 		deploy = request.GET.get('deploy')
 
+		# Deploy message if deploy GET param is set
 		if (deploy is not None) and (deploy == str(message.pk)):
 
 			if message.deployed == False:
@@ -53,6 +54,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 
 			return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(message.campaign.pk) + '/messages')
 
+		# Else, GET param not set, render regular page
 		else:
 
 			page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(

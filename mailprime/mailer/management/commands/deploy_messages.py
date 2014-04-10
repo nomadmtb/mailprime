@@ -17,7 +17,7 @@ class Command(BaseCommand):
 			if mess.deployed:
 				raise CommandError('ERROR: Message has already been deployed')
 			else:
-				lib.send_messages(mess.build_messages())
+				lib.send_mail(mess.build_messages())
 				self.stdout.write('Successfully Deployed Messages.')
 				mess.deployed = True
 				mess.save()
