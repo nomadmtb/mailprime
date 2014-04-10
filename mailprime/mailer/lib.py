@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.core import mail
 import requests
 import os
 import time
@@ -67,15 +68,30 @@ def geo_locate(param_ip_address):
 
 # Function will deploy messages, it only stores the last message-recipient in the directory
 def send_messages(param_messages):
+
+	# Opening SMTP connection to POSTFIX server
+	postfix_connection = mail.get_connection()
+	postfix_connection.open()
+
+	built_messages = []
+
 	for message in param_messages:
-		file_name = (time.strftime("%d_%m_%Y_m") + str(message['pk']) + ".msg")
-		command = 'mail -a "Content-type: multipart/mixed; boundary=\"mess_bound\"" -a "MIME-Version: 1.0" -s "{0}" {1} < /home/kgluce/mailprime/mailprime/messages/{2}'.format(message['subject'], message['to'], file_name)
 
-		f = open(('/home/kgluce/mailprime/mailprime/messages/{0}'.format(file_name)), 'w+')
-		f.write(message['message'])
-		f.close()
+		alt_msg = mail.EmailMultiAlternatives(
+											message['subject'],
+											message['plaintext_content'],
+											message['from'],
+											[ message['to'] ],
+											connection=postfix_connection,
+										)
 
-		os.system(command)
+		alt_msg.attach_alternative(message['html_content'], "text/html")
+
+		built_messages.append(alt_msg)
+
+	postfix_connection.send_messages(built_messages)
+
+	postfix_connection.close()
 
 def send_invitations(param_messages):
 	for message in param_messages:

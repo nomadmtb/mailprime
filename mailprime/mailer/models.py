@@ -119,24 +119,44 @@ class Message(models.Model):
 
 	def build_messages(self):
 		messages = []
-		seleted_campaign = self.campaign
-		recipients = Recipient.objects.filter(campaign=seleted_campaign, active=True)
+		selected_campaign = self.campaign
+		recipients = Recipient.objects.filter(campaign=selected_campaign, active=True)
 		selected_template = self.template
 
 		for recipient in recipients:
-			built_template = string.replace(selected_template.content, "{{ campaign_title }}", seleted_campaign.title)
-			built_template = string.replace(built_template, "{{ title }}", self.title)
-			built_template = string.replace(built_template, "{{ owner_email }}", seleted_campaign.user.email)
-			built_template = string.replace(built_template, "{{ recipient_email }}", recipient.email)
-			built_template = string.replace(built_template, "{{ body }}", self.body)
-			built_template = string.replace(built_template, "{{ link }}", self.link)
-			built_template = string.replace(built_template, "{{ date_today }}", datetime.now().strftime('%Y-%m-%d %H:%M'))
-			track_url = "http://nomadmtb.com:8000/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
-			built_template = string.replace(built_template, "{{ tracking_link }}", track_url)
-			unsub_url = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
-			built_template = string.replace(built_template, "{{ unsub_link }}", unsub_url)
-			built_template = re.sub('[\t]', '', built_template.encode('utf-8'))
-			message = {'to': recipient.email.encode('utf-8'), 'from': seleted_campaign.user.email.encode('utf-8'), 'subject': self.title.encode('utf-8'), 'message': built_template, 'pk': self.pk}
+
+			# Building Plaintext Version
+			built_plaintext = string.replace(selected_template.plaintext_content, "{{ title }}", self.title)
+			built_plaintext = string.replace(built_plaintext, "{{ recipient_email }}", recipient.email)
+			built_plaintext = string.replace(built_plaintext, "{{ owner_email }}", selected_campaign.user.email)
+			built_plaintext = string.replace(built_plaintext, "{{ body }}", self.body)
+			built_plaintext = string.replace(built_plaintext, "{{ link }}", self.link)
+			built_plaintext = string.replace(built_plaintext, "{{ campaign_title }}", selected_campaign.title)
+			unsub_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
+			built_plaintext = string.replace(built_plaintext, "{{ unsub_link }}", unsub_link)
+
+			# Building HTML formatted version
+			built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", selected_campaign.title)
+			built_html = string.replace(built_html, "{{ title }}", self.title)
+			built_html = string.replace(built_html, "{{ recipient_email }}", recipient.email)
+			built_html = string.replace(built_html, "{{ owner_email }}", selected_campaign.user.email)
+			built_html = string.replace(built_html, "{{ body }}", self.body)
+			built_html = string.replace(built_html, "{{ link }}", self.link)
+			unsub_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
+			built_html = string.replace(built_html, "{{ unsub_link }}", unsub_link)
+			tracking_link = "http://nomadmtb.com:8000/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
+			built_html = string.replace(built_html, "{{ tracking_link }}", tracking_link)
+
+			# Building message dictionary
+			message = {
+						'to': recipient.email,
+						'from': 'noreply@mailpri.me',
+						'subject': self.title,
+						'html_content': built_html,
+						'plaintext_content': built_plaintext,
+						}
+
+			# Appending message to messages array
 			messages.append(message)
 
 		return messages
@@ -192,7 +212,8 @@ class Event(models.Model):
 class Template(models.Model):
 	"""This is the class that will hold the different HTML template data for the messages"""
 	title = models.CharField(max_length=200)
-	content = models.TextField()
+	plaintext_content = models.TextField()
+	html_content = models.TextField()
 
 	def __unicode__(self):
 		return self.title
@@ -200,7 +221,8 @@ class Template(models.Model):
 class System_Template(models.Model):
 	"""This is the class that will hold the templates that are used by the system, internal only"""
 	title = models.CharField(max_length=200)
-	content = models.TextField()
+	plaintext_content = models.TextField()
+	html_content = models.TextField()
 
 	def __unicode__(self):
 		return self.title
