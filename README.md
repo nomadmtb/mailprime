@@ -16,6 +16,7 @@ What does it do?
 
 What do I still need to do?
 ---------------------------
+* HTML-escape all template parameters in the model's build functions.
 * Create more templates.
 * Create api/action for sample campaign-invitation.
 * Add counter to Message obj to keep total recipients consistent after people unsubscribe.
