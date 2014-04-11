@@ -144,6 +144,9 @@ nav {
   border-bottom: 1px solid #bed9e6;
   margin: 10px;
 }
+.box_shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 .nav_right {
   float: right;
   list-style: none;
@@ -174,11 +177,9 @@ nav {
 .solid_bg {
   background-color: #ffffff;
   padding: 15px;
-  border-radius: 5px;
-  border: 1px solid #ffffff;
-  border: 1px solid #7ccbf2;
   margin: 0;
   margin-bottom: 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .content_wrapper {
   margin: 0 auto;
@@ -263,6 +264,10 @@ section[id="main"] {
 .ninety_center td {
   width: 25%;
 }
+#update_message_wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+}
 .form_wrapper {
   width: 70%;
   margin: 0 auto;
@@ -281,7 +286,7 @@ section[id="main"] {
   list-style-type: none;
 }
 .form_right_wrapper {
-  width: 520px;
+  width: 450px;
   margin: 0;
   padding: 35px;
   float: right;

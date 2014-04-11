@@ -57,18 +57,47 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		# Else, GET param not set, render regular page
 		else:
 
-			page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
+			# Request method is GET, generate new form
+			if request.method == "GET":
+
+				page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
 																						request.user.username,
 																						message.campaign.pk,
 																						message.pk)
-			page_vars['message'] = message
-			page_vars['form'] = MessageForm(instance=message)
-			page_vars['campaign'] = message.campaign
+				page_vars['message'] = message
+				page_vars['form'] = MessageForm(instance=message)
+				page_vars['campaign'] = message.campaign
 			
-			csrfContext = RequestContext(request, page_vars)
-			
-			return render(request, 'message/show.html', csrfContext)
+				csrfContext = RequestContext(request, page_vars)
+				return render(request, 'message/show.html', csrfContext)
 
+			# Request method is POST, process form data to model
+			elif request.method == "POST":
+
+				# Creating Message instance from modelform
+				completed_form = MessageForm(request.POST, instance=message)
+
+				# Running validation w/ clean(), if valid
+				if completed_form.is_valid():
+
+					completed_form.save()
+
+					messages.add_message(request, messages.SUCCESS, 'Sucessfully Updated Message')
+					return HttpResponseRedirect('/{0}/campaign-{1}/message-{2}'.format(request.user.username, message.campaign.pk, message.pk))
+
+				# Validation errors occurred, regenerate form with vars
+				else:
+					generate_form_errors(request, completed_form)
+					page_vars['form'] = completed_form
+					page_vars['campaign'] = message.campaign
+					page_vars['message'] = message
+					page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
+																							request.user.username,
+																							message.campaign.pk,
+																							message.pk)
+
+					csrfContext = RequestContext(request, page_vars)
+					return render(request, 'message/show.html', csrfContext)
 	else:
 		raise Http404
 
@@ -86,7 +115,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 
 			if request.method == "POST":
 				
-				completed_form = MessageForm(request.POST)
+				completed_form = MessageForm(request.POST, instance=message)
 
 				if completed_form.is_valid():
 					message = completed_form.save(commit=False)
