@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.html import escape
 import hashlib
 from datetime import datetime
 from django.db import models
@@ -56,20 +57,20 @@ class Campaign(models.Model):
 			built_plaintext = string.replace( built_plaintext, "{{ about }}", self.about )
 
 			# Building html version
-			built_html = string.replace( selected_template.html_content, "{{ campaign_title }}", self.title )
-			built_html = string.replace( built_html, "{{ owner_email }}", self.user.username )
-			built_html = string.replace( built_html, "{{ recipient_email }}", recipient.email )
-			built_html = string.replace( built_html, "{{ about }}", self.about )
+			built_html = string.replace( selected_template.html_content, "{{ campaign_title }}", escape(self.title) )
+			built_html = string.replace( built_html, "{{ owner_email }}", escape(self.user.username) )
+			built_html = string.replace( built_html, "{{ recipient_email }}", escape(recipient.email) )
+			built_html = string.replace( built_html, "{{ about }}", escape(self.about) )
 			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
-			built_html = string.replace( built_html, "{{ accept_link }}", accept_link )
+			built_html = string.replace( built_html, "{{ accept_link }}", escape(accept_link) )
 			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
-			built_html = string.replace( built_html, "{{ deny_link }}", deny_link )
+			built_html = string.replace( built_html, "{{ deny_link }}", escape(deny_link) )
 
 			# Building message dictionary
 			message = {
 						'to': recipient.email,
 						'from': 'noreply@mailpri.me',
-						'subject': self.title,
+						'subject': escape(self.title),
 						'html_content': built_html,
 						'plaintext_content': built_plaintext,
 						}
@@ -141,14 +142,14 @@ class Message(models.Model):
 		selected_template = self.template
 
 		# Construct sample message, HTML only
-		built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", selected_campaign.title)
+		built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", escape(selected_campaign.title))
 		built_html = string.replace(built_html, "{{ tracking_link }}", "")
 		built_html = string.replace(built_html, "{{ unsub_link }}", "")
-		built_html = string.replace(built_html, "{{ title }}", self.title)
-		built_html = string.replace(built_html, "{{ owner_email }}", selected_campaign.user.email)
+		built_html = string.replace(built_html, "{{ title }}", escape(self.title))
+		built_html = string.replace(built_html, "{{ owner_email }}", escape(selected_campaign.user.email))
 		built_html = string.replace(built_html, "{{ recipient_email }}", "sample@mailpri.me")
-		built_html = string.replace(built_html, "{{ body }}", self.body)
-		built_html = string.replace(built_html, "{{ link }}", self.link)
+		built_html = string.replace(built_html, "{{ body }}", escape(self.body))
+		built_html = string.replace(built_html, "{{ link }}", escape(self.link))
 
 		# Return HTML
 		return built_html
@@ -172,16 +173,16 @@ class Message(models.Model):
 			built_plaintext = string.replace(built_plaintext, "{{ unsub_link }}", unsub_link)
 
 			# Building HTML formatted version
-			built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", selected_campaign.title)
-			built_html = string.replace(built_html, "{{ title }}", self.title)
-			built_html = string.replace(built_html, "{{ recipient_email }}", recipient.email)
-			built_html = string.replace(built_html, "{{ owner_email }}", selected_campaign.user.email)
-			built_html = string.replace(built_html, "{{ body }}", self.body)
-			built_html = string.replace(built_html, "{{ link }}", self.link)
+			built_html = string.replace(selected_template.html_content, "{{ campaign_title }}", escape(selected_campaign.title))
+			built_html = string.replace(built_html, "{{ title }}", escape(self.title))
+			built_html = string.replace(built_html, "{{ recipient_email }}", escape(recipient.email))
+			built_html = string.replace(built_html, "{{ owner_email }}", escape(selected_campaign.user.email))
+			built_html = string.replace(built_html, "{{ body }}", escape(self.body))
+			built_html = string.replace(built_html, "{{ link }}", escape(self.link))
 			unsub_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
-			built_html = string.replace(built_html, "{{ unsub_link }}", unsub_link)
+			built_html = string.replace(built_html, "{{ unsub_link }}", escape(unsub_link))
 			tracking_link = "http://nomadmtb.com:8000/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
-			built_html = string.replace(built_html, "{{ tracking_link }}", tracking_link)
+			built_html = string.replace(built_html, "{{ tracking_link }}", escape(tracking_link))
 
 			# Building message dictionary
 			message = {
