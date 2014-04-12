@@ -258,9 +258,29 @@ nav {
 	border-radius: 20px;
 }
 
+#sample_message_toggle {
+	width: 100%;
+	height: 50px;
+	background-color: @color-selected;
+	h3 {
+		display: block;
+		margin: 0;
+		padding: 0;
+		margin-left: 10px;
+		margin-right: 10px;
+		padding-top: 12px;
+		text-align: center;
+	}
+}
+
+#sample_message_colapse {
+	margin: 0;
+	padding: 0;
+}
+
 .sample_message {
-	width: 520px;
-	float: left;
+	width: 100%;
+	frameborder: no;
 }
 
 .button_small(@bg_color, @tx_color) {
@@ -364,7 +384,7 @@ section[id="main"] {
 }
 
 #update_message_wrapper {
-	max-width: 1060px;
+	max-width: 840px;
 	margin: 0 auto;
 }
 
@@ -388,10 +408,9 @@ section[id="main"] {
 }
 
 .form_right_wrapper {
-	width: 450px;
+	width: 250px;
 	margin: 0;
 	padding: 35px;
-	float: right;
 	background-color: @color-important;
 
 	ul {

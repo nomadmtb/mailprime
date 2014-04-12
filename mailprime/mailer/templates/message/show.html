@@ -7,7 +7,12 @@
 	<div id="update_message_wrapper">
 
 	<!-- Rendered Sample Message; float left -->
-	<iframe class="sample_message" src="{{ sample_link }}"></iframe>
+	<div id="sample_message_colapse">
+		<div id="sample_message_toggle">
+			<h3>Show/Hide Sample</h3>
+		</div>
+		<iframe class="sample_message" src="{{ sample_link }}" frameborder="0"></iframe>
+	</div>
 
 	<!-- Form Used To Edit Message Obj; float right -->
 	<div class="form_right_wrapper">

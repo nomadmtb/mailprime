@@ -4,18 +4,19 @@ $ ->
 	check_for_message_report()
 	check_for_campaign_graph()
 	auto_adjust_iframe()
+	toggle_iframe()
 	check_campaign_link()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
 		$("#notice_wrapper").hide()
 		setTimeout (->
-			$("#notice_wrapper").slideToggle "fast"
+			$("#notice_wrapper").slideToggle('3500',"easeOutBounce")
 			return
 			), 300
 
 		setTimeout (->
-			$("#notice_wrapper").slideToggle "fast"
+			$("#notice_wrapper").slideToggle('3500',"easeOutBounce")
 			return
 			), ($(".notice").length * 2500)
 
@@ -183,6 +184,11 @@ auto_adjust_iframe = ->
 			$(this).load ->
 				frame_height = $(this).contents().find("html").height()
 				$(this).height(frame_height)
+
+toggle_iframe = ->
+	if $(".sample_message").length
+		$("#sample_message_toggle").click ->
+			$(".sample_message").slideToggle('3500',"easeOutBounce")
 
 check_campaign_link = ->
 	if $(".campaign_wrapper").length
