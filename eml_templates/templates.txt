@@ -1,63 +1,320 @@
-bare_bones
-Your email client doesn't support MIME-types inside of email messages. Please update your email client.
+### PEWLETT HACKARD ###
+— plaintext —
+{{ title }}
 
---mess_bound
-Date: {{ date_today }}
-Content-type: multipart/alternative; boundary="alt_bound"
-
---alt_bound
-Content-type: text/plain; charset="utf-8"
+To: {{ recipient_email }}
+From: {{ owner_email }}
 
 {{ body }}
 
-NOTE: Please do not reply to this email, MailPri.me doesn't accept incoming messages.
+{{ link }}
 
+__________________________________
+
+This messages has been sent using the mailing-campaign service MailPri.me.
+You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}
+Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.
 Follow this link to unsubscribe: {{ unsub_link }}
+— END plaintext —
 
---alt_bound
-Content-type: text/html; charset="utf-8"
+— html —
+<html style="font-family: arial; width: 100%; background-color: #E5E8E8;">
+<body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
+<div style="background-color: #FFFFFF; padding: 5px;">
 
-<html>
-<body>
 <IMG src="{{ tracking_link }}" height="0px" width="0" />
-<h1>{{ campaign_title }}: {{ title }}</h1>
-<p>From: {{ owner_email }}</p>
-<p>To: {{ recipient_email }}</p>
-<p>{{ body }}</p>
-<a href={{ link }} target="_blank">{{ link }}</a>
+
+<h1 style="margin: 0; padding: 0; text-align: center; color: #0096D6; margin-bottom: 15px;">{{ title }}</h1>
+<div style="height: 1px; background-color: #B9B8BB; width: 100%"></div>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #0096D6; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+<div style="height: 1px; background-color: #B9B8BB; width: 100%"></div>
+
+<table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+<tr>
+<td style="color: #767676;">To</td>
+<td style="color: #D7410B; text-decoration: none;">{{ recipient_email }}</td>
+<td style="color: #767676;">From</td>
+<td style="color: #D7410B; text-decoration: none;">{{ owner_email }}</td>
+</tr>
+</table>
+</div>
+
+<div style="padding: 5px; padding-top: 20px; padding-bottom: 20px; background-color: #FFFFFF; box-shadow: inset 0px 12px 5px -7px rgba(0,0,0,0.1);">
+<p style="color: #767676; text-align: justify;">{{ body }}</p>
+<a style="color: #D7410B;" href={{ link }} target="_blank">{{ link }}</a>
 <p></p>
-<p>This messages has been sent using the mailing-campaign service MailPri.me. You have been added to the mailing-list {{ campaign_title }} by {{ owner_email }}</p>
-<p>NOTE: Please do not reply to this email, MailPri.me doesn't accept incoming messages.</p>
+</div>
+
+<div style="background-color: #0096D6; padding: 5px; font-size: 12px;">
+<p style="color: #E5E8E8;">This messages has been sent using the mailing-campaign service MailPri.me.</p>
+<p style="color: #E5E8E8;">You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}</p>
+<p style="color: #E5E8E8;"><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
 <p></p>
-<p>Follow this link to unsubscribe: <a href="{{ unsub_link }}">Unsubscribe</a></p>
+<p style="color: #F7F7F7;">Follow this link to unsubscribe: <a style="text-decoration: none; color: #B7CA34;" href="{{ unsub_link }}">Unsubscribe</a></p>
+<div style="height: 1px; background-color: #E5E8E8; width: 100%"></div>
+<p style="color: #686868; text-align: center;"><a style="text-decoration: none; color: #FFFFFF;" href="http://www.mailpri.me">MailPrime</a></p>
+</div>
 </body>
 </html>
+— END html —
+### END PEWLETT HACKARD ###
 
---alt_bound--
---mess_bound--
+### BOOKFACE ###
+— plaintext —
+{{ title }}
 
-recipient_invitation
+To: {{ recipient_email }}
+From: {{ owner_email }}
 
-Your email client doesn't support MIME-Types. Please upgrade to a mail-client from this century.
+{{ body }}
 
---mess_bound
-Date: {{ date_today }}
-Content-type: multipart/alternative; boundary="alt_bound"
+{{ link }}
 
---alt_bound
-Content-type: text/plain; charset="utf-8"
+__________________________________
 
+This messages has been sent using the mailing-campaign service MailPri.me.
+You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}
+Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.
+Follow this link to unsubscribe: {{ unsub_link }}
+— END plaintext —
+
+— html —
+<html style="font-family: Sans-Serif; width: 100%; background-color: #DFE3EE;">
+<body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
+<div style="background-color: #3B5998; padding: 5px;">
+
+<IMG src="{{ tracking_link }}" height="0px" width="0" />
+
+<h1 style="margin: 0; padding: 0; text-align: center; color: #F7F7F7; margin-bottom: 15px;">{{ title }}</h1>
+<div style="height: 1px; background-color: #8B9DC3; width: 100%"></div>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #F7F7F7; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+<div style="height: 1px; background-color: #8B9DC3; width: 100%"></div>
+
+<table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+<tr>
+<td style="color: #8B9DC3;">To</td>
+<td style="color: #F7F7F7; text-decoration: none;">{{ recipient_email }}</td>
+<td style="color: #8B9DC3;">From</td>
+<td style="color: #F7F7F7; text-decoration: none;">{{ owner_email }}</td>
+</tr>
+</table>
+</div>
+
+<div style="padding: 5px; padding-top: 20px; padding-bottom: 20px; background-color: #FFFFFF; box-shadow: inset 0px 12px 5px -7px rgba(0,0,0,0.50);">
+<p style="color: #000000; text-align: justify;">{{ body }}</p>
+<a style="color: #3B5998;" href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+</div>
+
+<div style="background-color: #3B5998; padding: 5px; font-size: 12px;">
+<p style="color: #F7F7F7;">This messages has been sent using the mailing-campaign service MailPri.me.</p>
+<p style="color: #F7F7F7;">You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}</p>
+<p style="color: #F7F7F7;"><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
+<p></p>
+<p style="color: #F7F7F7;">Follow this link to unsubscribe: <a style="text-decoration: none; color: #8B9DC3;" href="{{ unsub_link }}">Unsubscribe</a></p>
+<div style="height: 1px; background-color: #8B9DC3; width: 100%"></div>
+<p style="color: #686868; text-align: center;"><a style="text-decoration: none; color: #8B9DC3;" href="http://www.mailpri.me">MailPrime</a></p>
+</div>
+</body>
+</html>
+— END html —
+### END BOOKFACE ###
+
+### PURPLE_TAN ###
+— plaintext —
+{{ title }}
+
+To: {{ recipient_email }}
+From: {{ owner_email }}
+
+{{ body }}
+
+{{ link }}
+
+__________________________________
+
+This messages has been sent using the mailing-campaign service MailPri.me.
+You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}
+Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.
+Follow this link to unsubscribe: {{ unsub_link }}
+— END plaintext —
+
+— html —
+<html style="font-family: Sans-Serif; width: 100%; background-color: #3F2343;">
+<body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
+<div style="background-color: #D3D398; padding: 5px;">
+
+<IMG src="{{ tracking_link }}" height="0px" width="0" />
+
+<h1 style="margin: 0; padding: 0; text-align: center; color: #5E6433; margin-bottom: 15px;">{{ title }}</h1>
+<div style="height: 1px; background-color: #3F2343; width: 100%"></div>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #5E6433; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+<div style="height: 1px; background-color: #3F2343; width: 100%"></div>
+
+<table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+<tr>
+<td style="color: #3F2343;">To</td>
+<td style="color: #686868; text-decoration: none;">{{ recipient_email }}</td>
+<td style="color: #3F2343;">From</td>
+<td style="color: #686868; text-decoration: none;">{{ owner_email }}</td>
+</tr>
+</table>
+</div>
+
+<div style="padding: 5px; padding-top: 20px; padding-bottom: 20px; background-color: #D7DBB9; box-shadow: inset 0px 12px 5px -7px rgba(0,0,0,0.50);">
+<p style="color: #3F2343; text-align: justify;">{{ body }}</p>
+<a style="color: #5E6433;" href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+</div>
+
+<div style="background-color: #D3D398; padding: 5px; font-size: 12px;">
+<p style="color: #686868;">This messages has been sent using the mailing-campaign service MailPri.me.</p>
+<p style="color: #686868;">You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}</p>
+<p style="color: #686868;"><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
+<p></p>
+<p style="color: #686868;">Follow this link to unsubscribe: <a style="text-decoration: none; color: #f0EAD6;" href="{{ unsub_link }}">Unsubscribe</a></p>
+<div style="height: 1px; background-color: #3F2343; width: 100%"></div>
+<p style="color: #686868; text-align: center;"><a style="text-decoration: none; color: #3F2343;" href="http://www.mailpri.me">MailPrime</a></p>
+</div>
+</body>
+</html>
+— END html —
+### END PURPLE_TAN ###
+
+### DARK ###
+— plaintext —
+{{ title }}
+
+To: {{ recipient_email }}
+From: {{ owner_email }}
+
+{{ body }}
+
+{{ link }}
+
+__________________________________
+
+This messages has been sent using the mailing-campaign service MailPri.me.
+You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}
+Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.
+Follow this link to unsubscribe: {{ unsub_link }}
+— END plaintext —
+
+— html —
+<html style="font-family: Sans-Serif; width: 100%; background-color: #000000;">
+<body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
+<div style="background-color: #303030; padding: 5px;">
+
+<IMG src="{{ tracking_link }}" height="0px" width="0" />
+
+<h1 style="margin: 0; padding: 0; text-align: center; color: #A8A8A8; margin-bottom: 15px;">{{ title }}</h1>
+<div style="height: 1px; background-color: #00FF66; width: 100%"></div>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #A8A8A8; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+
+<div style="height: 1px; background-color: #00FF66; width: 100%"></div>
+
+<table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+<tr>
+<td style="color: #A8A8A8;">To</td>
+<td style="color: #FFFFFF; text-decoration: none;">{{ recipient_email }}</td>
+<td style="color: #A8A8A8;">From</td>
+<td style="color: #FFFFFF; text-decoration: none;">{{ owner_email }}</td>
+</tr>
+</table>
+</div>
+
+<div style="padding: 5px; padding-top: 20px; padding-bottom: 20px; background-color: #484848; box-shadow: inset 0px 12px 5px -7px rgba(0,0,0,0.50);">
+<p style="color: #A8A8A8; text-align: justify;">{{ body }}</p>
+<a style="color: #f0EAD6;" href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+</div>
+
+<div style="background-color: #303030; padding: 5px; font-size: 12px;">
+<p style="color: #686868;">This messages has been sent using the mailing-campaign service MailPri.me.</p>
+<p style="color: #686868;">You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}</p>
+<p style="color: #686868;"><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
+<p></p>
+<p style="color: #686868;">Follow this link to unsubscribe: <a style="text-decoration: none; color: #f0EAD6;" href="{{ unsub_link }}">Unsubscribe</a></p>
+<div style="height: 1px; background-color: #00FF66; width: 100%"></div>
+<p style="color: #686868; text-align: center;"><a style="text-decoration: none; color: #f0EAD6;" href="http://www.mailpri.me">MailPrime</a></p>
+</div>
+</body>
+</html>
+— END html —
+### END DARK ###
+
+### BASIC BLUE ###
+— plaintext —
+{{ title }}
+
+To: {{ recipient_email }}
+From: {{ owner_email }}
+
+{{ body }}
+
+{{ link }}
+
+__________________________________
+
+This messages has been sent using the mailing-campaign service MailPri.me.
+You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}
+Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.
+Follow this link to unsubscribe: {{ unsub_link }}
+— END plaintext —
+
+— html —
+<html style="font-family: Sans-Serif; width: 100%; background-color: #808080;">
+<body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
+<div style="background-color: #7CCBF2; padding: 5px;">
+
+<IMG src="{{ tracking_link }}" height="0px" width="0" />
+
+<h1 style="margin: 0; padding: 0; text-align: center; color: #525453; margin-bottom: 15px;">{{ title }}</h1>
+<div style="height: 1px; background-color: #525453; width: 100%"></div>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #525453; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+
+<div style="height: 1px; background-color: #525453; width: 100%"></div>
+
+<table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+<tr>
+<td style="color: #525453;">To</td>
+<td style="color: #FFFFFF; text-decoration: none;">{{ recipient_email }}</td>
+<td style="color: #525453;">From</td>
+<td style="color: #FFFFFF; text-decoration: none;">{{ owner_email }}</td>
+</tr>
+</table>
+</div>
+
+<div style="padding: 5px; padding-top: 20px; padding-bottom: 20px; background-color: #ffffff; box-shadow: inset 0px 12px 5px -7px rgba(0,0,0,0.50);">
+<p style="text-align: justify;">{{ body }}</p>
+<a href={{ link }} target="_blank">{{ link }}</a>
+<p></p>
+</div>
+
+<div style="background-color: #7CCBF2; padding: 5px; font-size: 12px;">
+<p>This messages has been sent using the mailing-campaign service MailPri.me.</p>
+<p>You have been added to the mailing-list: {{ campaign_title }} by {{ owner_email }}</p>
+<p><b>NOTE:</b> Please do not reply to this email, MailPri.me <b>does not</b> accept incoming messages.</p>
+<p></p>
+<p>Follow this link to unsubscribe: <a style="text-decoration: none;" href="{{ unsub_link }}">Unsubscribe</a></p>
+<div style="height: 1px; background-color: #525453; width: 100%"></div>
+<p style="text-align: center;"><a style="text-decoration: none;" href="http://www.mailpri.me">MailPrime</a></p>
+</div>
+</body>
+</html>
+— END html —
+### END BASIC BLUE ###
+
+### CAMPAIGN INVITATION ###
+— plaintext —
 Hello, you have been invited by {{ owner_email }}, to join the {{ campaign_title }} mailing list.
 If would like to subscribe to the mailing list, please go here: {{ accept_link }}
 If you would like to be removed from the MailPrime database go here: {{ deny_link }}
 
 -MailPri.me
+— END plaintext —
 
-Note: Please do not reply to this email, we do not accept incoming messages.
-
---alt_bound
-Content-type: text/html; charset="utf-8"
-
+— html —
 <html>
 <body>
 <h1>{{ campaign_title }}: {{ title }}</h1>
@@ -66,13 +323,12 @@ Content-type: text/html; charset="utf-8"
 <p>Hello, you have been invited by {{ owner_email }}, to join the {{ campaign_title }} mailing list.</p>
 <p>If would like to subscribe to the mailing list, please click <a href="{{ accept_link }}">HERE</a></p>
 <p>If you would like to be removed from the MailPrime database click <a href="{{ deny_link }}">HERE</a></p>
-<a href={{ link }} target="_blank">{{ link }}</a>
+<p>About this campaign: {{ about }}</p>
 <p></p>
 <p>-MailPri.me</p>
 <p></p>
 <p>Note: Please do not reply to this email, we do not accept incoming messages.</p>
 </body>
 </html>
-
---alt_bound--
---mess_bound--
+— END html —
+### END CAMPAIGN INVITATION ###
