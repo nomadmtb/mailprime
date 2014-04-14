@@ -14,16 +14,6 @@
 		<iframe class="sample_message" src="{{ sample_link }}" frameborder="0"></iframe>
 	</div>
 
-	<div id="slick_template_toggle">
-		<h3>Available Templates</h3>
-	</div>
-
-	<div id="slick_wrapper">
-		{% for template in templates %}
-		<div><h4>{{ template.title }}</h4><img width="250px" src="/static/images/sample_templates/{{ template.title }}.png" /></div>
-		{% endfor %}
-	</div>
-
 	<div id="update_message_header">
 		<h3>Update Your Message</h3>
 	</div>
@@ -50,7 +40,15 @@
 </form>
 </div>
 
-<div class="clear_float"></div>
+	<div id="slick_template_toggle">
+		<h3>Available Templates</h3>
+	</div>
+
+	<div id="slick_wrapper">
+		{% for template in templates %}
+		<div><h4>{{ template.title }}</h4><img width="250px" src="/static/images/sample_templates/{{ template.title }}.png" /></div>
+		{% endfor %}
+	</div>
 
 </div>
 

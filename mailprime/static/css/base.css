@@ -232,6 +232,7 @@ nav {
 #update_message_header {
   width: 100%;
   height: 50px;
+  margin-top: 5px;
   background-color: #bed9e6;
 }
 #update_message_header h3 {
