@@ -18,7 +18,7 @@ Follow this link to unsubscribe: {{ unsub_link }}
 — END plaintext —
 
 — html —
-<html style="font-family: arial; width: 100%; background-color: #E5E8E8;">
+<html style="font-family: Sans-Serif; width: 100%; background-color: #E5E8E8;">
 <body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
 <div style="background-color: #FFFFFF; padding: 5px;">
 

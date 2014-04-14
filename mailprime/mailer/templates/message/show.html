@@ -9,18 +9,25 @@
 	<!-- Rendered Sample Message; float left -->
 	<div id="sample_message_colapse">
 		<div id="sample_message_toggle">
-			<h3>Toggle Sample</h3>
+			<h3>Rendered Message</h3>
 		</div>
 		<iframe class="sample_message" src="{{ sample_link }}" frameborder="0"></iframe>
 	</div>
 
+	<div id="slick_template_toggle">
+		<h3>Available Templates</h3>
+	</div>
+
 	<div id="slick_wrapper">
 		{% for template in templates %}
-		<div><img width="250px" src="/static/images/sample_templates/{{ template.title }}.png" /></div>
+		<div><h4>{{ template.title }}</h4><img width="250px" src="/static/images/sample_templates/{{ template.title }}.png" /></div>
 		{% endfor %}
 	</div>
 
-	<!-- Form Used To Edit Message Obj; float right -->
+	<div id="update_message_header">
+		<h3>Update Your Message</h3>
+	</div>
+
 	<div class="form_right_wrapper">
 	<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/message-{{ message.pk }}">
 	{% csrf_token %}
@@ -39,7 +46,7 @@
 	{% endfor %}
 	</ul>
 	<div class="clear_float"></div>
-	<input type="submit" name="submit" value="Submit Changes" />
+	<input type="submit" name="submit" value="Update" />
 </form>
 </div>
 
