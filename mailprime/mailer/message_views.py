@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from mailer.lib import authenticate_user, current_user, logout_user, geo_locate, generate_form_errors
 from django.http import HttpResponseRedirect, HttpResponse
-from mailer.models import Profile, Campaign, Recipient, Event, Message
+from mailer.models import Profile, Campaign, Recipient, Event, Message, Template
 from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm
@@ -60,6 +60,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 			# Request method is GET, generate new form
 			if request.method == "GET":
 
+				page_vars['templates'] = Template.objects.all()
 				page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
 																						request.user.username,
 																						message.campaign.pk,
@@ -115,7 +116,7 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 
 			if request.method == "POST":
 				
-				completed_form = MessageForm(request.POST, instance=message)
+				completed_form = MessageForm(request.POST)
 
 				if completed_form.is_valid():
 					message = completed_form.save(commit=False)

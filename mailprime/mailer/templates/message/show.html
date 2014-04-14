@@ -14,6 +14,12 @@
 		<iframe class="sample_message" src="{{ sample_link }}" frameborder="0"></iframe>
 	</div>
 
+	<div id="slick_wrapper">
+		{% for template in templates %}
+		<div><img width="250px" src="/static/images/sample_templates/{{ template.title }}.png" /></div>
+		{% endfor %}
+	</div>
+
 	<!-- Form Used To Edit Message Obj; float right -->
 	<div class="form_right_wrapper">
 	<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/message-{{ message.pk }}">

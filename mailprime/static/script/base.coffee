@@ -6,6 +6,7 @@ $ ->
 	auto_adjust_iframe()
 	toggle_iframe()
 	check_campaign_link()
+	check_for_slick()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -209,3 +210,11 @@ check_new_campaign_link = ->
 
 adjust_chart_width = ->
 	$("#trend_chart").width('100%')
+
+check_for_slick = ->
+	if $("#slick_wrapper").length
+		$("#slick_wrapper").slick(
+			centerMode: true,
+			centerPadding: '25px',
+			dots: true,
+			slidesToShow: 3,)
