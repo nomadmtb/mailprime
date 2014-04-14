@@ -218,12 +218,15 @@ nav {
   margin: 0 auto 50px;
   background-color: #525453;
 }
+#slick_wrapper div {
+  margin-bottom: 15px;
+}
 #slick_wrapper div h4 {
   text-align: center;
   display: block;
   margin: 0 auto;
   margin-bottom: 5px;
-  margin-top: 5px;
+  margin-top: 15px;
   margin-left: 12px;
   width: 85%;
   color: #525453;
