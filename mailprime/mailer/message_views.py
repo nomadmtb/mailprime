@@ -68,6 +68,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 				page_vars['message'] = message
 				page_vars['form'] = MessageForm(instance=message)
 				page_vars['campaign'] = message.campaign
+				page_vars['slick_present'] = True
 			
 				csrfContext = RequestContext(request, page_vars)
 				return render(request, 'message/show.html', csrfContext)
@@ -92,6 +93,8 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 					page_vars['form'] = completed_form
 					page_vars['campaign'] = message.campaign
 					page_vars['message'] = message
+					page_vars['templates'] = Template.objects.all()
+					page_vars['slick_present'] = True
 					page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
 																							request.user.username,
 																							message.campaign.pk,

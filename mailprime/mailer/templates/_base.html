@@ -9,8 +9,10 @@
 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+	{% if slick_present %}
 	<script src="{% static 'slick/slick.min.js' %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css'%}">
+	{% endif %}
 	<script src="{% static 'script/base.js' %}"></script>
 </head>
 
