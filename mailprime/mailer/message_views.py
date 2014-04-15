@@ -82,10 +82,17 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 				# Running validation w/ clean(), if valid
 				if completed_form.is_valid():
 
-					completed_form.save()
+					new_message = completed_form.save(commit=False)
 
-					messages.add_message(request, messages.SUCCESS, 'Sucessfully Updated Message')
-					return HttpResponseRedirect('/{0}/campaign-{1}/message-{2}'.format(request.user.username, message.campaign.pk, message.pk))
+					if new_message.can_update():
+
+						new_message.save()
+						messages.add_message(request, messages.SUCCESS, 'Sucessfully Updated Message')
+						return HttpResponseRedirect('/{0}/campaign-{1}/message-{2}'.format(request.user.username, message.campaign.pk, message.pk))
+
+					else:
+						messages.add_message(request, messages.SUCCESS, 'ERROR: Message has already been deployed')
+						return HttpResponseRedirect('/{0}/campaign-{1}/message-{2}'.format(request.user.username, message.campaign.pk, message.pk))
 
 				# Validation errors occurred, regenerate form with vars
 				else:

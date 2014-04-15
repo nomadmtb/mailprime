@@ -5,6 +5,7 @@ import pdb
 import re
 from datetime import datetime, timedelta
 import pytz
+import magic
 
 # Model Forms for the Application
 
@@ -95,4 +96,31 @@ class UserProfileForm(forms.Form):
 
 class ContactUploadForm(forms.Form):
 
-	contact_file = forms.FileField()
+	contact_file = forms.FileField(required=True)
+
+	def clean(self):
+		cleaned_data = self.cleaned_data
+
+		# Create magic instance, load mime-types
+		my_magic = magic.open(magic.MAGIC_MIME)
+		my_magic.load()
+
+		# Open file and read some of the data
+		uploaded_file = cleaned_data.get('contact_file')
+		sample_buffer = uploaded_file.read(1500)
+
+		# Use that buffer to determine mime-type with magic
+		file_mime = my_magic.buffer(sample_buffer)
+
+		# Parse mime type to get filetype.
+		# Ex: 'text/plain; charset=us-ascii --->>> 'text/plain' 
+		file_type = file_mime.split(';')[0]
+
+		# File_type should be 'text/plain'
+		if file_type != 'text/plain':
+			raise forms.ValidationError("File Validation Failed. Plain text-files only.")
+
+		# File_type is correct, return the cleaned data	
+		else:
+
+			return cleaned_data

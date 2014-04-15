@@ -2,6 +2,9 @@ html,
 body {
   height: 100%;
 }
+h3 {
+  font-weight: 300;
+}
 html {
   font-family: 'Open Sans', sans-serif;
 }

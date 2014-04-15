@@ -154,6 +154,14 @@ class Message(models.Model):
 		# Return HTML
 		return built_html
 
+	# Can the message be updated?
+	def can_update(self):
+
+		if self.deployed:
+			return False
+		else:
+			return True
+
 	def build_messages(self):
 		messages = []
 		selected_campaign = self.campaign

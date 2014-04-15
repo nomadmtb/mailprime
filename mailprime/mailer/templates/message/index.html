@@ -16,9 +16,9 @@
 		{% for campaign_message in campaign_messages %}
 
 		<tr>
-			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title }}</a></td>
-			<td>{{ campaign_message.created_date }}</td>
-			<td>{{ campaign_message.deploy_date }}</td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}">{{ campaign_message.title|truncatechars:24 }}</a></td>
+			<td>{{ campaign_message.created_date|date:'m/d/Y P' }}</td>
+			<td>{{ campaign_message.deploy_date|date:'m/d/Y P' }}</td>
 			{% if campaign_message.deployed %}
 			<td><img src="/static/images/bueno.png" height="18px" /></td>
 			{% else %}

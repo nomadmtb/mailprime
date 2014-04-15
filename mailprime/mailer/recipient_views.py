@@ -149,6 +149,11 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 				return render(request, 'recipient/upload_report.html', page_vars)
 
+			# Form is NOT valid
+			else:
+				generate_form_errors(request, form)
+				return HttpResponseRedirect('/{0}/campaign-{1}/recipients/upload'.format( request.user.username, campaign.pk ))
+
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:
 		page_vars = {'page_title': 'Add Recipient'}
