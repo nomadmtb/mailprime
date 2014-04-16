@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import Http404
 from mailer.forms import CampaignForm, MessageForm, LoginForm, RecipientForm, ContactUploadForm
 from django.core.validators import validate_email
+from django import forms
 from django.db import IntegrityError
 import os
 

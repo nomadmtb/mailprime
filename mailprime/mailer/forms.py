@@ -101,16 +101,12 @@ class ContactUploadForm(forms.Form):
 	def clean(self):
 		cleaned_data = self.cleaned_data
 
-		# Create magic instance, load mime-types
-		my_magic = magic.open(magic.MAGIC_MIME)
-		my_magic.load()
-
 		# Open file and read some of the data
 		uploaded_file = cleaned_data.get('contact_file')
 		sample_buffer = uploaded_file.read(1500)
 
 		# Use that buffer to determine mime-type with magic
-		file_mime = my_magic.buffer(sample_buffer)
+		file_mime = magic.from_buffer(sample_buffer, mime=True)
 
 		# Parse mime type to get filetype.
 		# Ex: 'text/plain; charset=us-ascii --->>> 'text/plain' 

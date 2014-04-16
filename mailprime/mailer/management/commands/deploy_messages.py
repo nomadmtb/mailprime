@@ -23,4 +23,4 @@ class Command(BaseCommand):
 				mess.save()
 
 				# Add send event to database with the 'manually' option
-				models.Send_Event(method="manual", message=mess)
+				models.Send_Event(method="manual", message=mess).save()
