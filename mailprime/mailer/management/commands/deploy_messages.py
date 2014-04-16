@@ -21,3 +21,6 @@ class Command(BaseCommand):
 				self.stdout.write('Successfully Deployed Messages.')
 				mess.deployed = True
 				mess.save()
+
+				# Add send event to database with the 'manually' option
+				models.Send_Event(method="manual", message=mess)

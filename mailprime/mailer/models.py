@@ -271,3 +271,9 @@ class System_Template(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class Send_Event(models.Model):
+	"""This is the class that will contain data about when messages where deployed via cron or manually"""
+	method = models.CharField(max_length=25)
+	send_date = models.DateTimeField(auto_now_add=True)
+	message = models.ForeignKey('Message', null=True, on_delete=models.SET_NULL)

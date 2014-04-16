@@ -18,22 +18,22 @@ Follow this link to unsubscribe: {{ unsub_link }}
 — END plaintext —
 
 — html —
-<html style="font-family: Sans-Serif; width: 100%; background-color: #E5E8E8;">
+<html style="font-family:  Sans-Serif; width: 100%; background-color: #E5E8E8;">
 <body style="margin: 0 auto; margin-top: 5px; padding: 0; width: 500px; font-size: 15px;">
-<div style="background-color: #FFFFFF; padding: 5px;">
+<div style="background-color: #0096D6; padding: 5px;">
 
 <IMG src="{{ tracking_link }}" height="0px" width="0" />
 
-<h1 style="margin: 0; padding: 0; text-align: center; color: #0096D6; margin-bottom: 15px;">{{ title }}</h1>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #FFFFFF; margin-bottom: 15px;">{{ title }}</h1>
 <div style="height: 1px; background-color: #B9B8BB; width: 100%"></div>
-<h1 style="margin: 0; padding: 0; text-align: center; color: #0096D6; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
+<h1 style="margin: 0; padding: 0; text-align: center; color: #E5E8E8; font-size: 20px; margin-top: 10px; margin-bottom: 10px;">{{ campaign_title }}</h1>
 <div style="height: 1px; background-color: #B9B8BB; width: 100%"></div>
 
 <table style="text-align: left; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
 <tr>
-<td style="color: #767676;">To</td>
+<td style="color: #FFFFFF;">To</td>
 <td style="color: #D7410B; text-decoration: none;">{{ recipient_email }}</td>
-<td style="color: #767676;">From</td>
+<td style="color: #FFFFFF;">From</td>
 <td style="color: #D7410B; text-decoration: none;">{{ owner_email }}</td>
 </tr>
 </table>
@@ -240,6 +240,7 @@ Follow this link to unsubscribe: {{ unsub_link }}
 </div>
 </body>
 </html>
+
 — END html —
 ### END DARK ###
 

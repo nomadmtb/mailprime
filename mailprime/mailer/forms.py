@@ -86,7 +86,7 @@ class UserProfileForm(forms.Form):
 			else:
 				pattern = re.compile('^[A-Za-z0-9]{8,50}$')
 				if pattern.match(password) is None:
-					raise forms.ValidationError("Password: Passwords must be letters and numbers, and between 8 and 50 characters")
+					raise forms.ValidationError("Password: Passwords can only be [A-Z, a-z, 0-9] with a minimum length of 8.")
 
 
 		if email == '':

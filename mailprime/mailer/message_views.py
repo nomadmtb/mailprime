@@ -87,7 +87,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 					if new_message.can_update():
 
 						new_message.save()
-						messages.add_message(request, messages.SUCCESS, 'Sucessfully Updated Message')
+						messages.add_message(request, messages.SUCCESS, 'Successfully Updated Message')
 						return HttpResponseRedirect('/{0}/campaign-{1}/message-{2}'.format(request.user.username, message.campaign.pk, message.pk))
 
 					else:
@@ -132,15 +132,19 @@ def user_campaign_message_new(request, param_username, param_campaign_pk):
 					message = completed_form.save(commit=False)
 					message.campaign_id = param_campaign_pk
 					message.save()
+					messages.add_message(request, messages.SUCCESS, 'Successfully Created Message')
+
 					return HttpResponseRedirect('/'+ request.user.username + "/campaign-" + str(message.campaign.id) + "/messages")
 				else:
 					generate_form_errors(request, completed_form)
 					page_vars['form'] = completed_form
+
 					return render(request, 'message/new.html', page_vars)
 			else:
 				# Process GET DATA...
 				page_vars['form'] = MessageForm()
 				csrfContext = RequestContext(request, page_vars)
+				
 				return render(request, 'message/new.html', csrfContext)
 	else:
 		raise Http404
