@@ -29,6 +29,12 @@ def current_user(request):
 	else:
 		return False
 
+def current_staff(request):
+	if (request.user.is_authenticated() and request.user.is_staff):
+		return True
+	else:
+		return False
+
 def logout_user(request):
 	logout(request)
 	messages.add_message(request, messages.INFO, 'You have successfully logged out')

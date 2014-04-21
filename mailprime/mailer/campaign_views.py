@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from mailer.lib import authenticate_user, current_user, logout_user, geo_locate, generate_form_errors
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from mailer.models import Profile, Campaign, Recipient, Event, Message
 from django.contrib import messages
-from django.http import Http404
 from mailer.forms import CampaignForm
 
 # The user campaigns view that will show all of the campaigns belonging to the user.

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from mailer import campaign_views, tracker_views, general_views, recipient_views, message_views, event_views, json_views
+from mailer import campaign_views, tracker_views, general_views, recipient_views, message_views, event_views, json_views, admin_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^administrative/', include(admin.site.urls)),
     url(r'^$', general_views.index, name='index'),
 	url(r'^login$', general_views.login, name='login'),
 	url(r'^logout$', general_views.logout, name='logout'),
@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/region_data\.json$', json_views.get_message_region_data, name="get_message_region_data"),
     url(r'^api/(\w+)/c-(\d+)/campaign_data\.json$', json_views.get_campaign_data, name="get_campaign_data"),
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/sample_message\.html$', json_views.get_sample_message, name="get_sample_message"),
+    url(r'^admin$', admin_views.index, name='index'),
 )
 
 # For Development ONLY. Remove when in production...
