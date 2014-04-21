@@ -16,13 +16,13 @@ What does it do?
 
 What do I still need to do?
 ---------------------------
-* HTML-escape all template parameters in the model's build functions.
-* Create more templates.
-* Create api/action for sample campaign-invitation.
-* Add counter to Message obj to keep total recipients consistent after people unsubscribe.
-	* Or, just keep a count of people who unsubscribed and display it in the message stats.
-* HTML escape message-body when creating a new message.
-* Add Edit-Message page.
-* Redesign the structure of the pages, make it look better.
-* Build cronjob scheduler to deploy messages.
+* Build Administrative functionality.
 * Build overall-campaign stats page.
+* DONE! HTML-escape all template parameters in the model's build functions.
+* DONE! Create more templates.
+* DONE! Create api/action for sample campaign-invitation.
+* DONE! Keep a count of people who unsubscribed and display it in the message stats.
+* DONE! HTML escape message-body when creating a new message.
+* DONE! Add Edit-Message page.
+* DONE! Redesign the structure of the pages, make it look better.
+* DONE! Build cronjob scheduler to deploy messages.
