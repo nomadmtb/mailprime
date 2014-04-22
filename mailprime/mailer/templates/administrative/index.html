@@ -2,7 +2,25 @@
 
 {% block content %}
 
-<h1>HELLO!!!!!</h1>
+<div class="solid_bg">
+
+	<h2 class="header_center">Recent Send Events</h2>
+	<table class="report_table">
+		<tr>
+			<th>Date</th>
+			<th>Method</th>
+			<th>Message</th>
+		</tr>
+
+	{% for event in send_events %}
+		<tr>
+			<td>{{ event.send_date|date:"M d, Y" }} {{ event.send_date|time:"P" }}</td>
+			<td>{{ event.method }}</td>
+			<td>{{ event.message }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
 
 {% endblock %}
 

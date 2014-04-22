@@ -277,3 +277,6 @@ class Send_Event(models.Model):
 	method = models.CharField(max_length=25)
 	send_date = models.DateTimeField(auto_now_add=True)
 	message = models.ForeignKey('Message', null=True, on_delete=models.SET_NULL)
+
+	def __unicode__(self):
+		return "{0}: {1}".format(self.message.title, self.method)

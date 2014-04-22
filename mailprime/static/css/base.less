@@ -20,6 +20,10 @@ h3 {
 	font-weight: 300;
 }
 
+h2 {
+	font-weight: 300;
+}
+
 html {
 	font-family: 'Open Sans', sans-serif;
 }
@@ -636,6 +640,40 @@ label {
 		margin: 0px;
 		color: @color-base;
 	}
+}
+
+.header_center {
+	text-align: center;
+}
+
+.report_table {
+	tr {
+
+		th {
+			text-align: left;
+			color: @color-base;
+			background-color: @color-dark;
+			padding: 10px;
+			font-weight: 300;
+		}
+
+		td {
+			padding: 10px;
+		}
+	}
+
+	tr:nth-child(even) {
+		background-color: @color-selected;
+	}
+
+	tr:nth-child(odd) {
+		background-color: @color-important;
+	}
+
+	width: 85%;
+	margin: 0 auto;
+	border-collapse: collapse;
+	.box_shadow;
 }
 
 .color_transition {
