@@ -36,6 +36,9 @@
 
 			<ul class="nav_right">
 				{% if user.is_authenticated %}
+					{% if user.is_staff %}
+					<li><a class="nav_link" href="/admin">Admin</a></li>
+					{% endif %}
 				<li><a class="nav_link" href="/{{ user.username }}/campaigns">Campaigns</a></li>
 				<li><a class="nav_link" href="/{{ user.username }}/account">{{ user.username }}</a></li>
 				<li><a class="nav_link" href="/logout">Logout</a></li>
