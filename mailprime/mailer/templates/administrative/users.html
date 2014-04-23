@@ -15,7 +15,7 @@
 
 		{% for user in users %}
 		<tr>
-			<td>{{ user.username }}</td>
+			<td><a href="/admin/edit_user/{{ user.pk }}">{{ user.username }}</a></td>
 			<td>{{ user.email }}</td>
 			{% if user.is_staff %}
 				<td>Yes</td>

@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^admin$', admin_views.index, name='index'),
     url(r'^admin/send_events$', admin_views.send_events, name='send_events'),
     url(r'^admin/users$', admin_views.users, name='users'),
+    url(r'^admin/edit_user/(\d+)$', admin_views.edit_user, name='edit_user'),
 )
 
 # For Development ONLY. Remove when in production...
