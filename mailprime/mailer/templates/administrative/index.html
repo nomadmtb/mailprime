@@ -4,6 +4,25 @@
 
 <div class="solid_bg">
 
+	<h2 class="header_center">Recent Read-Events ( {{ event_count }} total )</h2>
+	<table class="report_table">
+		<tr>
+			<th>Recipient</th>
+			<th>Message</th>
+			<th>Region</th>
+			<th>Date</th>
+		</tr>
+
+		{% for event in events %}
+		<tr>
+			<td>{{ event.recipient.email }}</td>
+			<td>{{ event.message.title }}</td>
+			<td>{{ event.country_code }}</td>
+			<td>{{ event.created_date|date:"M d, Y" }} {{ event.created_date|time:"P" }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
 	<h2 class="header_center">Recent Send Events</h2>
 	<table class="report_table">
 		<tr>
@@ -21,7 +40,7 @@
 	{% endfor %}
 	</table>
 
-	<a class="link_button_center" href="/admin/send_events">View All</a>
+	<a class="link_button_center" href="/admin/send_events">View All ( {{ send_event_count }} )</a>
 
 	<h2 class="header_center">Recent Users</h2>
 	<table class="report_table">
@@ -46,7 +65,7 @@
 		{% endfor %}
 	</table>
 
-	<a class="link_button_center" href="/admin/users">View All</a>
+	<a class="link_button_center" href="/admin/users">View All ( {{ user_count }} )</a>
 
 </div>
 
