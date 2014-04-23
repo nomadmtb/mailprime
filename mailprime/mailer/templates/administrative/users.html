@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="solid_bg">
+
+	<h2 class="header_center">All Users</h2>
+	<table class="report_table">
+		<tr>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Is Staff?</th>
+			<th>Last Login</th>
+		</tr>
+
+		{% for user in users %}
+		<tr>
+			<td>{{ user.username }}</td>
+			<td>{{ user.email }}</td>
+			{% if user.is_staff %}
+				<td>Yes</td>
+			{% else %}
+				<td>No</td>
+			{% endif %}
+			<td>{{ user.last_login|date:"M d, Y" }} {{ user.last_login|time:"P" }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Administration: View All Users</h5>
+<p id="header_desc">View all MailPrime users.</p>
+{% endblock header %}

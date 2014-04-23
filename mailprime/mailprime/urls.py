@@ -34,6 +34,8 @@ urlpatterns = patterns('',
     url(r'^api/(\w+)/c-(\d+)/campaign_data\.json$', json_views.get_campaign_data, name="get_campaign_data"),
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/sample_message\.html$', json_views.get_sample_message, name="get_sample_message"),
     url(r'^admin$', admin_views.index, name='index'),
+    url(r'^admin/send_events$', admin_views.send_events, name='send_events'),
+    url(r'^admin/users$', admin_views.users, name='users'),
 )
 
 # For Development ONLY. Remove when in production...
