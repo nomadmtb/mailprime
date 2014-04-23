@@ -57,6 +57,31 @@ class MessageForm(forms.ModelForm):
 
 		return cleaned_data
 
+class AdminMessageForm(forms.ModelForm):
+
+	# Overriding this field so we can format the output with no time
+	deploy_date = forms.DateTimeField(widget=forms.DateInput(format='%Y-%m-%d'))
+
+	class Meta:
+		model = Message
+		fields = ['title', 'body', 'link', 'template', 'deployed', 'deploy_date', 'deploy_hour']
+		localized_fields = ['__all__']
+
+	def clean(self):
+		cleaned_data = self.cleaned_data
+		deploy_hour = int(cleaned_data['deploy_hour'])
+
+		# Apply deploy-hour to deploy-date
+		cleaned_data['deploy_date'] = cleaned_data['deploy_date'].replace(hour=deploy_hour, minute=0)
+
+		# Converting both times to UTC
+		deploy_utc = cleaned_data['deploy_date'].astimezone(pytz.utc)
+
+		# Overwrite cleaned_data['deploy_date'] with datetime.
+		cleaned_data['deploy_date'] = deploy_utc
+
+		return cleaned_data
+
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50)
 	password = forms.CharField(max_length=50, widget=forms.PasswordInput)

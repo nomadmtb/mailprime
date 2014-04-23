@@ -35,8 +35,10 @@ urlpatterns = patterns('',
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/sample_message\.html$', json_views.get_sample_message, name="get_sample_message"),
     url(r'^admin$', admin_views.index, name='index'),
     url(r'^admin/send_events$', admin_views.send_events, name='send_events'),
-    url(r'^admin/users$', admin_views.users, name='users'),
+    url(r'^admin/users$', admin_views.show_users, name='show_users'),
     url(r'^admin/edit_user/(\d+)$', admin_views.edit_user, name='edit_user'),
+    url(r'^admin/messages$', admin_views.show_messages, name='show_messages'),
+    url(r'^admin/edit_message/(\d+)$', admin_views.edit_message, name='edit_message'),
 )
 
 # For Development ONLY. Remove when in production...

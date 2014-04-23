@@ -22,7 +22,7 @@
 		</tr>
 		{% endfor %}
 	</table>
-	
+
 	<div class="seperator_admin"></div>
 
 	<h2 class="header_center">Recent Send Events</h2>
@@ -71,6 +71,29 @@
 
 	<a class="link_button_center" href="/admin/users">View All ( {{ user_count }} )</a>
 
+	<div class="seperator_admin"></div>
+
+	<h2 class="header_center">Recent Messages</h2>
+	<table class="report_table">
+		<tr>
+			<th>Title</th>
+			<th>Campaign</th>
+			<th>Owner</th>
+			<th>Date</th>
+		</tr>
+
+		{% for message in user_messages %}
+		<tr>
+			<td>{{ message.title }}</td>
+			<td>{{ message.campaign.title }}</td>
+			<td>{{ message.campaign.user.username }}</td>
+			<td>{{ message.created_date|date:"M d, Y" }} {{ message.created_date|time:"P" }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+	<a class="link_button_center" href="/admin/messages">View All ( {{ user_message_count }} )</a>
+	
 </div>
 
 {% endblock %}

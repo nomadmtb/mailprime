@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="solid_bg">
+
+	<h2 class="header_center">All Messages</h2>
+	<table class="report_table">
+		<tr>
+			<th>Title</th>
+			<th>Campaign</th>
+			<th>Owner</th>
+			<th>Date</th>
+		</tr>
+
+	{% for message in user_messages %}
+		<tr>
+			<td><a href="/admin/edit_message/{{ message.pk }}">{{ message.title }}</a></td>
+			<td>{{ message.campaign.title }}</td>
+			<td>{{ message.campaign.user.username }}</td>
+			<td>{{ message.created_date|date:"M d, Y" }} {{ message.created_date|time:"P" }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Administration: All Messages</h5>
+<p id="header_desc">View all messages on the page below.</p>
+{% endblock header %}

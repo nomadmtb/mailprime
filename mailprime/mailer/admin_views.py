@@ -4,8 +4,8 @@ from django.template import RequestContext
 from mailer.lib import authenticate_user, current_user, current_staff, logout_user, geo_locate, generate_form_errors
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib import messages
-from mailer.models import Send_Event, Event, Profile
-from mailer.forms import UserProfileForm
+from mailer.models import Send_Event, Event, Profile, Message
+from mailer.forms import UserProfileForm, AdminMessageForm
 
 
 # Index page for administrative area.
@@ -28,6 +28,10 @@ def index(request):
 		page_vars['events'] = Event.objects.all().order_by('-created_date')[:25]
 		page_vars['event_count'] = Event.objects.count()
 
+		# Getting recent messages. Limit to 25 max.
+		page_vars['user_messages'] = Message.objects.all().order_by('-created_date')[:25]
+		page_vars['user_message_count'] = Message.objects.count()
+
 		return render(request, 'administrative/index.html', page_vars)
 
 	else:
@@ -47,16 +51,80 @@ def send_events(request):
 	else:
 		raise Http404
 
-def users(request):
+def show_users(request):
 
 	# If current user is authenticated and it staff.
 	if current_staff(request):
 
 		page_vars = {"page_title": 'All Users'}
 
-		page_vars['users'] = User.objects.all().order_by('last_login')
+		page_vars['users'] = User.objects.all().order_by('-last_login')
 
 		return render(request, 'administrative/users.html', page_vars)
+
+	else:
+		raise Http404
+
+def show_messages(request):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": 'All Messages'}
+
+		page_vars['user_messages'] = Message.objects.all().order_by('-created_date')
+
+		return render(request, 'administrative/messages.html', page_vars)
+
+	else:
+		raise Http404
+
+def edit_message(request, param_message_pk):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": 'Alter Message'}
+
+		# Get Message object from database.
+		try:
+			requested_message = Message.objects.get(pk=param_message_pk)
+		except Message.DoesNotExist:
+			raise Http404
+
+		# User is requesting the form, build it!
+		if request.method == "GET":
+			
+			# Build form with requested message.
+			page_vars['form'] = AdminMessageForm(instance=requested_message)
+			page_vars['requested_message'] = requested_message
+
+			# Build CSRF context.
+			csrfContext = RequestContext(request, page_vars)
+
+			# Render page.
+			return render(request, 'administrative/edit_message.html', csrfContext)
+
+		# User is submitting the form, apply it!
+		elif request.method == "POST":
+
+			# Build messageform object from post data.
+			completed_form = AdminMessageForm(request.POST, instance=requested_message)
+
+			# Save message if it passes validation.
+			if completed_form.is_valid():
+
+				# Commit to database.
+				completed_form.save()
+
+				# Generate message for user.
+				messages.add_message(request, messages.SUCCESS, 'Success: Changes Applied to Message')
+
+				# Redirect user back to edit page.
+				return HttpResponseRedirect('/admin/edit_message/{0}'.format(requested_message.pk))
+
+			else:
+				raise Http404
 
 	else:
 		raise Http404
