@@ -4,15 +4,25 @@
 <div class="solid_bg">
 
 	<h1>Campaign Recipients: {{ recipients.0.campaign }}</h1>
+	
+	<div class="float_left">
+		<a class="link_button_center" href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients/add">Add A Recipient</a>
+	</div>
 
-	<table class="ninety_center">
+	<div class="float_right">
+		<a class="link_button_center" href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients/upload">Upload Contacts</a>
+	</div>
+
+	<div class="clear_float"></div>
+
+	<table class="report_table">
 		<tr>
 			<th>Address</th>
 			<th>Invited</th>
 			<th>Approved</th>
 			<th>Action</th>
 		</tr>
-		<tbody class="center">
+		<tbody>
 			{% for recipient in recipients %}
 			<tr>
 				<td>{{ recipient.email }}</td>

@@ -85,8 +85,8 @@
 		{% for message in user_messages %}
 		<tr>
 			<td><a href="/admin/edit_message/{{ message.pk }}">{{ message.title }}</a></td>
-			<td>{{ message.campaign.title }}</td>
-			<td>{{ message.campaign.user.username }}</td>
+			<td><a href="/admin/edit_campaign/{{ message.campaign.pk }}">{{ message.campaign.title }}</a></td>
+			<td><a href="/admin/edit_user/{{ message.campaign.user.pk }}">{{ message.campaign.user.username }}</a></td>
 			<td>{{ message.created_date|date:"M d, Y" }} {{ message.created_date|time:"P" }}</td>
 		</tr>
 		{% endfor %}
@@ -107,8 +107,8 @@
 
 		{% for campaign in campaigns %}
 		<tr>
-			<td>{{ campaign.title }}</td>
-			<td>{{ campaign.user.username }}</td>
+			<td><a href="/admin/edit_campaign/{{ campaign.pk }}">{{ campaign.title }}</a></td>
+			<td><a href="/admin/edit_user/{{ campaign.user.pk }}">{{ campaign.user.username }}</a></td>
 			{% if campaign.active %}
 			<td>Yes</td>
 			{% else %}

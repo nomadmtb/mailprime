@@ -414,6 +414,7 @@ section[id="main"] {
   width: 35%;
   margin: 0 auto;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 .link_button_center:hover {
   background-color: #bed9e6;
