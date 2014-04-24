@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^admin/edit_message/(\d+)$', admin_views.edit_message, name='edit_message'),
     url(r'^admin/all_campaigns$', admin_views.show_campaigns, name='show_campaigns'),
     url(r'^admin/edit_campaign/(\d+)$', admin_views.edit_campaign, name='edit_campaign'),
+    url(r'^admin/add_user$', admin_views.add_user, name='add_user'),
 )
 
 # For Development ONLY. Remove when in production...

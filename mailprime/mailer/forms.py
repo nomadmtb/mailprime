@@ -66,7 +66,7 @@ class UserProfileForm(forms.Form):
 	time_zone = forms.ChoiceField(choices=Profile.TIME_ZONES, initial=0, label='Time Zone', required=False)
 	password = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password', required=False)
 	password_confirm = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password Confirm', required=False)
-	email = forms.EmailField(max_length=254, label='Account Email Address', required=False)
+	email = forms.EmailField(max_length=254, label='Account Email Address', required=True)
 
 	def clean(self):
 		cleaned_data = self.cleaned_data
@@ -120,6 +120,16 @@ class ContactUploadForm(forms.Form):
 		else:
 
 			return cleaned_data
+
+class AdminCreateUserForm(forms.ModelForm):
+
+	# Overriding this field because the User model doesn't require email address.
+	# We want it to be required.
+	email = forms.EmailField(max_length=254, label='Account Email Address', required=True)
+
+	class Meta:
+		model = User
+		fields = ['username', 'email', 'password', 'is_staff']
 
 class AdminMessageForm(forms.ModelForm):
 

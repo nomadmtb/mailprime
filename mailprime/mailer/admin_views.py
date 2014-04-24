@@ -5,7 +5,7 @@ from mailer.lib import authenticate_user, current_user, current_staff, logout_us
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib import messages
 from mailer.models import Send_Event, Event, Profile, Message, Campaign
-from mailer.forms import UserProfileForm, AdminMessageForm, AdminCampaignForm
+from mailer.forms import UserProfileForm, AdminMessageForm, AdminCampaignForm, AdminCreateUserForm
 
 
 # Index page for administrative area.
@@ -200,6 +200,65 @@ def edit_message(request, param_message_pk):
 	else:
 		raise Http404
 
+def add_user(request):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": 'Add User'}
+
+		# User is requesting form, build it!
+		if request.method == "GET":
+
+			# Build form object.
+			page_vars['form'] = AdminCreateUserForm()
+
+			# Generating CSRF Context.
+			csrfContext = RequestContext(request, page_vars)
+
+			# Render page for user.
+			return render(request, 'administrative/add_user.html', csrfContext)
+
+		# User is submitting form, process it!
+		elif request.method == "POST":
+
+			# Build form object from post data.
+			completed_form = AdminCreateUserForm(request.POST)
+
+			# If form validates correctly, save.
+			if completed_form.is_valid():
+
+				# Saving new user to database.
+				new_user = completed_form.save(commit=False)
+				new_user.save()
+
+				# We want to create a new Profile for the user too!
+				new_profile = Profile(user=new_user, time_zone='UTC', agree_terms=False)
+				new_profile.save()
+
+				# Generate message for user.
+				messages.add_message(request, messages.SUCCESS, 'Success: New User Added')
+
+				# Redirect back to admin page.
+				return HttpResponseRedirect('/admin')
+
+			# Form is NOT valid.
+			else:
+
+				# Form is not valid, re-render the page with the form.
+				generate_form_errors(request, completed_form)
+				page_vars['form'] = completed_form
+
+				# Generate CSRF Context.
+				csrfContext = RequestContext(request, page_vars)
+
+				# Render page for user.
+				return render(request, 'administrative/add_user.html', csrfContext)
+
+	else:
+		raise Http404
+
+
 def edit_user(request, param_user_pk):
 
 	# If current user is authenticated and it staff.
@@ -270,7 +329,20 @@ def edit_user(request, param_user_pk):
 				# Redirect back to user-edit page.
 				return HttpResponseRedirect('/admin/edit_user/{0}'.format(requested_user.pk))
 
-		return render(request, 'administrative/edit_user.html', page_vars)
+			# Form data is NOT valid. Generate messages.
+			else:
+
+				# Generate error messages from form
+				generate_form_errors(request, completed_form)
+
+				# Update page_vars
+				page_vars['form'] = completed_form
+
+				# Generate CSRF Context.
+				csrfContext = RequestContext(request, page_vars)
+
+				# Render page with errors, old form.
+				return render(request, 'administrative/edit_user.html', csrfContext)
 
 	else:
 		raise Http404
