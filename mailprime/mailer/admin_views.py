@@ -4,8 +4,8 @@ from django.template import RequestContext
 from mailer.lib import authenticate_user, current_user, current_staff, logout_user, geo_locate, generate_form_errors
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib import messages
-from mailer.models import Send_Event, Event, Profile, Message
-from mailer.forms import UserProfileForm, AdminMessageForm
+from mailer.models import Send_Event, Event, Profile, Message, Campaign
+from mailer.forms import UserProfileForm, AdminMessageForm, AdminCampaignForm
 
 
 # Index page for administrative area.
@@ -32,7 +32,27 @@ def index(request):
 		page_vars['user_messages'] = Message.objects.all().order_by('-created_date')[:25]
 		page_vars['user_message_count'] = Message.objects.count()
 
+		# Getting recent campaigns. Limit to 25 max.
+		page_vars['campaigns'] = Campaign.objects.all().order_by('-created_date')[:25]
+		page_vars['campaign_count'] = Campaign.objects.count()
+
 		return render(request, 'administrative/index.html', page_vars)
+
+	else:
+		raise Http404
+
+def show_campaigns(request):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": 'All Campaigns'}
+
+		# Getting all Campaigns from the database.
+		page_vars['campaigns'] = Campaign.objects.all().order_by('-created_date')
+
+		# Render html template for user.
+		return render(request, 'administrative/campaigns.html', page_vars)
 
 	else:
 		raise Http404
@@ -75,6 +95,57 @@ def show_messages(request):
 		page_vars['user_messages'] = Message.objects.all().order_by('-created_date')
 
 		return render(request, 'administrative/messages.html', page_vars)
+
+	else:
+		raise Http404
+
+def edit_campaign(request, param_campaign_pk):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": 'Alter Campaign'}
+
+		# Get Campaign object from database.
+		try:
+			requested_campaign = Campaign.objects.get(pk=param_campaign_pk)
+		except Campaign.DoesNotExist:
+			raise Http404
+
+		# User is requesting the form, build it!
+		if request.method == "GET":
+
+			# Build form with requested campaign.
+			page_vars['form'] = AdminCampaignForm(instance=requested_campaign)
+			page_vars['requested_campaign'] = requested_campaign
+
+			# Build CSRF context.
+			csrfContext = RequestContext(request, page_vars)
+
+			# Render page.
+			return render(request, 'administrative/edit_campaign.html', csrfContext)
+
+		# User is submitting the form, update it!
+		elif request.method == "POST":
+
+			# Build campaignform object from post data.
+			completed_form = AdminCampaignForm(request.POST, instance=requested_campaign)
+
+			# Save campaign if it's valid.
+			if completed_form.is_valid():
+
+				# Commit changes to database.
+				completed_form.save()
+
+				# Generate message for user.
+				messages.add_message(request, messages.SUCCESS, 'Success: Changes Applied to Campaign')
+
+				# Redirect back to edit page.
+				return HttpResponseRedirect("/admin/edit_campaign/{0}".format(requested_campaign.pk))
+
+			# Form is not valid!
+			else:
+				raise Http404
 
 	else:
 		raise Http404

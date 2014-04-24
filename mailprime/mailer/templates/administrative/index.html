@@ -42,7 +42,7 @@
 	{% endfor %}
 	</table>
 
-	<a class="link_button_center" href="/admin/send_events">View All ( {{ send_event_count }} )</a>
+	<a class="link_button_center" href="/admin/all_send_events">View All ( {{ send_event_count }} )</a>
 
 	<div class="seperator_admin"></div>
 
@@ -57,7 +57,7 @@
 
 		{% for user in users %}
 		<tr>
-			<td>{{ user.username }}</td>
+			<td><a href="/admin/edit_user/{{ user.pk }}">{{ user.username }}</a></td>
 			<td>{{ user.email }}</td>
 			{% if user.is_staff %}
 				<td>Yes</td>
@@ -69,7 +69,7 @@
 		{% endfor %}
 	</table>
 
-	<a class="link_button_center" href="/admin/users">View All ( {{ user_count }} )</a>
+	<a class="link_button_center" href="/admin/all_users">View All ( {{ user_count }} )</a>
 
 	<div class="seperator_admin"></div>
 
@@ -84,7 +84,7 @@
 
 		{% for message in user_messages %}
 		<tr>
-			<td>{{ message.title }}</td>
+			<td><a href="/admin/edit_message/{{ message.pk }}">{{ message.title }}</a></td>
 			<td>{{ message.campaign.title }}</td>
 			<td>{{ message.campaign.user.username }}</td>
 			<td>{{ message.created_date|date:"M d, Y" }} {{ message.created_date|time:"P" }}</td>
@@ -92,7 +92,34 @@
 		{% endfor %}
 	</table>
 
-	<a class="link_button_center" href="/admin/messages">View All ( {{ user_message_count }} )</a>
+	<a class="link_button_center" href="/admin/all_messages">View All ( {{ user_message_count }} )</a>
+
+	<div class="seperator_admin"></div>
+
+	<h2 class="header_center">Recent Campaigns</h2>
+	<table class="report_table">
+		<tr>
+			<th>Title</th>
+			<th>Owner</th>
+			<th>Active</th>
+			<th>Date</th>
+		</tr>
+
+		{% for campaign in campaigns %}
+		<tr>
+			<td>{{ campaign.title }}</td>
+			<td>{{ campaign.user.username }}</td>
+			{% if campaign.active %}
+			<td>Yes</td>
+			{% else %}
+			<td>No</td>
+			{% endif %}
+			<td>{{ campaign.created_date|date:"M d, Y" }} {{ campaign.created_date|time:"P" }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+	<a class="link_button_center" href="/admin/all_campaigns">View All ( {{ campaign_count }} )</a>
 	
 </div>
 

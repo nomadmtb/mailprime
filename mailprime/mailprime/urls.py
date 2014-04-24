@@ -34,11 +34,13 @@ urlpatterns = patterns('',
     url(r'^api/(\w+)/c-(\d+)/campaign_data\.json$', json_views.get_campaign_data, name="get_campaign_data"),
     url(r'^api/(\w+)/c-(\d+)/m-(\d+)/sample_message\.html$', json_views.get_sample_message, name="get_sample_message"),
     url(r'^admin$', admin_views.index, name='index'),
-    url(r'^admin/send_events$', admin_views.send_events, name='send_events'),
-    url(r'^admin/users$', admin_views.show_users, name='show_users'),
+    url(r'^admin/all_send_events$', admin_views.send_events, name='send_events'),
+    url(r'^admin/all_users$', admin_views.show_users, name='show_users'),
     url(r'^admin/edit_user/(\d+)$', admin_views.edit_user, name='edit_user'),
-    url(r'^admin/messages$', admin_views.show_messages, name='show_messages'),
+    url(r'^admin/all_messages$', admin_views.show_messages, name='show_messages'),
     url(r'^admin/edit_message/(\d+)$', admin_views.edit_message, name='edit_message'),
+    url(r'^admin/all_campaigns$', admin_views.show_campaigns, name='show_campaigns'),
+    url(r'^admin/edit_campaign/(\d+)$', admin_views.edit_campaign, name='edit_campaign'),
 )
 
 # For Development ONLY. Remove when in production...
