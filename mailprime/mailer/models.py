@@ -16,7 +16,6 @@ class Profile(models.Model):
 
 	TIME_ZONES = [(x,x) for x in pytz.common_timezones]
 
-	agree_terms = models.BooleanField(default=False)
 	time_zone = models.CharField(choices=TIME_ZONES, default="UTC", blank=False, max_length=50)
 	user = models.OneToOneField(User)
 

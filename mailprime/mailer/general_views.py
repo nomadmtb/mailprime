@@ -26,7 +26,7 @@ def login(request):
 
 			# Create Profile if User doesn't have one.
 			if not user_profile:
-				Profile(agree_terms=False, time_zone="UTC", user=request.user).save()
+				Profile(time_zone="UTC", user=request.user).save()
 
 			return HttpResponseRedirect('/' + request.user.username + '/campaigns')
 		else:
@@ -60,7 +60,7 @@ def user_account(request, param_username):
 
 		if request.method == "GET":
 			user_profile = Profile.objects.get(user = request.user)
-			init_values = {'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'email': request.user.email}
+			init_values = {'time_zone': user_profile.time_zone, 'email': request.user.email}
 			page_vars['form'] = UserProfileForm(initial=init_values)
 			csrfContext = RequestContext(request, page_vars)
 			
@@ -80,7 +80,6 @@ def user_account(request, param_username):
 
 					request.session['user_timezone'] = completed_form.cleaned_data['time_zone']
 
-					user_profile.agree_terms = completed_form.cleaned_data['agree_terms']
 					user_obj.email = completed_form.cleaned_data['email']
 
 					# Only update the user's password if it's not empty

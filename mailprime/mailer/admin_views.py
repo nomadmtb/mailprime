@@ -233,7 +233,7 @@ def add_user(request):
 				new_user.save()
 
 				# We want to create a new Profile for the user too!
-				new_profile = Profile(user=new_user, time_zone='UTC', agree_terms=False)
+				new_profile = Profile(user=new_user, time_zone='UTC')
 				new_profile.save()
 
 				# Generate message for user.
@@ -282,7 +282,7 @@ def edit_user(request, param_user_pk):
 				raise Http404
 
 			# Build initial values for form.
-			init_values = {'agree_terms': user_profile.agree_terms, 'time_zone': user_profile.time_zone, 'email': requested_user.email}
+			init_values = {'time_zone': user_profile.time_zone, 'email': requested_user.email}
 
 			# Create Form object with initial values.
 			page_vars['form'] = UserProfileForm(initial=init_values)
@@ -312,7 +312,6 @@ def edit_user(request, param_user_pk):
 
 				# Update User and Profile objs in db with validated form-data.
 				user_profile.time_zone = completed_form.cleaned_data['time_zone']
-				user_profile.agree_terms = completed_form.cleaned_data['agree_terms']
 				requested_user.email = completed_form.cleaned_data['email']
 
 				# Only update the password if it's not empty.

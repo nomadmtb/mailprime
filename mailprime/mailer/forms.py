@@ -62,7 +62,6 @@ class LoginForm(forms.Form):
 	password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
 class UserProfileForm(forms.Form):
-	agree_terms = forms.BooleanField(initial=False, label='Agree Terms', required=False)
 	time_zone = forms.ChoiceField(choices=Profile.TIME_ZONES, initial=0, label='Time Zone', required=False)
 	password = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password', required=False)
 	password_confirm = forms.CharField(max_length=150, widget=forms.PasswordInput, label='Password Confirm', required=False)
@@ -71,14 +70,10 @@ class UserProfileForm(forms.Form):
 	def clean(self):
 		cleaned_data = self.cleaned_data
 
-		agree_terms = cleaned_data.get("agree_terms")
 		time_zone = cleaned_data.get("time_zone")
 		password = cleaned_data.get("password")
 		password_confirm = cleaned_data.get("password_confirm")
 		email = cleaned_data.get("email")
-
-		if agree_terms == False:
-			raise forms.ValidationError("Agree Terms: You Must Agree To Our Terms Of Service")
 
 		if password != '' and password_confirm != '':
 			if password_confirm != password:
