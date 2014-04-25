@@ -15,6 +15,7 @@
 			<th>Date</th>
 			<th><i>Approx</i> Region</th>
 			<th><i>Approx</i> Lat/Lon</th>
+			<th>Proxy?</th>
 		</tr>
 
 		{% for event in events %}
@@ -23,6 +24,11 @@
 			<td>{{ event.created_date|date:"M d, Y"}} {{ event.created_date|time:"P" }}</td>
 			<td>{{ event.country_code }}</td>
 			<td>{{ event.latitude }}, {{ event.longitude }}</td>
+			{% if event.is_google_proxy %}
+			<td><img src="/static/images/google_icon.png" height="21px" /></td>
+			{% else %}
+			<td>Nope</td>
+			{% endif %}
 		</tr>
 		{% endfor %}
 	</table>
