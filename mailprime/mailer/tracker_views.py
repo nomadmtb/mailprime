@@ -22,9 +22,12 @@ def tracker_visit(request, param_recipient_hash, param_message_hash):
 	except Recipient.DoesNotExist:
 		raise Http404
 
-	Event.objects.create(	ip_address = request.META['REMOTE_ADDR'], latitude = coordinates['latitude'],
-							longitude = coordinates['longitude'], country_code = coordinates['country_code'],
-							recipient = contact, message = mess )
+	# We only want to record traffic if the campaign is NOT disabled
+	if mess.campaign.active:
+
+		Event.objects.create(	ip_address = request.META['REMOTE_ADDR'], latitude = coordinates['latitude'],
+								longitude = coordinates['longitude'], country_code = coordinates['country_code'],
+								recipient = contact, message = mess )
 
 	image = open("/home/kgluce/mailprime/mailprime/static/images/icon.png").read()
 	return HttpResponse(image, content_type="image/png")

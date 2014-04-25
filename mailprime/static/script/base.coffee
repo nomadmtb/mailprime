@@ -7,6 +7,7 @@ $ ->
 	toggle_iframe()
 	check_campaign_link()
 	check_for_slick()
+	check_read_event_map()
 
 checkfornotice = ->
 	if $("#notice_wrapper").length
@@ -74,6 +75,46 @@ check_for_message_report = ->
 		google.load "visualization", "1",
 			packages: ["geochart", "map", "corechart"]
 			callback: populate_message_report_maps
+
+check_read_event_map = ->
+	if $("#read_event_map_canvas").length
+
+		google.load "visualization", "1",
+			packages: ["map"]
+			callback: populate_read_event_map
+
+populate_read_event_map = ->
+	message = $("#read_event_map_canvas").attr('mess-data')
+	username = $("#read_event_map_canvas").attr('user-data')
+	campaign = $("#read_event_map_canvas").attr('camp-data')
+
+	$.ajax
+		type: "GET"
+		url: "/api/#{username}/c-#{campaign}/m-#{message}/region_data.json"
+		success: (results) ->
+
+			if results.hasOwnProperty('ERROR')
+
+				$("#read_event_map_canvas").css('background-color', '#C00000')
+				$(".solid_bg").prepend("<h1 id='data_error'>ERROR, No Tracking Data Available Yet</h1>")
+
+			else
+
+				coord_options = {
+					showTip: true
+					enableScrollWheel: false
+					mapType: 'normal'
+				}
+
+				coord_data = google.visualization.arrayToDataTable(results['coordinate_data'])
+				coord_map = new google.visualization.Map(document.getElementById('read_event_map_canvas'))
+
+				coord_map.draw(coord_data, coord_options)
+
+
+
+
+
 
 populate_message_report_maps = ->
 	message = $("#geo_region_map").attr('mess-data')

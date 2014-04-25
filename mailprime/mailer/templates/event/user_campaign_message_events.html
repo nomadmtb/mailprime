@@ -1,20 +1,48 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<div class="solid_bg">
 
-<h1>Events for Message</h1>
+	<h2 class="header_center"><i>Read</i> Locations</h2>
 
-{% for event in events %}
-	<h3>{{ event.latitude }}, {{ event.longitude }}</h3>
-	<h3>{{ event.recipient.email }}</h3>
-	<h3>{{ event.message.title }}</h3>
-	<h3>{{ event.created_date }}</h3>
-	<h3>{{ event.ip_address }}</h3>
-{% endfor %}
+	<div id="read_event_map_canvas" mess-data="{{ message_pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
 
+	<h2 class="header_center">View All <i>Read</i> Events</h2>
+
+	<table class="report_table">
+		<tr>
+			<th>Recipient</th>
+			<th>Date</th>
+			<th><i>Approx</i> Region</th>
+			<th><i>Approx</i> Lat/Lon</th>
+		</tr>
+
+		{% for event in events %}
+		<tr>
+			<td>{{ event.recipient.email }}</td>
+			<td>{{ event.created_date|date:"M d, Y"}} {{ event.created_date|time:"P" }}</td>
+			<td>{{ event.country_code }}</td>
+			<td>{{ event.latitude }}, {{ event.longitude }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+</div>
 {% endblock %}
 
 {% block header %}
 <h5 id="header_title">Message Read Events</h5>
 <p id="header_desc">View all ''read'' events that pertain to an individual message.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_pk }}/message-{{ message_pk }}/stats">Back to Statistics</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_pk }}/message-{{ message_pk }}">Back to Message</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_pk }}">Back to Campaign</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

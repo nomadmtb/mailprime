@@ -125,9 +125,6 @@ nav {
 #coord_map {
   height: 500px;
   background-color: #dde8ee;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
 }
 #geo_region_map {
   width: 670px;

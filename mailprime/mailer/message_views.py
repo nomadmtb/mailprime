@@ -41,10 +41,29 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		except Message.DoesNotExist:
 			raise Http404
 
-		deploy = request.GET.get('deploy')
+		deploy = request.GET.get('action')
+
+		# Check to see if the campaign is disabled.
+		if message.campaign.active == False:
+
+			# Campaign is locked, generate message for user, return.
+			messages.add_message(request, messages.SUCCESS, 'Campaign disabled by MailPrime Administrator')
+
+			page_vars['templates'] = Template.objects.all()
+			page_vars['sample_link'] = "/api/{0}/c-{1}/m-{2}/sample_message.html".format(
+																						request.user.username,
+																						message.campaign.pk,
+																						message.pk)
+			page_vars['message'] = message
+			page_vars['form'] = MessageForm(instance=message)
+			page_vars['campaign'] = message.campaign
+			page_vars['slick_present'] = True
+			
+			csrfContext = RequestContext(request, page_vars)
+			return render(request, 'message/show.html', csrfContext)
 
 		# Deploy message if deploy GET param is set
-		if (deploy is not None) and (deploy == str(message.pk)):
+		if (deploy is not None) and (deploy == 'deploy'):
 
 			if message.deployed == False:
 				os.system('python manage.py deploy_messages ' + str(message.pk) + '&')

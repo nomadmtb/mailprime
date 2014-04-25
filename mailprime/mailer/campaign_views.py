@@ -100,10 +100,24 @@ def user_campaign_edit(request, param_username, param_campaign_pk):
 				else:
 					# We want to edit the campaign, render form				
 					page_vars['form'] = CampaignForm(instance=user_campaign)
+
+					# Generate warning is campaign is disabled
+					if user_campaign.active == False:
+						messages.add_message(request, messages.ERROR, 'Campaign disabled by MailPrime Administrator')
+
+					# Generate CSRF Context
 					csrfContext = RequestContext(request, page_vars)
+
+					# Render page for user
 					return render(request, 'campaign/edit.html', csrfContext)
 
 			elif request.method == "POST":
+
+				# Check if campaign is disabled
+				if user_campaign.active == False:
+					return HttpResponseRedirect('/{0}/campaign-{1}'.format(request.user.username, user_campaign.pk))
+
+				# It's safe to assume that the campaign is active, process form
 				completed_form = CampaignForm(request.POST, instance=user_campaign)
 
 				if completed_form.is_valid():

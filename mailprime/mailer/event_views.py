@@ -13,8 +13,13 @@ def user_campaign_message_events(request, param_username, param_campaign_pk, par
 	page_vars = {"page_title": 'Message Events'}
 
 	if current_user(request) and request.user.username == param_username:
+
 		events = Event.objects.filter(message__campaign__pk = param_campaign_pk, message__pk = param_message_pk)
+
 		page_vars['events'] = events
+		page_vars['campaign_pk'] = param_campaign_pk
+		page_vars['message_pk'] = param_message_pk
+
 		return render(request, 'event/user_campaign_message_events.html', page_vars)
 	else:
 		raise Http404
@@ -23,6 +28,7 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 	page_vars = {"page_title": 'View Event'}
 
 	if current_user(request) and request.user.username == param_username:
+		
 		try:
 			event = Event.objects.get(pk = param_event_pk, recipient__campaign__pk = param_campaign_pk, message__pk = param_message_pk)
 		except Event.DoesNotExist:
@@ -30,6 +36,9 @@ def user_campaign_message_event(request, param_username, param_campaign_pk, para
 			raise Http404
 
 		page_vars['event'] = event
+		page_vars['campaign_pk'] = param_campaign_pk
+		page_vars['message_pk'] = param_message_pk
+
 		return render(request, 'event/user_campaign_message_event.html', page_vars)
 	else:
 		raise Http404
