@@ -72,12 +72,6 @@ def user_campaign_new(request, param_username):
 	else:
 		raise Http404
 
-def campaign_statistics(request, param_username, param_campaign_pk):
-	page_vars = {}
-	page_vars['page_title'] = 'Campaign Statistics'
-
-	return render(request, 'campaign/stats.html', page_vars)
-
 def user_campaign_edit(request, param_username, param_campaign_pk):
 	page_vars = {"page_title": "Edit Campaign"}
 

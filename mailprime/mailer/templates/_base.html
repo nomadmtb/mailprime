@@ -58,6 +58,10 @@
 		</div>
 	</header>
 
+	{% block nav_options %}
+	<!-- This will get filled out by child templates -->
+	{% endblock nav_options %}
+
 	<section id="main">
 		<div class="content_wrapper">
 			{% block content %}

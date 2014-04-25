@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  background-color: #dde8ee;
 }
 h3 {
   font-weight: 300;
@@ -301,6 +302,24 @@ footer {
   width: 100%;
   bottom: 0;
   background-color: #bed9e6;
+}
+#nav_options {
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 5px;
+  background-color: #525453;
+  width: 90%;
+  min-width: 700px;
+}
+#nav_options table {
+  margin: 0 auto;
+}
+#nav_options table tr td {
+  padding-left: 10px;
+}
+#nav_options table tr td a {
+  text-decoration: none;
+  color: #ffffff;
 }
 #footer_content {
   text-align: center;

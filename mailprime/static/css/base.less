@@ -14,6 +14,7 @@
 
 html, body {
 	height: 100%;
+	background-color: @color-bg;
 }
 
 h3 {
@@ -407,6 +408,29 @@ footer {
 	width: 100%;
 	bottom: 0;
 	background-color: @color-selected;
+}
+
+#nav_options {
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 5px;
+	background-color: @color-dark;
+	width: 90%;
+	min-width: 700px;
+
+	table {
+		margin: 0 auto;
+		tr {
+			td {
+				padding-left: 10px;
+
+				a {
+					text-decoration: none;
+					color: @color-base;
+				}
+			}
+		}
+	}
 }
 
 #footer_content {

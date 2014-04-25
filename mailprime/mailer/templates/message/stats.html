@@ -36,7 +36,7 @@
 	
 	<div class="statistical_frame">
 		<h3 class="center_h3">Regional Statistics For <i>Read</i> Events</h3>
-		<div id="geo_region_map" mess-data="{{ message_pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
+		<div id="geo_region_map" mess-data="{{ message.pk }}" user-data="{{ user.username }}" camp-data="{{ campaign_pk }}"></div>
 	</div>
 
 	<div class="seperator"></div>
@@ -56,3 +56,14 @@
 <h5 id="header_title">Message Statistics</h5>
 <p id="header_desc">Measure the overall effectiveness of your message.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_pk }}/message-{{ message.pk }}">Back to Message</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_pk }}/message-{{ message.pk }}/events">View Read Events</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

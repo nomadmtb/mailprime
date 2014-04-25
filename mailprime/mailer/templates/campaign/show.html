@@ -61,3 +61,17 @@
 <h5 id="header_title">{{ campaign.title }}</h5>
 <p id="header_desc">Manage your mailing campaign with some of the options below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaigns">Back to Campaigns</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/edit">Edit Campaign</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/messages">View Messages</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients">View Recipients</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/edit?action=delete">Delete Campaign<a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

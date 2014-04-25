@@ -30,3 +30,14 @@
 <h5 id="header_title">Add a new Message</h5>
 <p id="header_desc">Send emails to recipients by creating messages</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">Back to Campaign</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/messages">Back to Messages</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

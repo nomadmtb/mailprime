@@ -4,7 +4,7 @@
 
 <div class="solid_bg">
 
-	<h2>{{ user.username }}'s MailPrime Campaigns</h2>
+	<h2 class="header_center">View All Mailing Campaigns</h2>
 
 	{% for campaign in campaigns %}
 
@@ -49,3 +49,14 @@
 <h5 id="header_title">{{ user.username }}'s Campaigns</h5>
 <p id="header_desc">View and manage your mailing campaigns below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/account">Edit Account</a></td>
+			<td><a href="/{{ user.username }}/campaigns/new">Create Campaign</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

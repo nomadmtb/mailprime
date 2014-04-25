@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="solid_bg">
-	<h2>Messages</h2>
+	<h2 class="header_center">View All Campaign Messages</h2>
 
 	<table class="report_table">
 		<tr>
@@ -12,6 +12,7 @@
 			<th>Deploy</th>
 			<th>Deployed</th>
 			<th>Action</th>
+			<th>Stats</th>
 		</tr>
 		{% for campaign_message in campaign_messages %}
 
@@ -20,11 +21,13 @@
 			<td>{{ campaign_message.created_date|date:'m/d/Y P' }}</td>
 			<td>{{ campaign_message.deploy_date|date:'m/d/Y P' }}</td>
 			{% if campaign_message.deployed %}
-			<td><img src="/static/images/bueno.png" height="18px" /></td>
+			<td><img src="/static/images/bueno.png" height="21px" /></td>
+			<td>Already Deployed</td>
 			{% else %}
-			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+			<td><img src="/static/images/no_bueno.png" height="21px" /></td>
 			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}?deploy={{ campaign_message.pk }}">Deploy Now</a></td>
 			{% endif %}
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_message.campaign.pk }}/message-{{ campaign_message.pk }}/stats"><img src="/static/images/chart_bar.png" height="21px" /></a></td>
 		{% endfor %}
 	</table>
 
@@ -36,3 +39,14 @@
 <h5 id="header_title">View Messages</h5>
 <p id="header_desc">Manage your mailing campaign with some of the options below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_messages.0.campaign.pk }}">Back to Campaign</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign_messages.0.campaign.pk }}/messages/new">New Message</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

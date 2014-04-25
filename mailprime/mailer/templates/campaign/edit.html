@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="solid_bg">
-<h1>Edit Campaign</h1>
+<h2 class="header_center">Edit Campaign</h2>
 
 <div class="form_wrapper">
 <form id="new_campaign_form" method="post" action="/{{ user.username }}/campaign-{{ campaign.pk }}/edit">
@@ -34,3 +34,16 @@
 <h5 id="header_title">Edit your campaign</h5>
 <p id="header_desc">Update your existing campaign with the options below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">Back to Campaign</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/messages">View Messages</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients">View Recipients</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/edit?action=delete">Delete Campaign<a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

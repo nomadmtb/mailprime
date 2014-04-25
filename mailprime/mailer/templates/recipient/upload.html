@@ -3,6 +3,9 @@
 {% block content %}
 
 <div class="solid_bg">
+
+	<h2 class="header_center">Upload Recipients</h2>
+
 	<div class="form_wrapper">
 		<form id="contact_upload_form" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
@@ -32,3 +35,15 @@
 <h5 id="header_title">Upload Recipients</h5>
 <p id="header_desc">Upload email addresses to your MailPrime campaign</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}">Back to Campaign</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients">View Recipients</a></td>
+			<td><a href="/{{ user.username }}/campaign-{{ campaign.pk }}/recipients/add">Add Recipient</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

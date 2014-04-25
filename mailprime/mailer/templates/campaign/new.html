@@ -4,7 +4,7 @@
 
 <div class="solid_bg">
 
-	<h1>Start a new Campaign</h1>
+	<h2 class="header_center">Create A New Campaign</h2>
 
 	<div class="form_wrapper">
 		<form id="new_campaign_form" method="post" action="/{{ user.username }}/campaigns/new">
@@ -35,3 +35,13 @@
 <h5 id="header_title">Create a new campaign</h5>
 <p id="header_desc">Create a new campaign by completing the form below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/{{ user.username }}/campaigns">Back to Campaigns</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

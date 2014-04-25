@@ -61,6 +61,13 @@ def upload_recipients(request, param_username, param_campaign_pk):
 		# User is requesting page, render form
 		if request.method == 'GET':
 
+			# Capturing Campaign that will be used with the recipient entries
+			try:
+				campaign = Campaign.objects.get(pk=param_campaign_pk, user=request.user)
+			except Campaign.DoesNotExist:
+				raise Http404
+
+			page_vars['campaign'] = campaign
 			page_vars['form'] = ContactUploadForm()
 			
 			csrfContext = RequestContext(request, page_vars)
@@ -134,6 +141,9 @@ def upload_recipients(request, param_username, param_campaign_pk):
 						# Reset valid flag
 						valid = True
 						valid_recip = True
+
+				# Giving campaign to template for URL reasons
+				page_vars['campaign'] = campaign
 
 				# Generate messages for user
 				if (valid_email_count > 0):

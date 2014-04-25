@@ -161,7 +161,7 @@ def message_statistics(request, param_username, param_campaign_pk, param_message
 		except Message.DoesNotExist:
 			raise Http404
 
-		page_vars['message_pk'] = requested_message.pk
+		page_vars['message'] = requested_message
 		page_vars['campaign_pk'] = param_campaign_pk
 
 		return render(request, 'message/stats.html', page_vars)
