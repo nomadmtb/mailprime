@@ -98,13 +98,13 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		read_events = read_events.order_by('-created_date')
 
 		for event in read_events:
-			cur_date = event.created_date.strftime("%m/%d")
+			cur_date = event.created_date.astimezone(user_tz).strftime("%m/%d")
 			read_dates.append(cur_date)
 
 		read_counter = Counter(item for item in read_dates)
 
 		for k, v in read_counter.iteritems():
-			read_by_day_data.append([k,v])
+			read_by_day_data.insert(1,[k,v])
 
 		data['read_by_day_data'] = read_by_day_data
 
@@ -123,6 +123,10 @@ def get_campaign_data(request,param_username, param_campaign_pk):
 
 		read_events = Event.objects.filter(message__campaign__pk=param_campaign_pk, message__campaign__user__username=param_username)
 
+		# Getting User Tz
+		user_tz = pytz.timezone(
+			Profile.objects.get( user=request.user).time_zone )
+
 		if read_events.count() == 0:
 			return HttpResponse(json.dumps({"ERROR": 'No Data'}), content_type='application/json')
 
@@ -132,13 +136,13 @@ def get_campaign_data(request,param_username, param_campaign_pk):
 		read_events = read_events.order_by('-created_date')
 
 		for event in read_events:
-			cur_date = event.created_date.strftime("%m/%d")
+			cur_date = event.created_date.astimezone(user_tz).strftime("%m/%d")
 			read_dates.append(cur_date)
 
 		read_counter = Counter(item for item in read_dates)
 
 		for k, v in read_counter.iteritems():
-			read_by_day_data.append([k,v])
+			read_by_day_data.insert(1,[k,v])
 
 		data['read_by_day_data'] = read_by_day_data
 		# End Load Line Graph
