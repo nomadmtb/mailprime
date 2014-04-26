@@ -129,3 +129,17 @@
 <h5 id="header_title">MailPrime Administration</h5>
 <p id="header_desc">Manage the MailPrime application with the options below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/admin/all_templates">Show Templates</a></td>
+			<td><a href="/admin/all_send_events">Show Send-Events</a></td>
+			<td><a href="/admin/all_users">Show Users</a></td>
+			<td><a href="/admin/all_campaigns">Show Campaigns</a></td>
+			<td><a href="/admin/all_messages">Show Messages</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}

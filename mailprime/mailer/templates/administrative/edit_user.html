@@ -35,3 +35,14 @@
 <h5 id="header_title">Administration: Edit User</h5>
 <p id="header_desc">Edit the selected MailPrime user with the options below.</p>
 {% endblock header %}
+
+{% block nav_options %}
+<div id="nav_options">
+	<table>
+		<tr>
+			<td><a href="/admin">Back to admin</a></td>
+			<td><a href="/admin/all_users">Back to users</a></td>
+		</tr>
+	</table>
+</div>
+{% endblock nav_options %}
