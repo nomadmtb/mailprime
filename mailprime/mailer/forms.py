@@ -116,6 +116,12 @@ class ContactUploadForm(forms.Form):
 
 			return cleaned_data
 
+class AdminTemplateForm(forms.ModelForm):
+
+	class Meta:
+		model = Template
+		fields = ['title', 'plaintext_content', 'html_content']
+
 class AdminCreateUserForm(forms.ModelForm):
 
 	# Overriding this field because the User model doesn't require email address.

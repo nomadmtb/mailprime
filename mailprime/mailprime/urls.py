@@ -40,6 +40,8 @@ urlpatterns = patterns('',
     url(r'^admin/all_campaigns$', admin_views.show_campaigns, name='show_campaigns'),
     url(r'^admin/edit_campaign/(\d+)$', admin_views.edit_campaign, name='edit_campaign'),
     url(r'^admin/add_user$', admin_views.add_user, name='add_user'),
+    url(r'^admin/all_templates$', admin_views.show_templates, name='show_templates'),
+    url(r'^admin/edit_template/(\d+)$', admin_views.edit_template, name='edit_template'),
 )
 
 # For Development ONLY. Remove when in production...

@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="solid_bg">
+
+	<h2 class="header_center">All Templates</h2>
+	<table class="report_table">
+		<tr>
+			<th>Template Title</th>
+			<th>Action</th>
+		</tr>
+
+	{% for template in templates %}
+		<tr>
+			<td>{{ template.title }}</td>
+			<td><a href="/admin/edit_template/{{ template.pk }}">Edit Template</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+	
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Administration: All Templates</h5>
+<p id="header_desc">View all templates on the page below.</p>
+{% endblock header %}

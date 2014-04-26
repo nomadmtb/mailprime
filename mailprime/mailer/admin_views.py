@@ -4,8 +4,8 @@ from django.template import RequestContext
 from mailer.lib import authenticate_user, current_user, current_staff, logout_user, geo_locate, generate_form_errors
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib import messages
-from mailer.models import Send_Event, Event, Profile, Message, Campaign
-from mailer.forms import UserProfileForm, AdminMessageForm, AdminCampaignForm, AdminCreateUserForm
+from mailer.models import Send_Event, Event, Profile, Message, Campaign, Template
+from mailer.forms import UserProfileForm, AdminMessageForm, AdminCampaignForm, AdminCreateUserForm, AdminTemplateForm
 
 
 # Index page for administrative area.
@@ -258,6 +258,74 @@ def add_user(request):
 	else:
 		raise Http404
 
+def show_templates(request):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {}
+		
+		# Get all templates from database, populate list
+		templates = Template.objects.all()
+
+		page_vars['page_title'] = 'View All Templates'
+		page_vars['templates'] = templates
+
+		# Render page for user
+		return render(request, 'administrative/templates.html', page_vars)
+
+	else:
+		raise Http404
+
+def edit_template(request, param_template_pk):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {"page_title": "Edit Template"}
+
+		# Get the desired template out of DB
+		try:
+			template = Template.objects.get(pk=param_template_pk)
+		except Template.DoesNotExist:
+			raise Http404
+
+		# Okay, we have the template now.
+		# Method is GET, load form object.
+		if request.method == "GET":
+
+			page_vars['form'] = AdminTemplateForm(instance=template)
+			page_vars['template'] = template
+
+			# Generating CSRF context.
+			csrfContext = RequestContext(request, page_vars)
+
+			# Render page w/ form for user.
+			return render(request, 'administrative/edit_template.html', csrfContext)
+
+		# User is posting the form, update the template obj.
+		elif request.method == "POST":
+
+			# Build templateform obj.
+			completed_form = AdminTemplateForm(request.POST, instance=template)
+
+			# Save template if valid
+			if completed_form.is_valid():
+
+				# Save it to DB
+				completed_form.save()
+
+				# Generate message for user
+				messages.add_message(request, messages.SUCCESS, 'Success: Changes Applied to Template')
+
+				# Redirect back to edit page
+				return HttpResponseRedirect('/admin/edit_template/{0}'.format(template.pk))
+
+			# Form is not valid
+			else:
+				raise Http404
+	else:
+		raise Http404
 
 def edit_user(request, param_user_pk):
 
