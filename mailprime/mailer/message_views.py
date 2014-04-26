@@ -66,7 +66,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		if (deploy is not None) and (deploy == 'deploy'):
 
 			if message.deployed == False:
-				os.system('python manage.py deploy_messages ' + str(message.pk) + '&')
+				os.system('python /var/www/mailprime/manage.py deploy_messages ' + str(message.pk) + '&')
 				messages.add_message(request, messages.SUCCESS, 'SUCCESS: You Message Has Been Deployed')
 			else:
 				messages.add_message(request, messages.SUCCESS, 'ERROR: Message Has Already Been Deployed')

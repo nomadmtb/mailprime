@@ -49,9 +49,9 @@ class Campaign(models.Model):
 			built_plaintext = string.replace( built_plaintext, "{{ title }}", 'MailPrime Campaign Invitation' )
 			built_plaintext = string.replace( built_plaintext, "{{ owner_email }}", self.user.email )
 			built_plaintext = string.replace( built_plaintext, "{{ recipient_email }}", recipient.email )
-			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
+			accept_link = "http://mailpri.me/tracker/auth/{0}".format( recipient.tracking_id )
 			built_plaintext = string.replace( built_plaintext, "{{ accept_link }}", accept_link )
-			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
+			deny_link = "http://mailpri.me/tracker/unsub/{0}".format( recipient.tracking_id )
 			built_plaintext = string.replace( built_plaintext, "{{ deny_link }}", deny_link )
 			built_plaintext = string.replace( built_plaintext, "{{ about }}", self.about )
 
@@ -61,9 +61,9 @@ class Campaign(models.Model):
 			built_html = string.replace( built_html, "{{ owner_email }}", escape(self.user.email) )
 			built_html = string.replace( built_html, "{{ recipient_email }}", escape(recipient.email) )
 			built_html = string.replace( built_html, "{{ about }}", escape(self.about) )
-			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
+			accept_link = "http://mailpri.me/tracker/auth/{0}".format( recipient.tracking_id )
 			built_html = string.replace( built_html, "{{ accept_link }}", escape(accept_link) )
-			deny_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format( recipient.tracking_id )
+			deny_link = "http://mailpri.me/tracker/unsub/{0}".format( recipient.tracking_id )
 			built_html = string.replace( built_html, "{{ deny_link }}", escape(deny_link) )
 
 			# Building message dictionary
@@ -177,7 +177,7 @@ class Message(models.Model):
 			built_plaintext = string.replace(built_plaintext, "{{ body }}", self.body)
 			built_plaintext = string.replace(built_plaintext, "{{ link }}", self.link)
 			built_plaintext = string.replace(built_plaintext, "{{ campaign_title }}", selected_campaign.title)
-			unsub_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
+			unsub_link = "http://mailpri.me/tracker/unsub/{0}".format(recipient.tracking_id)
 			built_plaintext = string.replace(built_plaintext, "{{ unsub_link }}", unsub_link)
 
 			# Building HTML formatted version
@@ -187,9 +187,9 @@ class Message(models.Model):
 			built_html = string.replace(built_html, "{{ owner_email }}", escape(selected_campaign.user.email))
 			built_html = string.replace(built_html, "{{ body }}", escape(self.body))
 			built_html = string.replace(built_html, "{{ link }}", escape(self.link))
-			unsub_link = "http://nomadmtb.com:8000/tracker/unsub/{0}".format(recipient.tracking_id)
+			unsub_link = "http://mailpri.me/tracker/unsub/{0}".format(recipient.tracking_id)
 			built_html = string.replace(built_html, "{{ unsub_link }}", escape(unsub_link))
-			tracking_link = "http://nomadmtb.com:8000/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
+			tracking_link = "http://mailpri.me/tracker/visit/{0}/{1}.jpg".format(recipient.tracking_id, self.message_id)
 			built_html = string.replace(built_html, "{{ tracking_link }}", escape(tracking_link))
 
 			# Building message dictionary
