@@ -166,7 +166,7 @@ def upload_recipients(request, param_username, param_campaign_pk):
 
 				# Send out Invitations if necessary
 				if valid_email_count > 0:
-					os.system("python manage.py deploy_invitations {0} &".format(campaign.pk))
+					os.system("python /var/www/mailprime/manage.py deploy_invitations {0} &".format(campaign.pk))
 
 				return render(request, 'recipient/upload_report.html', page_vars)
 
@@ -204,7 +204,7 @@ def add_recipient(request, param_username, param_campaign_pk):
 					recipient.campaign = page_vars['campaign']
 
 					# Send out invitation!!!
-					os.system("python manage.py deploy_invitations {0} &".format( recipient.campaign.pk ))
+					os.system("python /var/www/mailprime/manage.py deploy_invitations {0} &".format( recipient.campaign.pk ))
 
 					recipient.save()
 					return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(page_vars['campaign'].pk) + '/recipients')
