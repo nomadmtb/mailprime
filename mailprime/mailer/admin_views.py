@@ -258,6 +258,61 @@ def add_user(request):
 	else:
 		raise Http404
 
+def add_template(request):
+
+	# If current user is authenticated and it staff.
+	if current_staff(request):
+
+		page_vars = {'page_title': 'Add Template'}
+
+		# User is requesting for a new form
+		if request.method == "GET":
+
+			# Creating form instance
+			page_vars['form'] = AdminTemplateForm()
+
+			# CSRF context
+			csrfContext = RequestContext(request, page_vars)
+
+			# Render page for user
+			return render(request, 'administrative/add_template.html', csrfContext)
+
+		# User is uploading new template, process it!
+		elif request.method == "POST":
+
+			# Create form instance from post data
+			completed_form = AdminTemplateForm(request.POST)
+
+			# Check to see if form is valid
+			if completed_form.is_valid():
+
+				# Save it!
+				completed_form.save()
+
+				# Generate Message for user
+				messages.add_message(request, messages.SUCCESS, 'Success: New Template Added')
+
+				# Redirect
+				return HttpResponseRedirect('/admin/all_templates')
+
+			# Form is not valid!
+			else:
+				
+				# Generate form errors.
+				generate_form_errors(request, completed_form)
+
+				# Resend form.
+				page_vars['form'] = completed_form
+
+				# CSRF context
+				csrfContext = RequestContext(request, page_vars)
+
+				# Render Page
+				return render(request, 'administrative/add_template.html', csrfContext)
+
+	else:
+		raise Http404
+
 def show_templates(request):
 
 	# If current user is authenticated and it staff.
@@ -294,6 +349,23 @@ def edit_template(request, param_template_pk):
 		# Method is GET, load form object.
 		if request.method == "GET":
 
+			# Check for 'delete' action
+			action = request.GET.get('action')
+
+			# If action == 'delete' delete template from system
+			if action == 'delete':
+
+				# Generate message for user.
+				messages.add_message(request, messages.SUCCESS, 'Success: Template Deleted')
+
+				# Delete template from db.
+				template.delete()
+
+				# Redirect
+				return HttpResponseRedirect('/admin/all_templates')
+
+			# We can assume that the delete action was not called now
+
 			page_vars['form'] = AdminTemplateForm(instance=template)
 			page_vars['template'] = template
 
@@ -323,7 +395,19 @@ def edit_template(request, param_template_pk):
 
 			# Form is not valid
 			else:
-				raise Http404
+
+				# Generate form errors.
+				generate_form_errors(request, completed_form)
+
+				# Resend form.
+				page_vars['form'] = completed_form
+				page_vars['template'] = template
+
+				# CSRF context
+				csrfContext = RequestContext(request, page_vars)
+
+				# Render Page
+				return render(request, 'administrative/edit_template.html', csrfContext)
 	else:
 		raise Http404
 

@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="solid_bg">
+
+	<h2 class="header_center">Add Template</h2>
+
+	<div class="form_wrapper">
+		<form id="new_campaign_form" method="post" action="/admin/add_template">
+			{% csrf_token %}
+
+			{% for hidden in form.hidden_fields %}
+			{{ hidden }}
+			{% endfor %}
+
+			<ul class="form_item">
+				{% for field in form.visible_fields %}
+				<li>
+					{{ field.label_tag }}
+					{{ field }}
+					<div class="clear_float"></div>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="clear_float"></div>
+			<input type="submit" name="submit" value="Create Template" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block header %}
+<h5 id="header_title">Administration: Add Template</h5>
+<p id="header_desc">Add a new MailPrime Template with the options below.</p>
+{% endblock header %}

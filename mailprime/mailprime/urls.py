@@ -42,6 +42,7 @@ urlpatterns = patterns('',
     url(r'^admin/add_user$', admin_views.add_user, name='add_user'),
     url(r'^admin/all_templates$', admin_views.show_templates, name='show_templates'),
     url(r'^admin/edit_template/(\d+)$', admin_views.edit_template, name='edit_template'),
+    url(r'^admin/add_template$', admin_views.add_template, name='add_template'),
 )
 
 # For Development ONLY. Remove when in production...

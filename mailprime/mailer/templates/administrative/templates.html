@@ -8,13 +8,15 @@
 	<table class="report_table">
 		<tr>
 			<th>Template Title</th>
-			<th>Action</th>
+			<th>Edit?</th>
+			<th>Delete?</th>
 		</tr>
 
 	{% for template in templates %}
 		<tr>
-			<td>{{ template.title }}</td>
+			<td><a href="/static/images/sample_templates/{{ template.title }}.png" target="_blank">{{ template.title }}</a></td>
 			<td><a href="/admin/edit_template/{{ template.pk }}">Edit Template</a></td>
+			<td><a href="/admin/edit_template/{{ template.pk }}?action=delete">Delete Template</a></td>
 		</tr>
 	{% endfor %}
 	</table>
