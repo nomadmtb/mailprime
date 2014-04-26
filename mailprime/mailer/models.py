@@ -58,7 +58,7 @@ class Campaign(models.Model):
 			# Building html version
 			built_html = string.replace( selected_template.html_content, "{{ campaign_title }}", escape(self.title) )
 			built_html = string.replace( built_html, "{{ title }}", 'MailPrime Campaign Invitation' )
-			built_html = string.replace( built_html, "{{ owner_email }}", escape(self.user.username) )
+			built_html = string.replace( built_html, "{{ owner_email }}", escape(self.user.email) )
 			built_html = string.replace( built_html, "{{ recipient_email }}", escape(recipient.email) )
 			built_html = string.replace( built_html, "{{ about }}", escape(self.about) )
 			accept_link = "http://nomadmtb.com:8000/tracker/auth/{0}".format( recipient.tracking_id )
