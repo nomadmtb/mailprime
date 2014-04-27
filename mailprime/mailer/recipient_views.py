@@ -202,11 +202,11 @@ def add_recipient(request, param_username, param_campaign_pk):
 					recipient = completed_form.save(commit=False)
 
 					recipient.campaign = page_vars['campaign']
+					recipient.save()
 
 					# Send out invitation!!!
 					os.system("python /var/www/mailprime/manage.py deploy_invitations {0} &".format( recipient.campaign.pk ))
-
-					recipient.save()
+					
 					return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(page_vars['campaign'].pk) + '/recipients')
 				else:
 					generate_form_errors(request, completed_form)
