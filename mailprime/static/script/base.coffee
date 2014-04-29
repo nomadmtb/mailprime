@@ -179,6 +179,25 @@ populate_message_report_maps = ->
 					]
 				}
 
+				unsub_options = {
+					pieHole: 0.5,
+					legend: {
+						position: 'top',
+						alignment: 'center',
+						maxLines: 2,
+						textStyle: {
+							color: '#525453',
+						}
+					}
+					chartArea: {
+						left: 55,
+						top: 65,
+					}
+					colors: [
+						'#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933'
+					]
+				}
+
 				weekday_options = {
 					pieHole: 0.5,
 					legend: {
@@ -208,6 +227,9 @@ populate_message_report_maps = ->
 				response_data = google.visualization.arrayToDataTable(results['response_data'])
 				response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'))
 
+				unsub_data = google.visualization.arrayToDataTable(results['unsub_data'])
+				unsub_graph = new google.visualization.PieChart(document.getElementById('unsub_chart'))
+
 				region_data = google.visualization.arrayToDataTable(results['region_data'])
 				region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'))
 
@@ -217,6 +239,7 @@ populate_message_report_maps = ->
 				trend_chart.draw(trend_data, trend_options)
 				weekday_graph.draw(weekday_data, weekday_options)
 				response_graph.draw(response_data, response_options)
+				unsub_graph.draw(unsub_data, unsub_options)
 				region_map.draw(region_data, region_options)
 				coord_map.draw(coord_data, coord_options)
 

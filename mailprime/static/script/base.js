@@ -134,7 +134,7 @@ populate_message_report_maps = function() {
     type: "GET",
     url: "/api/" + username + "/c-" + campaign + "/m-" + message + "/region_data.json",
     success: function(results) {
-      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, trend_chart, trend_data, trend_options, weekday_data, weekday_graph, weekday_options;
+      var coord_data, coord_map, coord_options, region_data, region_map, region_options, response_data, response_graph, response_options, trend_chart, trend_data, trend_options, unsub_data, unsub_graph, unsub_options, weekday_data, weekday_graph, weekday_options;
       if (results.hasOwnProperty('ERROR')) {
         $("#trend_chart").css('background-color', '#C00000');
         $("#percent_response_chart").css('background-color', '#C00000');
@@ -182,6 +182,22 @@ populate_message_report_maps = function() {
           },
           colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
         };
+        unsub_options = {
+          pieHole: 0.5,
+          legend: {
+            position: 'top',
+            alignment: 'center',
+            maxLines: 2,
+            textStyle: {
+              color: '#525453'
+            }
+          },
+          chartArea: {
+            left: 55,
+            top: 65
+          },
+          colors: ['#7CCBF2', '#BED9E6', '#DDE8EE', '#3E6679', '#00FF99', '#FF6666', '#FF9933']
+        };
         weekday_options = {
           pieHole: 0.5,
           legend: {
@@ -205,6 +221,8 @@ populate_message_report_maps = function() {
         weekday_graph = new google.visualization.PieChart(document.getElementById('weekday_chart'));
         response_data = google.visualization.arrayToDataTable(results['response_data']);
         response_graph = new google.visualization.PieChart(document.getElementById('percent_response_chart'));
+        unsub_data = google.visualization.arrayToDataTable(results['unsub_data']);
+        unsub_graph = new google.visualization.PieChart(document.getElementById('unsub_chart'));
         region_data = google.visualization.arrayToDataTable(results['region_data']);
         region_map = new google.visualization.GeoChart(document.getElementById('geo_region_map'));
         coord_data = google.visualization.arrayToDataTable(results['coordinate_data']);
@@ -212,6 +230,7 @@ populate_message_report_maps = function() {
         trend_chart.draw(trend_data, trend_options);
         weekday_graph.draw(weekday_data, weekday_options);
         response_graph.draw(response_data, response_options);
+        unsub_graph.draw(unsub_data, unsub_options);
         region_map.draw(region_data, region_options);
         return coord_map.draw(coord_data, coord_options);
       }

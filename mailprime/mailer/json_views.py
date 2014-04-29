@@ -50,6 +50,20 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		data['coordinate_data'] = coordinate_data
 		# End Coordinate Data
 
+		# Load Unsub Perc. Data
+		unsub_data = []
+
+		subscribed_count = Recipient.objects.filter(campaign__pk=param_campaign_pk, campaign__user__username=param_username).count()
+		unsub_count = read_events[0].message.campaign.unsub_count
+
+		unsub_title = ['Subscribe Status', 'Number of Users']
+		unsub_data.append(['Subscribed', subscribed_count])
+		unsub_data.append(['Unsubscribed', unsub_count])
+		unsub_data = [unsub_title] + unsub_data
+
+		data['unsub_data'] = unsub_data
+		# END Unsub Data
+
 		# Load Response Perc. Data
 		response_data = []
 		users_responded = read_events.values('recipient__email').distinct().count()
