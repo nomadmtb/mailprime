@@ -36,6 +36,18 @@ html {
   max-width: 1200px;
   width: 85%;
 }
+#image_404 {
+  display: block;
+  margin: 0 auto;
+  margin-top: 65px;
+}
+.center_large {
+  font-size: 75px;
+  font-weight: 300;
+  text-align: center;
+  color: #525453;
+  border-bottom: 6px solid #525453;
+}
 #notice_wrapper {
   background-image: url('/static/images/fiber_pattern.png');
   margin: 0;
