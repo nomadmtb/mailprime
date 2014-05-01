@@ -60,6 +60,12 @@ populate_campaign_graph = function() {
               textStyle: {
                 color: '#525453'
               }
+            },
+            vAxis: {
+              minValue: 0
+            },
+            crosshair: {
+              trigger: 'both'
             }
           };
           event_data = google.visualization.arrayToDataTable(results['read_by_day_data']);
@@ -151,6 +157,12 @@ populate_message_report_maps = function() {
             textStyle: {
               color: '#525453'
             }
+          },
+          vAxis: {
+            minValue: 0
+          },
+          crosshair: {
+            trigger: 'both'
           }
         };
         region_options = {

@@ -25,9 +25,9 @@ TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['mailpri.me']
 
 
-# DEBUG = True
-# TEMPLATE_DEBUG = True
-# ALLOWED_HOSTS = []
+#DEBUG = True
+#TEMPLATE_DEBUG = True
+#ALLOWED_HOSTS = []
 
 
 # Application definition

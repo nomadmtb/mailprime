@@ -59,6 +59,12 @@ populate_campaign_graph = ->
 								color: '#525453',
 							}
 						}
+						vAxis: {
+							minValue: 0,
+						}
+						crosshair: {
+							trigger: 'both',
+						}
 					}
 
 					event_data = google.visualization.arrayToDataTable(results['read_by_day_data'])
@@ -145,6 +151,12 @@ populate_message_report_maps = ->
 						textStyle: {
 							color: '#525453',
 						}
+					}
+					vAxis: {
+						minValue: 0,
+					}
+					crosshair: {
+						trigger: 'both',
 					}
 				}
 
