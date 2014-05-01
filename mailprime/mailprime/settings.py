@@ -21,10 +21,13 @@ SECRET_KEY = '+tve-!emsv67d%a!fmqgz^lqq7v_n@9o2*e&g%*7jcx1#h44!r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
 TEMPLATE_DEBUG = False
-
 ALLOWED_HOSTS = ['mailpri.me']
+
+
+# DEBUG = True
+# TEMPLATE_DEBUG = True
+# ALLOWED_HOSTS = []
 
 
 # Application definition

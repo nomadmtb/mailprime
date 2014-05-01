@@ -107,7 +107,7 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 		# End Day of Week Data
 
 		# Load Line Graph
-		read_by_day_data = [['Date', 'Read-Events']]
+		read_by_day_data = []
 		read_dates = []
 		read_events = read_events.order_by('-created_date')
 
@@ -119,6 +119,12 @@ def get_message_region_data(request, param_username, param_campaign_pk, param_me
 
 		for k, v in read_counter.iteritems():
 			read_by_day_data.insert(1,[k,v])
+
+		# Sorting the data by date which is x[0]
+		read_by_day_data.sort(key=lambda x: x[0])
+
+		# Okay, now we add the title to the sorted array of data
+		read_by_day_data.insert(0, ['Date', 'Read-Events'])
 
 		data['read_by_day_data'] = read_by_day_data
 
@@ -145,7 +151,7 @@ def get_campaign_data(request,param_username, param_campaign_pk):
 			return HttpResponse(json.dumps({"ERROR": 'No Data'}), content_type='application/json')
 
 		# Load Line Graph
-		read_by_day_data = [['Date', 'Read-Events']]
+		read_by_day_data = []
 		read_dates = []
 		read_events = read_events.order_by('-created_date')
 
@@ -158,7 +164,14 @@ def get_campaign_data(request,param_username, param_campaign_pk):
 		for k, v in read_counter.iteritems():
 			read_by_day_data.insert(1,[k,v])
 
+		# Sorting the data by date which is x[0]
+		read_by_day_data.sort(key=lambda x: x[0])
+
+		# Insert the title data into the array of sorted data
+		read_by_day_data.insert(0, ['Date', 'Read-Events'])
+
 		data['read_by_day_data'] = read_by_day_data
+		
 		# End Load Line Graph
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
