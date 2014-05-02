@@ -96,8 +96,14 @@ class ContactUploadForm(forms.Form):
 	def clean(self):
 		cleaned_data = self.cleaned_data
 
-		# Open file and read some of the data
+		# Open file.
 		uploaded_file = cleaned_data.get('contact_file')
+
+		# Check to make sure that uploaded_file is not None
+		if uploaded_file is None:
+			raise forms.ValidationError("File Validation Failed. Plain text-files only.")
+
+		# Read some data from the file.
 		sample_buffer = uploaded_file.read(1500)
 
 		# Use that buffer to determine mime-type with magic
