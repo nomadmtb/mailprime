@@ -135,12 +135,12 @@ def upload_recipients(request, param_username, param_campaign_pk):
 							if (valid_recip):
 
 								valid_email_count += 1
-								valid_emails[line] = 'Successfully Added'
+								valid_emails[line] = 'Success'
 
 							else:
 
 								invalid_email_count += 1
-								invalid_emails[line] = 'Already Exists'
+								invalid_emails[line] = 'Repeated'
 
 						else:
 

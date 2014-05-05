@@ -6,6 +6,21 @@
 
 	<h2 class="header_center">Upload Recipients</h2>
 
+	<div id="instructions">
+		<p>Your file of recipients must meet the following requirements.</p>
+		<ul>
+			<li>File must be a plain-text file (.txt).</li>
+			<li>File must contain valid email addresses.</li>
+			<li>File can <b>not</b> be empty.</li>
+			<li>Each email address must be seperated by a newline ('\n').</li>
+		</ul>
+
+		<img src="/static/images/document.png" />
+
+		<div class="clear_float"></div>
+
+	</div>
+
 	<div class="form_wrapper">
 		<form id="contact_upload_form" method="post" enctype="multipart/form-data">
 			{% csrf_token %}

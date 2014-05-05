@@ -4,19 +4,32 @@
 
 <div class="solid_bg">
 
-	<dl>
-		<dt>Valid Entries</dt>
-			{% for key, value in valid_emails.items %}
-				<dd>{{ key }}::{{ value }}</dd>
-			{% endfor %}
-	</dl>
+	<h2 class="header_center">Recipient Uplaod Report</h2>
 
-	<dl>
-		<dt>Invalid Entries</dt>
-			{% for key, value in invalid_emails.items %}
-				<dd>{{ key }}::{{ value }}</dd>
-			{% endfor %}
-	</dl>
+	<table class="report_table">
+		<tr>
+			<th>Email Address</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+
+		{% for key, value in valid_emails.items %}
+		<tr>
+			<td>{{ key|truncatechars:15 }}</td>
+			<td>{{ value }}</td>
+			<td><img src="/static/images/bueno.png" height="18px" /></td>
+		</tr>
+		{% endfor %}
+
+		{% for key, value in invalid_emails.items %}
+		<tr>
+			<td>{{ key|truncatechars:15 }}</td>
+			<td>{{ value }}</td>
+			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
+		</tr>
+		{% endfor %}
+
+	</table>
 
 </div>
 
