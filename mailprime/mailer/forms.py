@@ -42,10 +42,9 @@ class MessageForm(forms.ModelForm):
 		system_utc = datetime.now(pytz.utc)
 		earliest_utc = system_utc + timedelta(hours=3)
 
-		print "DEPLOY UTC -> {0}".format(deploy_utc)
-		print "SYSTEM UTC -> {0}".format(system_utc)
-		print "EARLIEST UTC -> {0}".format(earliest_utc)
-
+		#print "DEPLOY UTC -> {0}".format(deploy_utc)
+		#print "SYSTEM UTC -> {0}".format(system_utc)
+		#print "EARLIEST UTC -> {0}".format(earliest_utc)
 
 		# Make sure deploy date is at least 3 hrs into the future
 		if deploy_utc < earliest_utc:

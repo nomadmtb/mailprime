@@ -29,7 +29,7 @@ def tracker_visit(request, param_recipient_hash, param_message_hash):
 								longitude = coordinates['longitude'], country_code = coordinates['country_code'],
 								recipient = contact, message = mess )
 
-	image = open("/home/kgluce/mailprime/mailprime/static/images/icon.png").read()
+	image = open("/var/www/mailprime/static/images/icon.png").read()
 	return HttpResponse(image, content_type="image/png")
 
 def tracker_unsubscribe(request, param_recipient_hash):

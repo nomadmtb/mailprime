@@ -16,8 +16,8 @@ What does it do?
 
 What do I still need to do?
 ---------------------------
-* Build Administrative functionality.
-* Build overall-campaign stats page.
+* DONE! Administrative functionality.
+* DONE! overall-campaign stats page.
 * DONE! HTML-escape all template parameters in the model's build functions.
 * DONE! Create more templates.
 * DONE! Create api/action for sample campaign-invitation.
