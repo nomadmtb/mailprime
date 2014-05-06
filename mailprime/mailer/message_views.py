@@ -78,6 +78,9 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 			# Storing the campaign in a var so we can delete the message.
 			campaign_pk = message.campaign.pk
 
+			# Add message for user.
+			messages.add_message(request, messages.SUCCESS, 'SUCCESS: Deleted Message')
+
 			# Delete the message from the database.
 			message.delete()
 
