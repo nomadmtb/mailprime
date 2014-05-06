@@ -41,7 +41,7 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 		except Message.DoesNotExist:
 			raise Http404
 
-		deploy = request.GET.get('action')
+		action = request.GET.get('action')
 
 		# Check to see if the campaign is disabled.
 		if message.campaign.active == False:
@@ -63,15 +63,26 @@ def user_campaign_message(request, param_username, param_campaign_pk, param_mess
 			return render(request, 'message/show.html', csrfContext)
 
 		# Deploy message if deploy GET param is set
-		if (deploy is not None) and (deploy == 'deploy'):
+		if (action is not None) and (action == 'deploy'):
 
 			if message.deployed == False:
 				os.system('python /var/www/mailprime/manage.py deploy_messages ' + str(message.pk) + '&')
-				messages.add_message(request, messages.SUCCESS, 'SUCCESS: You Message Has Been Deployed')
+				messages.add_message(request, messages.SUCCESS, 'SUCCESS: Your Message Has Been Deployed')
 			else:
 				messages.add_message(request, messages.SUCCESS, 'ERROR: Message Has Already Been Deployed')
 
 			return HttpResponseRedirect('/' + request.user.username + '/campaign-' + str(message.campaign.pk) + '/messages')
+
+		elif (action is not None) and (action == 'delete'):
+
+			# Storing the campaign in a var so we can delete the message.
+			campaign_pk = message.campaign.pk
+
+			# Delete the message from the database.
+			message.delete()
+
+			# Redirect back to the campaign homepage.
+			return HttpResponseRedirect('/{0}/campaign-{1}'.format(request.user.username, campaign_pk))
 
 		# Else, GET param not set, render regular page
 		else:

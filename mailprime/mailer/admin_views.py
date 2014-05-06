@@ -163,6 +163,20 @@ def edit_message(request, param_message_pk):
 		except Message.DoesNotExist:
 			raise Http404
 
+		# Check to see if the user wants to delete the message.
+		action = request.GET.get('action')
+
+		if (action is not None) and (action == 'delete'):
+
+			# Delete the message.
+			requested_message.delete()
+
+			# Add message to user.
+			messages.add_message(request, messages.SUCCESS, 'Success: Deleted Message')
+
+			# Redirect.
+			return HttpResponseRedirect('/admin')
+
 		# User is requesting the form, build it!
 		if request.method == "GET":
 			
