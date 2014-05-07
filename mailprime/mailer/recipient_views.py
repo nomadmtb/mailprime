@@ -174,6 +174,9 @@ def upload_recipients(request, param_username, param_campaign_pk):
 			else:
 				generate_form_errors(request, form)
 				return HttpResponseRedirect('/{0}/campaign-{1}/recipients/upload'.format( request.user.username, campaign.pk ))
+				
+	else:
+		raise Http404
 
 def add_recipient(request, param_username, param_campaign_pk):
 	if current_user(request) and request.user.username == param_username:

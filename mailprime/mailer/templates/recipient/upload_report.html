@@ -15,7 +15,7 @@
 
 		{% for key, value in valid_emails.items %}
 		<tr>
-			<td>{{ key|truncatechars:15 }}</td>
+			<td>{{ key|truncatechars:25 }}</td>
 			<td>{{ value }}</td>
 			<td><img src="/static/images/bueno.png" height="18px" /></td>
 		</tr>
@@ -23,7 +23,7 @@
 
 		{% for key, value in invalid_emails.items %}
 		<tr>
-			<td>{{ key|truncatechars:15 }}</td>
+			<td>{{ key|truncatechars:25 }}</td>
 			<td>{{ value }}</td>
 			<td><img src="/static/images/no_bueno.png" height="18px" /></td>
 		</tr>
